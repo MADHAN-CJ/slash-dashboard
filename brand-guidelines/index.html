@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Brand guidelines · /markets</title>
+  <meta name="description" content="The visual and implementation guide for people and AI editing the /markets website. Typography, colour, components, imagery, motion and copy.">
+  <link rel="stylesheet" href="../styles.css?v=120">
+  <link rel="stylesheet" href="guidelines.css?v=1">
+  <script src="guidelines.js?v=1" defer></script>
+</head>
+<body class="guide-page">
+  <a class="guide-skip" href="#guide-main">Skip to the guidelines</a>
+  <header class="guide-header">
+    <a class="guide-brand" href="../" aria-label="/markets home"><img src="../assets/icons/markets-logomark-mono.svg" width="38" height="28" alt=""><span class="markets-wordmark"><span class="markets-slash">/</span>markets</span></a>
+    <span>Brand guidelines</span>
+    <nav aria-label="Reference pages"><a href="../">Homepage<img src="../assets/icons/arrow-up-right.svg" width="16" height="16" alt="" aria-hidden="true"></a><a href="../brand/">Pixel study<img src="../assets/icons/arrow-up-right.svg" width="16" height="16" alt="" aria-hidden="true"></a></nav>
+  </header>
+  <div class="guide-shell">
+    <nav class="guide-toc" aria-label="Guideline sections">
+      <p>THE WEBSITE STYLE</p>
+      <a href="#start">Start with your AI</a><a href="#identity">Identity</a><a href="#typography">Typography</a><a href="#colour">Colour</a><a href="#layout">Layout &amp; spacing</a><a href="#components">Components</a><a href="#imagery">Imagery &amp; dither</a><a href="#motion">Motion</a><a href="#voice">Voice &amp; claims</a><a href="#implementation">Where to edit</a><a href="#checks">Before sharing</a>
+    </nav>
+    <main class="guide-main" id="guide-main">
+      <header class="guide-masthead">
+        <h1>A familiar style.<br>Every time.</h1>
+        <p class="guide-lede">A shared reference for people and AI building on <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span>. Keep the warmth, clarity and character of the homepage in every change.</p>
+        <div class="guide-actions"><a class="button button-primary" href="#start">Start with your AI</a><a class="guide-text-link" href="../BRAND_GUIDELINES.md" download>Download the full AI guide</a></div>
+        <div class="guide-cover" aria-hidden="true"><img src="../assets/icons/markets-logomark-mono.svg" width="112" height="58" alt=""></div>
+      </header>
+      <section class="guide-section" id="start" aria-labelledby="start-title">
+        <h2 id="start-title">Give your AI the right starting point.</h2>
+        <p>Share this brief with your colleague’s AI, along with the source files. For the complete rules, include <a class="guide-text-link" href="../BRAND_GUIDELINES.md">BRAND_GUIDELINES.md</a>. The homepage is the reference; the archive is historical.</p>
+        <div class="guide-ai">
+          <p id="brief-label">Copy this into the task before asking for a change.</p>
+          <textarea id="ai-brief" aria-labelledby="brief-label" readonly spellcheck="false">Edit the /markets website while preserving the current homepage's visual style. First read AGENTS.md and BRAND_GUIDELINES.md, then inspect index.html and the CSS/JS that owns the component. The website root is dist/ in the local project and the repository root in the clean GitHub export.
+
+Use Libre Baskerville 500 for editorial headings, Onest 400 for body and 16px/400 buttons, and Departure Mono only inside backend terminal content. Keep the white page, dark olive ink, muted olive text, yellow #f6d64d selections/user questions, pastel artwork and generous spacing. Reuse existing components and actual logo/icon files.
+
+Use the SVG slash at 0.8em and the .markets-wordmark.markets-label badge for /markets in descriptive prose. Preserve 74% surface fills with 8px backdrop blur; keep text fully opaque. Use pill buttons, calm rounded cards and square light terminals with Onest headers. No icon rotation, new font family, generic SaaS redesign, emoji or single coloured side borders.
+
+Reuse the existing 8x8 dithering, illustration assets and scroll-motion clock. Videos stay at 1x; completed animations do not reset on backscroll. Respect reduced motion and the mobile inline tool UI. Keep the copy approachable and preserve the documented test/cost assumptions and disclaimer. Do not invent claims, trader identities, testimonials or signup URLs.
+
+Make the smallest complete change. Verify 1440px, 390px and 320px, interactions, keyboard focus, overflow, missing assets and browser errors. The canonical homepage is index.html, not /fresh/ or /archive/. Do not publish or push unless asked.</textarea>
+          <div class="guide-actions"><button class="button button-primary" type="button" data-copy-brief>Copy AI brief</button><span class="guide-copy-status" data-copy-status role="status" aria-live="polite"></span></div>
+        </div>
+      </section>
+      <section class="guide-section" id="identity" aria-labelledby="identity-title">
+        <h2 id="identity-title">A mark with character.</h2>
+        <p>Keep the pixel logomark crisp and upright. Use the supplied SVGs, keep their proportions, and give them space. The <a class="guide-text-link" href="../brand/">Pixel study</a> holds the original logo behaviour specimens.</p>
+        <div class="guide-identity">
+          <div class="guide-logo"><img src="../assets/icons/markets-logomark-mono.svg" width="80" height="44" alt="/markets pixel logomark"><span class="markets-wordmark"><span class="markets-slash">/</span>markets</span></div>
+          <div class="guide-logo guide-logo-yellow"><img src="../assets/icons/markets-logomark-mono.svg" width="96" height="50" alt="Black logomark on the brand yellow"></div>
+        </div>
+        <div class="guide-badge-demo">Connect <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> to Claude or ChatGPT. Bring your next trading question.</div>
+        <ul><li>In descriptions, use the inline badge. Its fill inherits the local text colour at 10%, so it belongs on the surrounding surface.</li><li>The custom slash is <strong>0.8em high</strong>. Keep the description’s natural line height and the wordmark together.</li><li>Do not rotate, redraw, stretch or replace the mark. Backend terminals use the monochrome mark without a container.</li><li>Headings, navigation and standalone logos do not automatically need the prose badge.</li></ul>
+        <pre class="guide-code"><code>&lt;span class="markets-wordmark markets-label"&gt;
+  &lt;span class="markets-slash"&gt;/&lt;/span&gt;markets
+&lt;/span&gt;</code></pre>
+      </section>
+      <section class="guide-section" id="typography" aria-labelledby="typography-title">
+        <h2 id="typography-title">Editorial headlines. Easy reading.</h2>
+        <p>The landing page uses three self-hosted typefaces. Reuse the existing files and CSS variables. The Pixel study’s Google Sans is specific to that study.</p>
+        <div class="guide-type"><small>LIBRE BASKERVILLE · HEADINGS · 500</small><p class="guide-type-heading">Your AI can finally<br>see the charts.</p><p class="guide-type-meta">Hero: 32–64px responsive, 1.08 line height, −0.025em tracking. Section titles usually 34–56px on desktop and 29–42px on mobile.</p></div>
+        <div class="guide-type"><small>ONEST · BODY &amp; INTERFACE · 400 / 500 / 600</small><p class="guide-type-body">Read charts, draw levels and keep watch, all from your chat.</p><p class="guide-type-meta">Body: 16–19px, 400, line height 1.7. Buttons: 16px, 400. Main chat/tool text: 16px; preserve the existing Claude serif treatment.</p></div>
+        <p style="margin-top:24px">Departure Mono belongs inside terminal content, with Onest for the terminal header. It is not a new body or headline style. Preserve intentional heading breaks and keep meaningful phrases together on phones.</p>
+      </section>
+      <section class="guide-section" id="colour" aria-labelledby="colour-title">
+        <h2 id="colour-title">Quiet foundations. A little sunshine.</h2>
+        <p>White and warm neutrals hold the page together. Yellow signals a selected prompt or a user’s question. Pastels live mainly in the artwork and feature surfaces.</p>
+        <div class="guide-swatches">
+          <figure class="guide-swatch" style="--swatch:#ffffff"><span></span><figcaption><strong>Page</strong>#FFFFFF</figcaption></figure>
+          <figure class="guide-swatch" style="--swatch:#20251b"><span></span><figcaption><strong>Primary ink</strong>#20251B</figcaption></figure>
+          <figure class="guide-swatch" style="--swatch:#62675f"><span></span><figcaption><strong>Secondary text</strong>#62675F</figcaption></figure>
+          <figure class="guide-swatch" style="--swatch:#f7f6f2"><span></span><figcaption><strong>Warm surface</strong>#F7F6F2</figcaption></figure>
+          <figure class="guide-swatch" style="--swatch:#f6d64d"><span></span><figcaption><strong>Selected / user</strong>#F6D64D</figcaption></figure>
+          <figure class="guide-swatch" style="--swatch:#f5f0d9"><span></span><figcaption><strong>CTA base</strong>#F5F0D9</figcaption></figure>
+          <figure class="guide-swatch" style="--swatch:#f5f2f8"><span></span><figcaption><strong>Savings surface</strong>#F5F2F8</figcaption></figure>
+          <figure class="guide-swatch" style="--swatch:#e4e7dc"><span></span><figcaption><strong>Quiet border</strong>#E4E7DC</figcaption></figure>
+        </div>
+        <ul><li>Primary buttons use <code>#171a17</code> and white text. The hero retains its existing <code>#161816</code> ink and <code>#60645f</code> description.</li><li>Keep existing local colour variations. This palette is a reference, not a reason to recolour finished components.</li><li>Use readable ink for text. Pastel text, neon accents and a new dark theme do not belong to this website.</li></ul>
+      </section>
+      <section class="guide-section" id="layout" aria-labelledby="layout-title">
+        <h2 id="layout-title">Let the page breathe.</h2>
+        <p>Keep a clear hierarchy and enough room to understand each visual. Follow the spacing of the component beside the change, rather than adding a new layout system.</p>
+        <div class="guide-table-wrap" tabindex="0" role="region" aria-label="Layout values"><table class="guide-table"><thead><tr><th scope="col">Rule</th><th scope="col">Desktop</th><th scope="col">Mobile</th></tr></thead><tbody>
+          <tr><td>Content width</td><td>1360px maximum, centred</td><td>Fill the available width with an inset</td></tr>
+          <tr><td>Outer gutters</td><td><code>clamp(24px, 3.5vw, 48px)</code></td><td>16–24px</td></tr>
+          <tr><td>Usual section space</td><td>80–112px</td><td>48–64px</td></tr>
+          <tr><td>Hero split</td><td>40% copy / 60% visual</td><td>Stacked, no travelling chat</td></tr>
+          <tr><td>Conversation</td><td>500px maximum</td><td>Available width, with breathing room</td></tr>
+          <tr><td>Breakpoints</td><td>980px intermediate / 900px navigation</td><td>680px for most small-screen layouts</td></tr>
+        </tbody></table></div>
+        <ul><li>The central serif statement has intentionally larger gaps. Keep its existing 132px / 224px desktop padding and 80px / 128px mobile padding.</li><li>Keep chat height stable when prompts change. One conversation continues from hero to examples.</li><li>Do not make every section the same grid. Preserve the homepage’s mix of split layouts, full-width demonstrations and editorial text.</li></ul>
+      </section>
+      <section class="guide-section" id="components" aria-labelledby="components-title">
+        <h2 id="components-title">Reuse what already feels familiar.</h2>
+        <p>These specimens use the homepage’s actual classes or surface values. Keep component styles in their owning files, and preserve hover, focus and mobile behaviour.</p>
+        <div class="guide-component-row">
+          <div class="guide-component"><h3>The primary action</h3><a class="button button-primary" href="../#get-connected">Connect your AI<img src="../assets/icons/arrow-up-right.svg" width="20" height="20" alt="" aria-hidden="true"></a><p>Onest 16px / 400. Dark fill. 50px minimum height. Fully rounded. One clear primary action.</p></div>
+          <div class="guide-component"><h3>A prompt to explore</h3><button class="example-choice" type="button" aria-pressed="true" data-demo-prompt>Find oversold stocks</button><p>Yellow selected state, plus icon at rest, up-arrow on hover or focus. Keep the language short.</p></div>
+        </div>
+        <h3>Soft glass, not faded content.</h3>
+        <div class="guide-glass-stage"><div class="guide-glass"><p>Give <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> a place in your chat.</p><small>The artwork shows through; text stays fully opaque.</small></div></div>
+        <pre class="guide-code"><code>background: rgb(247 246 242 / .74);
+backdrop-filter: blur(8px) saturate(1.1);
+-webkit-backdrop-filter: blur(8px) saturate(1.1);</code></pre>
+        <h3>A light, readable backend.</h3>
+        <div class="guide-terminal"><div class="work-chrome"><img class="backend-logo" src="../assets/icons/markets-logomark-mono.svg" width="32" height="17" alt=""><span class="work-app"><span class="markets-wordmark"><span class="markets-slash">/</span>markets</span> backend</span></div><div class="guide-terminal-body"><div><span>14-day RSI</span><span>Below 30</span></div><div><span>TCS</span><span>27.6</span></div><div><span>Infosys</span><span>28.4</span></div></div></div>
+        <ul><li><strong>Shape:</strong> pill buttons and selectors; 12–24px main containers; about 14px glass cards; existing asymmetric message bubbles; square backend terminals.</li><li><strong>Icons:</strong> Tabler for interface controls. Use the supplied brand SVGs. No new homemade icons, emoji, rotations or coloured side-border decoration.</li><li><strong>Details:</strong> reuse the native dialog. 180ms open, 120ms close; Close, outside click and Escape; focus returns to the trigger. Long bodies scroll while the header stays visible.</li></ul>
+      </section>
+      <section class="guide-section" id="imagery" aria-labelledby="imagery-title">
+        <h2 id="imagery-title">One world, across the page.</h2>
+        <p>Soft sculpted surfaces, organic curves, gentle light and a restrained pastel palette. Reuse approved artwork before generating anything new. Give the text a quiet place to sit.</p>
+        <div class="guide-artwork">
+          <figure><img src="../assets/images/nature-market-v3.webp" width="1254" height="1254" loading="lazy" alt="Pastel landscape used behind the hero conversation"><figcaption>Hero · nature-market-v3.webp</figcaption></figure>
+          <figure><img src="../assets/images/market-flow-v2.webp" width="1536" height="1024" loading="lazy" alt="Soft pastel flowing forms used behind the examples"><figcaption>Examples · market-flow-v2.webp</figcaption></figure>
+          <figure><img src="../assets/images/cta-background-v2.webp" width="1983" height="793" loading="lazy" alt="Symmetrical pastel folds framing a warm yellow centre"><figcaption>Final CTA · cta-background-v2.webp</figcaption></figure>
+        </div>
+        <h3>Dither is part of the material.</h3>
+        <p>Use the existing Paper-derived 8×8 shader and static fallbacks. Keep the source colours, text-protecting masks and clear centre lens of the accuracy video. Do not replace it with random noise or a checkerboard overlay.</p>
+        <div class="guide-table-wrap" tabindex="0" role="region" aria-label="Dither values"><table class="guide-table"><thead><tr><th scope="col">Placement</th><th scope="col">Size / treatment</th><th scope="col">Timing</th></tr></thead><tbody><tr><td>Hero</td><td>10px → 4px; scale 1.08 → 1</td><td>250ms</td></tr><tr><td>Interactive examples</td><td>6px → 2px; scale 1.08 → 1</td><td>250ms</td></tr><tr><td>Accuracy video</td><td>10px → 2px; centre lens stays clear</td><td>Existing entrance sequence</td></tr><tr><td>Final CTA / footer</td><td>Static dither, faded at the top</td><td>No extra animation</td></tr></tbody></table></div>
+        <ul><li>Keep the CTA symmetrical. Preserve the footer’s upper 70% dither fade and the existing example/hero masks.</li><li>Use compressed WebP and existing MP4 files. Preserve the iPhone PNG’s transparency. Lazy-load nonessential images.</li><li>Avoid busy flow knots, literal chart wallpaper, trading-desk clichés, jungle scenes and neon circuitry. A new asset should belong beside the current hero.</li></ul>
+      </section>
+      <section class="guide-section" id="motion" aria-labelledby="motion-title">
+        <h2 id="motion-title">Quick feedback. Readable stories.</h2>
+        <p>Motion should explain what the AI is doing. Reuse the shared clock and existing sequences; preserve finished states when the visitor scrolls back.</p>
+        <div class="guide-table-wrap" tabindex="0" role="region" aria-label="Motion rules"><table class="guide-table"><thead><tr><th scope="col">Interaction</th><th scope="col">Existing rule</th></tr></thead><tbody>
+          <tr><td>Details popup</td><td>180ms open / 120ms close; no bounce</td></tr>
+          <tr><td>Hover / callout feedback</td><td>Usually 150–180ms</td></tr>
+          <tr><td>Conversation</td><td>1 second of blinking cursor → type in composer → send bubble → tool steps → reply</td></tr>
+          <tr><td>Tool steps</td><td>3.5 seconds at normal speed so the backend stays readable</td></tr>
+          <tr><td>Market checks</td><td>Question → answer → chart builds; once, unless replayed</td></tr>
+          <tr><td>Scroll response</td><td>1× to 2.5×, smoothed; videos stay at 1×</td></tr>
+          <tr><td>Serif text reveal</td><td>Staggered letters: coarse pixels → finer pixels after 100ms → colour → black; existing later 200ms wave gaps</td></tr>
+        </tbody></table></div>
+        <ul><li>Desktop chat travels between hero and examples without resetting. On phones it does not travel.</li><li>Desktop backend windows open on hover/focus. On phones, tool details expand inside the chat and can be reopened by touch.</li><li>Keep reduced-motion content fully readable. Pause offscreen videos and renderers. Never tie video playback speed or a popup’s interaction timing to scroll velocity.</li></ul>
+      </section>
+      <section class="guide-section" id="voice" aria-labelledby="voice-title">
+        <h2 id="voice-title">Talk like a helpful trader friend.</h2>
+        <p>Lead with the action someone can take. Keep the language concrete and approachable. Leave Python, tokens and implementation details for the places where they help explain a result.</p>
+        <div class="guide-badge-demo">Read charts, draw levels and keep watch, all from your chat.</div>
+        <ul><li>Use short, direct sentences. Avoid em dashes, jargon, exaggerated promises and generic AI marketing language.</li><li>Indian markets are supported now. International markets are coming soon. Do not invent new integrations or an account-creation URL.</li><li>The AI builds the trading tool; <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> supplies the market data and calculations. It is not a separate app builder, financial adviser or autonomous order-execution product.</li><li><strong>Accuracy:</strong> 7/8 versus 4/8 in one eight-question test. 90% is rounded from 87.5%, not an overall accuracy rate.</li><li><strong>Cost:</strong> 86% is an assumption-based API-cost estimate, not a measured universal saving or a cheaper fixed-price chat subscription.</li><li>Keep the details popups and disclaimer. Do not invent trader names, attributed testimonials, test runs or performance figures.</li></ul>
+      </section>
+      <section class="guide-section" id="implementation" aria-labelledby="implementation-title">
+        <h2 id="implementation-title">Find the right file first.</h2>
+        <p>All paths below are relative to the website root: <code>dist/</code> in the working project, or the repository root in the clean GitHub export. Edit the owning component rather than adding global overrides.</p>
+        <div class="guide-table-wrap" tabindex="0" role="region" aria-label="Source file map"><table class="guide-table"><thead><tr><th scope="col">File</th><th scope="col">Owns</th></tr></thead><tbody>
+          <tr><td><code>index.html</code></td><td>Page copy, order, structure and popup contents</td></tr><tr><td><code>styles.css</code></td><td>Fonts, hero, shared chat, examples, market checks and serif reveal</td></tr><tr><td><code>experience.js</code></td><td>Chat sequence, terminal steps, shared conversation and scroll handoff</td></tr><tr><td><code>scroll-motion.js</code></td><td>Shared clock and smooth scroll-speed response</td></tr><tr><td><code>market-checks.js</code></td><td>SVG charts and one-time visual answer sequences</td></tr><tr><td><code>dither-background.js</code></td><td>Compiled image dithering</td></tr><tr><td><code>lens-dither.js</code> / <code>clarity-lens.js</code></td><td>Video dither and accuracy lens</td></tr><tr><td><code>tool-studio.css/js</code></td><td>Tool tiles, callouts and savings panel</td></tr><tr><td><code>watch-alerts.css/js</code></td><td>Watch conversation, phone and notifications</td></tr><tr><td><code>get-connected.css/js</code></td><td>Setup tabs</td></tr><tr><td><code>faq-footer.css</code></td><td>FAQ, final CTA and footer</td></tr><tr><td><code>floating-nav.css/js</code></td><td>Navigation and mobile menu</td></tr><tr><td><code>details-popup.css/js</code></td><td>Details modals, focus and dismissal</td></tr>
+        </tbody></table></div>
+        <p style="margin-top:24px">The local project preserves the old homepage under <code>archive/landing-v1/</code>, and <code>fresh/</code> redirects to the homepage. The clean public export omits both. Neither is the source for new edits.</p>
+      </section>
+      <section class="guide-section" id="checks" aria-labelledby="checks-title">
+        <h2 id="checks-title">Keep the small details intact.</h2>
+        <ol><li>Read the guide and the component’s current code. Make the smallest complete change.</li><li>Check 1440px desktop, 390px and 320px mobile. No page overflow, edge-stuck cards, clipped copy or changing chat heights.</li><li>Test keyboard focus, mobile navigation, popup close/outside/Escape, replay and reduced motion for the component you changed.</li><li>For animation work, test both scroll directions and refresh in a later section. Preserve the conversation’s progress.</li><li>Check syntax, relevant tests, missing assets and browser errors. Keep font, icon and shader license notices.</li><li>Keep claims, their explanations and the disclaimer together. Publish or push only when the user asks.</li></ol>
+        <div class="guide-actions" style="margin-top:28px"><a class="button button-primary" href="../">Back to the homepage</a><a class="guide-text-link" href="../BRAND_GUIDELINES.md" download>Download full guidelines</a></div>
+      </section>
+    </main>
+  </div>
+  <footer class="guide-footer"><span>Built from the current /markets homepage.</span><a href="../brand/">Explore the Pixel study</a></footer>
+</body>
+</html>

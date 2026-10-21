@@ -1,0 +1,96 @@
+.watch-alerts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; gap: 48px; max-width: 1360px; margin: 0 auto; padding: 0 clamp(24px, 3.5vw, 48px) 100px; color: #20251b; scroll-margin-top: 32px; }
+.watch-copy { display: flex; flex-direction: column; min-width: 0; }
+.watch-copy h2 { margin: 0; font-size: clamp(34px, 3.9vw, 54px); line-height: 1.25; letter-spacing: -.04em; font-weight: 500; }
+.watch-description { max-width: 35ch; margin: 24px 0 32px; color: #62675f; font-size: var(--text-body); line-height: 1.7; text-wrap: pretty; }
+.watch-chat-scene { width: 100%; height: 420px; flex-shrink: 0; margin-top: auto; padding: 24px; overflow: hidden; border-radius: 20px; background: #e6eddf url('assets/images/watch-chat-background-v1.webp') center / cover; }
+.watch-conversation { display: flex; flex-direction: column; width: 100%; height: 100%; overflow: hidden; border: 1px solid #ffffffb3; border-radius: 14px; background: rgb(247 246 242 / .74); backdrop-filter: blur(8px) saturate(1.1); -webkit-backdrop-filter: blur(8px) saturate(1.1); box-shadow: 0 10px 28px #38442d18; }
+.watch-conversation-bar { display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; min-height: 52px; padding: 12px 20px; border-bottom: 1px solid #e5e3dc; background: transparent; color: #34342f; font-size: 14px; }
+.watch-chat-brand { display: flex; align-items: center; gap: 8px; }
+.watch-chat-brand img { display: block; width: 32px; height: auto; }
+.watch-speaker img { display: block; width: 30px; height: auto; }
+.watch-conversation-time { display: flex; align-items: center; gap: 7px; color: #646f5b; font-variant-numeric: tabular-nums; }
+.watch-conversation-time img { opacity: .6; }
+.watch-conversation-scroll { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 20px; scrollbar-width: thin; scrollbar-color: #c9cfbe transparent; }
+.watch-conversation-scroll:focus-visible { outline: 2px solid #879668; outline-offset: -3px; }
+.watch-request { width: fit-content; max-width: 92%; margin: 0 0 22px auto; padding: 14px 18px; border-radius: 20px 20px 5px 20px; background: #f6d64d; color: #343423; font-size: 16px; line-height: 1.6; text-wrap: pretty; }
+.watch-reply { font-size: 16px; line-height: 1.6; }
+.watch-speaker { display: block; margin-bottom: 7px; color: #273022; font-size: 14px; font-weight: 500; }
+.watch-reply p { margin: 0; color: #53604e; text-wrap: pretty; }
+.watch-reply strong { color: #273022; font-weight: 500; }
+.watch-time-passed { display: block; margin: 20px 0; text-align: center; color: #828978; font-size: 12px; }
+.watch-reply[hidden], .watch-notification[hidden] { display: none; }
+.watch-alerts[data-watch-ready] .watch-reply { animation: watch-reply-arrive 450ms ease both; }
+@keyframes watch-reply-arrive { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.watch-art { position: relative; height: 720px; min-width: 0; border-radius: 20px; overflow: hidden; isolation: isolate; background: #e8eee8 url('assets/images/watch-background-v1.webp') center / cover; }
+.watch-phone { position: absolute; top: 36px; left: 50%; transform: translateX(-50%); width: min(calc(100% - 48px), 480px); aspect-ratio: 668 / 1352; filter: drop-shadow(0 20px 20px #34423732); }
+.watch-phone-frame { position: relative; z-index: 2; display: block; width: 100%; height: auto; pointer-events: none; }
+.watch-phone-screen { position: absolute; z-index: 3; inset: 2.7% 6.3% 2.7%; overflow: hidden; border-radius: 14% / 6.4%; background: linear-gradient(#cbdfe494, #f0e9c421), url('assets/images/watch-background-v1.webp') 58% center / auto 100%; color: #253c40; }
+.watch-phone-island { position: absolute; z-index: 2; top: 1.2%; left: 35%; width: 30%; height: 4.2%; border-radius: 999px; background: #080909; box-shadow: inset 0 0 0 1px #111; }
+.watch-phone-island::after { content: ''; position: absolute; right: 12%; top: 32%; width: 10%; aspect-ratio: 1; border-radius: 50%; background: #141b29; box-shadow: inset 0 0 0 2px #0a0e15; }
+.watch-status { display: flex; justify-content: space-between; align-items: center; margin: 6% 7% 0; height: 14px; }
+.watch-status-lock { display: block; width: 16px; height: 16px; margin-left: 8px; opacity: .8; }
+.watch-status-battery { width: 20px; height: 10px; padding: 1px; border: 1px solid currentColor; border-radius: 3px; position: relative; }
+.watch-status-battery::before { content: ''; display: block; width: 80%; height: 100%; background: currentColor; border-radius: 1px; }
+.watch-status-battery::after { content: ''; position: absolute; width: 2px; height: 4px; right: -4px; top: 2px; background: currentColor; border-radius: 1px; }
+.watch-date { margin: 36px 0 0; text-align: center; font-size: 17px; font-weight: 500; }
+.watch-clock { display: block; text-align: center; font-size: 88px; line-height: 1.2; font-weight: 500; letter-spacing: -.06em; font-variant-numeric: tabular-nums; }
+.watch-notifications { display: flex; flex-direction: column-reverse; gap: 9px; margin: 40px 14px 0; padding: 0; list-style: none; }
+.watch-notification { min-height: 0; max-height: 200px; opacity: 1; transform: none; overflow: hidden; border: 1px solid #ffffffa6; border-radius: 18px; background: rgb(255 255 255 / .74); box-shadow: inset 0 1px #ffffff80, 0 3px 16px #50635712; backdrop-filter: blur(8px) saturate(1.1); -webkit-backdrop-filter: blur(8px) saturate(1.1); }
+.watch-notification-inner { padding: 16px 18px 18px; }
+.watch-notification-header { display: flex; align-items: center; gap: 7px; margin-bottom: 8px; color: #53615b; font-size: 12px; }
+.watch-app-icon { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 6px; background: #f6d64d; }
+.watch-app-icon img { display: block; width: 78%; height: auto; }
+.watch-app-name { font-size: 13px; font-weight: 500; color: #34443c; }
+.watch-notification-header time { margin-left: auto; }
+.watch-notification strong { display: block; margin: 0 0 3px; color: #25372e; font-weight: 600; font-size: 16px; line-height: 1.4; }
+.watch-notification p { margin: 0; color: #45594b; font-size: 15px; line-height: 1.5; }
+.watch-alerts[data-watch-ready] .watch-notification { animation: watch-notification-arrive 650ms cubic-bezier(.22,.8,.25,1) both; }
+.watch-notification[data-watch-past='true'] .watch-notification-inner { padding: 10px 14px 12px; }
+.watch-notification[data-watch-past='true'] .watch-notification-header { margin-bottom: 5px; }
+.watch-notification[data-watch-past='true'] .watch-app-icon { width: 22px; height: 22px; }
+.watch-notification[data-watch-past='true'] strong { font-size: 14px; }
+.watch-notification[data-watch-past='true'] p { display: none; }
+@keyframes watch-notification-arrive { from { opacity: 0; transform: translateY(-16px) scale(.95); } to { opacity: 1; transform: none; } }
+.watch-phone-home { position: absolute; bottom: 1.1%; left: 34%; height: 4px; width: 32%; border-radius: 999px; background: #24382d; opacity: .7; }
+.watch-replay { position: absolute; bottom: 16px; right: 16px; }
+@media (max-width: 980px) {
+  .watch-alerts { gap: 32px; }
+  .watch-copy h2 { font-size: 40px; }
+  .watch-chat-scene { height: 380px; }
+  .watch-art { height: 650px; }
+  .watch-phone { width: min(calc(100% - 32px), 420px); }
+  .watch-date { font-size: 15px; }
+  .watch-clock { font-size: 76px; }
+  .watch-notifications { margin: 32px 10px 0; }
+  .watch-notification-inner { padding: 14px; }
+}
+@media (max-width: 680px) {
+  .watch-alerts { grid-template-columns: minmax(0, 1fr); padding: 0 16px 64px; gap: 32px; scroll-margin-top: 20px; }
+  .watch-copy h2, .watch-description { margin-inline: 8px; }
+  .watch-copy h2 { font-size: clamp(30px, 8vw, 42px); }
+  .watch-description { margin-top: 20px; margin-bottom: 0; font-size: 16px; }
+  .watch-chat-scene { height: 400px; margin-top: 24px; padding: 16px; }
+  .watch-conversation-scroll { padding: 18px 16px; }
+  .watch-request { padding: 13px 16px; max-width: 96%; }
+  .watch-art { height: 540px; }
+  .watch-phone { top: 28px; width: min(calc(100% - 24px), 360px); }
+  .watch-date { margin-top: 28px; }
+  .watch-notifications { margin-top: 20px; gap: 8px; }
+}
+@media (max-width: 360px) {
+  .watch-date { margin-top: 22px; }
+  .watch-art { height: 480px; }
+  .watch-clock { font-size: 66px; }
+  .watch-notifications { margin-top: 16px; gap: 6px; }
+  .watch-notification[data-watch-past='true'] .watch-notification-inner { padding: 8px 10px; }
+  .watch-notification[data-watch-past='true'] .watch-app-icon { width: 18px; height: 18px; }
+  .watch-notification[data-watch-past='true'] .watch-app-name { font-size: 11px; }
+  .watch-notification[data-watch-past='true'] .watch-notification-header { margin-bottom: 4px; font-size: 10px; }
+  .watch-notification[data-watch-past='true'] strong { font-size: 12px; }
+  .watch-notification-inner { padding: 10px; }
+  .watch-notification strong { font-size: 14px; }
+  .watch-notification p { font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .watch-alerts[data-watch-ready] .watch-notification, .watch-alerts[data-watch-ready] .watch-reply { animation: none; }
+}

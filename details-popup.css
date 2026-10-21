@@ -1,0 +1,46 @@
+.details-trigger { position: relative; display: inline; padding: 0; border: 0; border-radius: 0; background: transparent; color: #45513e; font: inherit; text-align: inherit; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+.details-trigger:focus-visible { outline: 2px solid #6f805b; outline-offset: 4px; }
+.footer-nav .details-trigger { color: #62675f; text-decoration: none; }
+.footer-nav .details-trigger:hover { color: #20251b; text-decoration: underline; }
+html.details-open { overflow: hidden; scrollbar-gutter: stable; }
+.details-dialog { width: min(760px, calc(100% - 40px)); max-height: calc(100dvh - 64px); padding: 0; border: 1px solid #e0e3d7; border-radius: 20px; background: #f7f6f2; color: #20251b; box-shadow: 0 24px 100px #1821152b; overflow: hidden; }
+.details-dialog[open] { display: flex; flex-direction: column; animation: details-appear 180ms cubic-bezier(.2,.8,.2,1) both; }
+.details-dialog::backdrop { background: rgb(19 25 16 / .32); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); animation: details-backdrop 180ms ease both; }
+.details-dialog[data-closing] { animation: details-disappear 120ms ease both; }
+.details-dialog[data-closing]::backdrop { animation: details-backdrop-out 120ms ease both; }
+.details-header { display: flex; flex: 0 0 auto; align-items: flex-start; justify-content: space-between; gap: 24px; padding: 30px 32px 24px; border-bottom: 1px solid #e0e3d7; }
+.details-header h2 { max-width: 560px; margin: 0; font-size: clamp(26px, 3vw, 34px); line-height: 1.3; letter-spacing: -.035em; }
+.details-header h2:focus { outline: none; }
+.details-close { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; gap: 8px; min-height: 44px; padding: 0 12px; border: 1px solid #dce0d3; border-radius: 999px; background: transparent; color: #343b2e; font-size: 14px; cursor: pointer; transition: background 120ms ease; }
+.details-close img { transform: rotate(45deg); }
+.details-close:hover { background: #e9ecdf; }
+.details-close:focus-visible, .details-content a:focus-visible, .details-table-wrap:focus-visible { outline: 2px solid #6f805b; outline-offset: 3px; }
+.details-content { min-height: 0; padding: 28px 32px 32px; overflow-y: auto; overscroll-behavior: contain; font-size: 16px; line-height: 1.75; }
+.details-content p { margin: 0 0 20px; text-wrap: pretty; }
+.details-content p:last-child { margin-bottom: 0; }
+.details-content strong { font-weight: 600; }
+.details-content h3 { margin: 28px 0 12px; font-family: var(--font-body); font-size: 18px; font-weight: 500; line-height: 1.5; }
+.details-content a { color: #45513e; text-underline-offset: 4px; }
+.details-table-wrap { overflow-x: auto; margin-bottom: 24px; }
+.details-content table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.6; text-align: left; }
+.details-content caption { margin-bottom: 12px; text-align: left; color: #62675f; }
+.details-content th, .details-content td { padding: 12px 10px; border-bottom: 1px solid #dce0d3; vertical-align: top; }
+.details-content th { font-weight: 500; }
+@keyframes details-appear { from { opacity: 0; transform: translateY(12px) scale(.98); filter: blur(3px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes details-disappear { to { opacity: 0; transform: translateY(6px) scale(.985); } }
+@keyframes details-backdrop { from { opacity: 0; } to { opacity: 1; } }
+@keyframes details-backdrop-out { to { opacity: 0; } }
+@media (max-width: 680px) {
+  .details-dialog { width: calc(100% - 24px); max-height: calc(100dvh - 32px); border-radius: 16px; }
+  .details-header { gap: 16px; padding: 22px 20px 20px; }
+  .details-header h2 { font-size: 26px; }
+  .details-close { width: 44px; padding: 0; }
+  .details-close span { display: none; }
+  .details-content { padding: 22px 20px 26px; }
+  .details-content table { min-width: 440px; }
+  .details-content th, .details-content td { padding: 10px 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .details-dialog[open], .details-dialog[data-closing], .details-dialog::backdrop, .details-dialog[data-closing]::backdrop { animation: none; }
+  .details-close { transition: none; }
+}

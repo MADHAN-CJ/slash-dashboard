@@ -16,6 +16,6 @@ python3 -m http.server 8000 --bind 127.0.0.1
 
 Read [AGENTS.md](AGENTS.md) and [BRAND_GUIDELINES.md](BRAND_GUIDELINES.md) first. The visual guidelines include exact values, live components, approved imagery, motion rules, a copyable AI brief and a source-file map. Preserve the homepage's style.
 
-Savings and test details open in native popups. Account creation is still a placeholder. Conversations, charts, prices and notifications are illustrative; the popups and footer explain comparison assumptions and limitations.
+Savings and test details open in native popups. Account creation and the connector steps link to https://app.slash.markets. Conversations, charts, prices and notifications are illustrative; the popups and footer explain comparison assumptions and limitations.
 
 Only active website dependencies are included. Archives, other concepts, generation prompts, research, credentials and old Git history are excluded. Third-party notices are included beside the assets and in licenses/. No blanket open-source license is added to /markets branding, copy or artwork.

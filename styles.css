@@ -129,6 +129,7 @@ button, input, select, textarea {
 
 .button {
   display: inline-flex;
+  text-decoration: none;
   align-items: center;
   justify-content: center;
   gap: 18px;

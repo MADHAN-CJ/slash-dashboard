@@ -5,7 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>/markets · Your AI can finally see the charts</title>
   <meta name="description" content="/markets gives Claude or ChatGPT eyes on the market. Read charts, draw levels, and keep watch, all from your chat.">
-  <link rel="stylesheet" href="styles.css?v=120">
+  <link rel="canonical" href="https://slash.markets/">
+  <meta name="theme-color" content="#eff1ec">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="/markets">
+  <meta property="og:url" content="https://slash.markets/">
+  <meta property="og:title" content="Your AI can finally see the charts">
+  <meta property="og:description" content="/markets gives Claude or ChatGPT eyes on the Indian market. Read charts, draw levels, and keep watch, all from your chat.">
+  <meta property="og:image" content="https://slash.markets/assets/images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="/markets: your AI can finally see the charts">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Your AI can finally see the charts">
+  <meta name="twitter:description" content="/markets gives Claude or ChatGPT eyes on the Indian market. Read charts, draw levels, and keep watch, all from your chat.">
+  <meta name="twitter:image" content="https://slash.markets/assets/images/og-image.png">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="preload" href="assets/fonts/libre-baskerville-500-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/onest-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/departure-mono.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/images/nature-market-v3.webp" as="image" type="image/webp" fetchpriority="high">
+  <link rel="stylesheet" href="styles.css?v=121">
   <link rel="stylesheet" href="tool-studio.css?v=15">
   <link rel="stylesheet" href="watch-alerts.css?v=16">
   <link rel="stylesheet" href="get-connected.css?v=3">
@@ -274,7 +296,7 @@
       </div>
       <div class="watch-art">
         <div class="watch-phone" aria-label="Example phone showing market notifications">
-          <img class="watch-phone-frame" src="assets/images/watch-iphone-v1.png" width="668" height="1352" loading="lazy" decoding="async" alt="">
+          <img class="watch-phone-frame" src="assets/images/watch-iphone-v1.webp" width="668" height="1352" loading="lazy" decoding="async" alt="">
           <div class="watch-phone-screen">
             <div class="watch-phone-island" aria-hidden="true"></div>
             <div class="watch-status" aria-hidden="true"><img class="watch-status-lock" src="assets/icons/lock.svg" width="16" height="16" alt=""><span class="watch-status-battery"></span></div>
@@ -337,7 +359,7 @@
           <div class="benchmark-primary">
             <img class="benchmark-mark" src="assets/icons/seeing-eye.svg" width="56" height="56" alt="" aria-hidden="true">
             <p class="benchmark-label">Claude with <span class="markets-label"><span class="markets-wordmark"><span class="markets-slash">/</span>markets</span></span></p>
-            <p class="benchmark-headline">Same AI.<br>Now 90% correct.</p>
+            <p class="benchmark-headline">Same AI.<br>Now 7 of 8 correct.</p>
             <p class="benchmark-count">Claude scored 7/8 with <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span>, versus 4/8 with a basic broker connection.</p>
           </div>
           <div class="benchmark-baseline">
@@ -358,20 +380,20 @@
       <div class="setup-guide">
         <div class="setup-panel" id="setup-panel-claude" role="tabpanel" aria-labelledby="setup-tab-claude" data-setup-panel="claude">
           <ol class="setup-steps">
-            <li class="setup-step" style="--setup-order:0"><span class="setup-number" aria-hidden="true">1</span><h3>Create your account</h3><p>Sign up for <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> to get your connection ready.</p></li>
-            <li class="setup-step" style="--setup-order:1"><span class="setup-number" aria-hidden="true">2</span><h3>Connect to Claude</h3><p>Add <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> to Claude and follow the connection steps.</p></li>
+            <li class="setup-step" style="--setup-order:0"><span class="setup-number" aria-hidden="true">1</span><h3>Create your account</h3><p>Sign up at <a href="https://app.slash.markets">app.slash.markets</a> and log in to Zerodha once. Your connector link is shown on your account page.</p></li>
+            <li class="setup-step" style="--setup-order:1"><span class="setup-number" aria-hidden="true">2</span><h3>Connect to Claude</h3><p>In Claude, add <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> as a connector with the link from your account page, then sign in with the same email.</p></li>
             <li class="setup-step" style="--setup-order:2"><span class="setup-number" aria-hidden="true">3</span><h3>Ask your first question</h3><p>Open a chat in Claude and ask, “Where’s support on Bank Nifty?”</p></li>
           </ol>
         </div>
         <div class="setup-panel" id="setup-panel-chatgpt" role="tabpanel" aria-labelledby="setup-tab-chatgpt" data-setup-panel="chatgpt" hidden>
           <ol class="setup-steps">
-            <li class="setup-step" style="--setup-order:0"><span class="setup-number" aria-hidden="true">1</span><h3>Create your account</h3><p>Sign up for <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> to get your connection ready.</p></li>
-            <li class="setup-step" style="--setup-order:1"><span class="setup-number" aria-hidden="true">2</span><h3>Connect to ChatGPT</h3><p>Add <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> to ChatGPT and follow the connection steps.</p></li>
+            <li class="setup-step" style="--setup-order:0"><span class="setup-number" aria-hidden="true">1</span><h3>Create your account</h3><p>Sign up at <a href="https://app.slash.markets">app.slash.markets</a> and log in to Zerodha once. Your connector link is shown on your account page.</p></li>
+            <li class="setup-step" style="--setup-order:1"><span class="setup-number" aria-hidden="true">2</span><h3>Connect to ChatGPT</h3><p>In ChatGPT, add <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> as a connector with the link from your account page, then sign in with the same email.</p></li>
             <li class="setup-step" style="--setup-order:2"><span class="setup-number" aria-hidden="true">3</span><h3>Ask your first question</h3><p>Open a chat in ChatGPT and ask, “Where’s support on Bank Nifty?”</p></li>
           </ol>
         </div>
       </div>
-      <div class="setup-actions"><button class="button button-primary" type="button">Connect your AI<img src="assets/icons/arrow-up-right.svg" width="20" height="20" alt="" aria-hidden="true"></button></div>
+      <div class="setup-actions"><a class="button button-primary" href="https://app.slash.markets">Create your account<img src="assets/icons/arrow-up-right.svg" width="20" height="20" alt="" aria-hidden="true"></a></div>
       <p class="setup-reassurance">Indian markets supported. International markets coming soon.</p>
     </section>
     <section class="faq-section" id="faq" aria-labelledby="faq-title">
@@ -383,15 +405,23 @@
         </details>
         <details class="faq-item">
           <summary>Which markets and brokers are supported?<img src="assets/icons/plus.svg" width="20" height="20" alt="" aria-hidden="true"></summary>
-          <div class="faq-answer"><p>Indian markets are supported today, including equities, futures, options and commodities. Dhan is supported for connected portfolio data. International markets are coming soon.</p></div>
+          <div class="faq-answer"><p>Indian markets: NSE and BSE stocks and indices, index and stock futures and options, MCX commodities and currency derivatives. <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> connects to Zerodha through Kite Connect for your portfolio and market data. Other brokers and international markets are coming later.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Can it see my portfolio?<img src="assets/icons/plus.svg" width="20" height="20" alt="" aria-hidden="true"></summary>
+          <div class="faq-answer"><p>Yes, once you log in to Zerodha from your account page. Your AI can then read positions, holdings, funds, orders and trades, and combine them with live market data. Zerodha ends every session during its overnight reset, so you log in again each trading morning.</p></div>
         </details>
         <details class="faq-item">
           <summary>Will it keep watching after I close my chat?<img src="assets/icons/plus.svg" width="20" height="20" alt="" aria-hidden="true"></summary>
-          <div class="faq-answer"><p>Yes. Tell your AI what to watch and when to alert you. Once the watch is set up, <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> keeps checking in the background, even after you log off.</p></div>
+          <div class="faq-answer"><p>Yes. Tell your AI what to watch and when to alert you. <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> checks the condition on a schedule during market hours and emails you when it becomes true, even after you log off. You pause, resume or cancel watches from your account page.</p></div>
         </details>
         <details class="faq-item">
           <summary>Can it place trades for me?<img src="assets/icons/plus.svg" width="20" height="20" alt="" aria-hidden="true"></summary>
-          <div class="faq-answer"><p>No. <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> helps you research, analyse and keep watch. It cannot place orders through your broker. You decide which trades to take.</p></div>
+          <div class="faq-answer"><p>No. <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> is read-only by design. It cannot place, modify or cancel orders through your broker, and the connection has no permission to do so. You decide which trades to take and place them in Kite.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Is my broker login safe?<img src="assets/icons/plus.svg" width="20" height="20" alt="" aria-hidden="true"></summary>
+          <div class="faq-answer"><p>Your Zerodha login happens on Zerodha's own page; <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> never sees your password. The resulting session is stored encrypted and is used only on our servers. Nothing about your login is ever sent to Claude or ChatGPT.</p></div>
         </details>
         <details class="faq-item">
           <summary>Can I build my own trading tools with it?<img src="assets/icons/plus.svg" width="20" height="20" alt="" aria-hidden="true"></summary>
@@ -471,7 +501,7 @@
     <div class="details-content"><p>October 2026 · Eight trader questions · One run per setup</p>
     <p>We asked Claude eight questions from a trader, once with <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> and once with a basic broker connection. Same AI. Same account.</p>
     <p><strong>Claude with <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span>: 7 out of 8 correct answers (87.5%).</strong><br>Claude with a basic broker connection: 4 out of 8 correct answers (50%).</p>
-    <p>The 90% figure on the landing page is rounded from 87.5%. This small test is not an overall accuracy rate.</p>
+    <p>Seven of eight is 87.5%. This small test is not an overall accuracy rate.</p>
     <p>Questions included candle-close checks and crude open-interest buildup. The basic connection returned only the last five candles, limiting what Claude could answer.</p></div>
   </dialog>
   <script src="details-popup.js?v=2" defer></script>

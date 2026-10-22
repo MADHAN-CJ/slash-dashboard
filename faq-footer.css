@@ -52,6 +52,7 @@
   .footer-brand { font-size: 34px; gap: 14px; }
   .footer-brand img { width: 64px; height: 36px; }
   .footer-nav { display: grid; grid-template-columns: 1fr 1fr; width: 100%; gap: 24px; }
+  .footer-link-group:last-child { grid-column: 1 / -1; }
   .footer-disclaimer-columns { grid-template-columns: 1fr; gap: 16px; }
   .footer-art { margin-top: 20px; height: 240px; }
 }

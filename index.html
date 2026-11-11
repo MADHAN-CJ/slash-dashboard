@@ -5,33 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>/markets · Your AI can finally see the charts</title>
   <meta name="description" content="/markets gives Claude or ChatGPT eyes on the market. Read charts, draw levels, and keep watch, all from your chat.">
-  <link rel="canonical" href="https://slash.markets/">
-  <meta name="theme-color" content="#eff1ec">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="/markets">
-  <meta property="og:url" content="https://slash.markets/">
-  <meta property="og:title" content="Your AI can finally see the charts">
-  <meta property="og:description" content="/markets gives Claude or ChatGPT eyes on the Indian market. Read charts, draw levels, and keep watch, all from your chat.">
-  <meta property="og:image" content="https://slash.markets/assets/images/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="/markets: your AI can finally see the charts">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Your AI can finally see the charts">
-  <meta name="twitter:description" content="/markets gives Claude or ChatGPT eyes on the Indian market. Read charts, draw levels, and keep watch, all from your chat.">
-  <meta name="twitter:image" content="https://slash.markets/assets/images/og-image.png">
-  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
-  <link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
-  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
-  <link rel="preload" href="assets/fonts/libre-baskerville-500-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/onest-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/departure-mono.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/images/nature-market-v3.webp" as="image" type="image/webp" fetchpriority="high">
-  <link rel="stylesheet" href="styles.css?v=121">
+  <link rel="stylesheet" href="styles.css?v=122">
   <link rel="stylesheet" href="tool-studio.css?v=15">
   <link rel="stylesheet" href="watch-alerts.css?v=16">
   <link rel="stylesheet" href="get-connected.css?v=3">
-  <link rel="stylesheet" href="faq-footer.css?v=10">
+  <link rel="stylesheet" href="faq-footer.css?v=11">
   <link rel="stylesheet" href="details-popup.css?v=3">
   <link rel="stylesheet" href="floating-nav.css?v=4">
   <script src="dither-background.js?v=23" defer></script>
@@ -65,7 +43,7 @@
             </svg>
           </button>
         </div>
-        <p class="hero-reassurance">Works inside Claude and ChatGPT. Indian markets supported.</p>
+        <p class="hero-reassurance">Works inside Claude and ChatGPT. The examples use sample data.</p>
         <p class="connection-note" aria-live="polite"></p>
       </div>
       <!-- 0.5s: A familiar AI conversation, with a clear choice of where to use /markets. -->
@@ -87,20 +65,20 @@
               <svg class="harness-icon header-more" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/></svg>
             </div>
             <div class="chat-conversation">
-              <div class="user-message typed-message"><span class="typing-measure" aria-hidden="true">Which Nifty 50 stocks look oversold?</span><span class="typed-text">Which Nifty 50 stocks look oversold?</span></div>
+              <div class="user-message typed-message"><span class="typing-measure" aria-hidden="true">Which of Infosys, NVIDIA and Toyota look oversold?</span><span class="typed-text">Which of Infosys, NVIDIA and Toyota look oversold?</span></div>
               <div class="assistant-message">
                 <div class="markets-connection"><span class="markets-avatar" aria-hidden="true"><img src="assets/icons/markets-logomark.svg" width="24" height="13" alt=""></span><span class="markets-status"><span class="markets-wordmark"><span class="markets-slash">/</span>markets</span><span class="markets-status-detail"></span></span></div>
                 <ol class="markets-activity" aria-label="Market actions">
-                  <li data-state="complete"><button class="tool-call" type="button" disabled aria-controls="tool-work" aria-expanded="false"><span class="activity-icon activity-chart" aria-hidden="true"></span><span class="activity-label">Load Nifty 50 prices</span><svg class="activity-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4l10 -10"/></svg></button><div class="inline-tool-panel" hidden></div></li>
+                  <li data-state="complete"><button class="tool-call" type="button" disabled aria-controls="tool-work" aria-expanded="false"><span class="activity-icon activity-chart" aria-hidden="true"></span><span class="activity-label">Load prices from three exchanges</span><svg class="activity-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4l10 -10"/></svg></button><div class="inline-tool-panel" hidden></div></li>
                   <li data-state="complete"><button class="tool-call" type="button" disabled aria-controls="tool-work" aria-expanded="false"><span class="activity-icon activity-rsi" aria-hidden="true"></span><span class="activity-label">Check 14-day RSI</span><svg class="activity-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4l10 -10"/></svg></button><div class="inline-tool-panel" hidden></div></li>
                   <li data-state="complete"><button class="tool-call" type="button" disabled aria-controls="tool-work" aria-expanded="false"><span class="activity-icon activity-filter" aria-hidden="true"></span><span class="activity-label">Find stocks below RSI 30</span><svg class="activity-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4l10 -10"/></svg></button><div class="inline-tool-panel" hidden></div></li>
                 </ol>
-                <p class="typed-message assistant-answer"><span class="typing-measure" aria-hidden="true">TCS, Infosys and HCLTech match, each with a 14-day RSI below 30.</span><span class="typed-text">TCS, Infosys and HCLTech match, each with a 14-day RSI below 30.</span></p>
+                <p class="typed-message assistant-answer"><span class="typing-measure" aria-hidden="true">Infosys and Toyota are below 30. NVIDIA’s 14-day RSI is 31.4.</span><span class="typed-text">Infosys and Toyota are below 30. NVIDIA’s 14-day RSI is 31.4.</span></p>
               </div>
             </div>
             <div class="chat-composer" aria-hidden="true">
               <div class="composer-entry typed-message">
-                <span class="typing-measure">Which Nifty 50 stocks look oversold?</span>
+                <span class="typing-measure">Which of Infosys, NVIDIA and Toyota look oversold?</span>
                 <span class="composer-placeholder">Ask about the market…</span>
                 <span class="composer-draft typed-text"></span>
               </div>
@@ -184,14 +162,14 @@
         <div class="checks-scenes">
           <article class="check-scene" id="check-levels" data-check="levels" aria-label="Levels and trendlines">
             <div class="check-conversation">
-              <p class="check-question">Where’s support on Bank Nifty? Mark the key levels.</p>
-              <div class="check-response"><span class="check-response-avatar"><img class="check-response-mark" src="assets/icons/markets-logomark-mono.svg" width="25" height="14" alt="/markets"></span><p class="check-answer"><span class="check-word" style="--word:0">Support</span> <span class="check-word" style="--word:1">is</span> <span class="check-word" style="--word:2">around</span> <strong><span class="check-word" style="--word:3">49,800</span></strong><span class="check-word" style="--word:4">.</span> <span class="check-word" style="--word:5">Price</span> <span class="check-word" style="--word:6">has</span> <span class="check-word" style="--word:7">tested</span> <span class="check-word" style="--word:8">this</span> <span class="check-word" style="--word:9">zone</span> <span class="check-word" style="--word:10">twice</span> <span class="check-word" style="--word:11">and</span> <span class="check-word" style="--word:12">bounced.</span></p></div>
+              <p class="check-question">Where’s support on Toyota? Mark the key levels.</p>
+              <div class="check-response"><span class="check-response-avatar"><img class="check-response-mark" src="assets/icons/markets-logomark-mono.svg" width="25" height="14" alt="/markets"></span><p class="check-answer"><span class="check-word" style="--word:0">Support</span> <span class="check-word" style="--word:1">is</span> <span class="check-word" style="--word:2">around</span> <strong><span class="check-word" style="--word:3">¥2,950</span></strong><span class="check-word" style="--word:4">.</span> <span class="check-word" style="--word:5">Price</span> <span class="check-word" style="--word:6">has</span> <span class="check-word" style="--word:7">tested</span> <span class="check-word" style="--word:8">this</span> <span class="check-word" style="--word:9">zone</span> <span class="check-word" style="--word:10">twice</span> <span class="check-word" style="--word:11">and</span> <span class="check-word" style="--word:12">bounced.</span></p></div>
               <figure class="check-result-figure">
-                <figcaption class="check-chart-heading"><strong>Bank Nifty</strong><span>15 min</span></figcaption>
-                <div class="check-chart" data-check-chart="levels"><p>Support: 49,800. Resistance: 50,200. Two tests of support.</p></div>
-                <div class="check-result-notes"><span>Support <strong>49,800</strong></span><span>Resistance <strong>50,200</strong></span></div>
+                <figcaption class="check-chart-heading"><strong>Toyota · 7203</strong><span>Tokyo · 5 min</span></figcaption>
+                <div class="check-chart" data-check-chart="levels"><p>Support: ¥2,950. Resistance: ¥3,080. Two tests of support.</p></div>
+                <div class="check-result-notes"><span>Support <strong>¥2,950</strong></span><span>Resistance <strong>¥3,080</strong></span></div>
               </figure>
-              <div class="check-footer"><p class="check-takeaway">I’ve marked the support zone and resistance at 50,200, so you can see the levels in context.</p><button class="check-replay replay-button" type="button" aria-label="Replay animation" title="Replay animation" hidden><img src="assets/icons/refresh.svg" width="20" height="20" alt="" aria-hidden="true"></button></div>
+              <div class="check-footer"><p class="check-takeaway">I’ve marked the support zone and resistance at ¥3,080, so you can see the levels in context.</p><button class="check-replay replay-button" type="button" aria-label="Replay animation" title="Replay animation" hidden><img src="assets/icons/refresh.svg" width="20" height="20" alt="" aria-hidden="true"></button></div>
             </div>
           </article>
           <article class="check-scene" id="check-options" data-check="options" aria-label="Option chain and open interest">
@@ -199,7 +177,7 @@
               <p class="check-question">What’s the Nifty option chain saying for this expiry?</p>
               <div class="check-response"><span class="check-response-avatar"><img class="check-response-mark" src="assets/icons/markets-logomark-mono.svg" width="25" height="14" alt="/markets"></span><p class="check-answer"><span class="check-word" style="--word:0">The</span> <span class="check-word" style="--word:1">biggest</span> <span class="check-word" style="--word:2">put</span> <span class="check-word" style="--word:3">wall</span> <span class="check-word" style="--word:4">is</span> <span class="check-word" style="--word:5">at</span> <strong><span class="check-word" style="--word:6">23,000</span></strong><span class="check-word" style="--word:7">.</span> <span class="check-word" style="--word:8">The</span> <span class="check-word" style="--word:9">biggest</span> <span class="check-word" style="--word:10">call</span> <span class="check-word" style="--word:11">wall</span> <span class="check-word" style="--word:12">is</span> <span class="check-word" style="--word:13">at</span> <strong><span class="check-word" style="--word:14">23,200</span></strong><span class="check-word" style="--word:15">.</span></p></div>
               <figure class="check-result-figure">
-                <figcaption class="check-chart-heading"><strong>Nifty option chain</strong></figcaption>
+                <figcaption class="check-chart-heading"><strong>Nifty 50 option chain</strong><span>NSE</span></figcaption>
                 <div class="check-chart-legend"><span class="legend-puts">Puts</span><span class="legend-calls">Calls</span><span>OI · lakh contracts</span></div>
                 <div class="check-chart" data-check-chart="options"><p>Highest put open interest: 23,000. Highest call open interest: 23,200.</p></div>
                 <div class="check-result-notes"><span>Put wall <strong>23,000</strong></span><span>Call wall <strong>23,200</strong></span></div>
@@ -209,10 +187,10 @@
           </article>
           <article class="check-scene" id="check-indicators" data-check="indicators" aria-label="Price and RSI divergence">
             <div class="check-conversation">
-              <p class="check-question">Any RSI divergence on silver’s 1-hour chart?</p>
+              <p class="check-question">Any RSI divergence on NVIDIA’s 1-hour chart?</p>
               <div class="check-response"><span class="check-response-avatar"><img class="check-response-mark" src="assets/icons/markets-logomark-mono.svg" width="25" height="14" alt="/markets"></span><p class="check-answer"><span class="check-word" style="--word:0">Yes.</span> <span class="check-word" style="--word:1">Price</span> <span class="check-word" style="--word:2">made</span> <span class="check-word" style="--word:3">a</span> <strong><span class="check-word" style="--word:4">lower</span> <span class="check-word" style="--word:5">low</span></strong><span class="check-word" style="--word:6">,</span> <span class="check-word" style="--word:7">while</span> <span class="check-word" style="--word:8">RSI</span> <span class="check-word" style="--word:9">made</span> <span class="check-word" style="--word:10">a</span> <strong><span class="check-word" style="--word:11">higher</span> <span class="check-word" style="--word:12">low</span></strong><span class="check-word" style="--word:13">.</span> <span class="check-word" style="--word:14">That’s</span> <span class="check-word" style="--word:15">bullish</span> <span class="check-word" style="--word:16">divergence.</span></p></div>
               <figure class="check-result-figure">
-                <figcaption class="check-chart-heading"><strong>Silver</strong><span>1 hour</span></figcaption>
+                <figcaption class="check-chart-heading"><strong>NVIDIA · NVDA</strong><span>Nasdaq · 1 hour</span></figcaption>
                 <div class="check-chart" data-check-chart="indicators"><p>Price falls from 90,800 to 90,400 while RSI rises from 27 to 34.</p></div>
                 <div class="check-result-notes"><span>Price <strong>Lower low</strong></span><span>RSI <strong>Higher low</strong></span></div>
               </figure>
@@ -233,7 +211,7 @@
               <li class="studio-tile-slot" style="--tile-order:0"><button class="studio-tool studio-cream" type="button" data-tool-idea="crude" data-prompt="Build me a crude tracker with Elliott waves and the key levels to watch." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/crude-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Crude tracker</span></button></li>
               <li class="studio-tile-slot" style="--tile-order:1"><button class="studio-tool studio-rose" type="button" data-tool-idea="waves" data-prompt="Make me a tool to map Elliott waves and compare possible wave counts." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/waves-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Elliott waves</span></button></li>
               <li class="studio-tile-slot" style="--tile-order:2"><button class="studio-tool studio-blue" type="button" data-tool-idea="silver" data-prompt="Build a silver planner with bullish, bearish and sideways scenarios." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/silver-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Silver planner</span></button></li>
-              <li class="studio-tile-slot" style="--tile-order:3"><button class="studio-tool studio-sage" type="button" data-tool-idea="screener" data-prompt="Make a stock screener for my favourite RSI and moving-average setup." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/screener-v1.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Stock screener</span></button></li>
+              <li class="studio-tile-slot" style="--tile-order:3"><button class="studio-tool studio-sage" type="button" data-tool-idea="screener" data-prompt="Build an RSI screener for my Nasdaq and NSE watchlists." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/screener-v1.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Stock screener</span></button></li>
               <li class="studio-tile-slot" style="--tile-order:4"><button class="studio-tool studio-lilac" type="button" data-tool-idea="backtests" data-prompt="Build me a dashboard to test my strategy on historical candles." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/backtests-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Backtests</span></button></li>
             </ul>
             <ul class="studio-tile-row">
@@ -241,7 +219,7 @@
               <li class="studio-tile-slot" style="--tile-order:6"><button class="studio-tool studio-sage" type="button" data-tool-idea="risk" data-prompt="Build a position-size calculator around my entry, stop and risk budget." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/risk-v1.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Risk calculator</span></button></li>
               <li class="studio-tile-slot studio-brand-slot" style="--tile-order:7"><button class="studio-tool studio-brand" type="button" data-tool-idea="markets" data-prompt="Build me a trading tool around my strategy, powered by real market data from /markets." aria-label="Build with /markets" aria-expanded="false"><img src="assets/icons/markets-logomark-mono.svg" width="88" height="45" alt=""></button></li>
               <li class="studio-tile-slot" style="--tile-order:8"><button class="studio-tool studio-rose" type="button" data-tool-idea="options" data-prompt="Make an option-chain dashboard that highlights put and call open interest." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/options-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Option chain</span></button></li>
-              <li class="studio-tile-slot" style="--tile-order:9"><button class="studio-tool studio-cream" type="button" data-tool-idea="watchlists" data-prompt="Build a watchlist that compares momentum across the stocks I follow." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/watchlists-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Watchlists</span></button></li>
+              <li class="studio-tile-slot" style="--tile-order:9"><button class="studio-tool studio-cream" type="button" data-tool-idea="watchlists" data-prompt="Compare momentum on NVIDIA, Toyota and Tencent in one watchlist." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/watchlists-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Watchlists</span></button></li>
             </ul>
             <ul class="studio-tile-row">
               <li class="studio-tile-slot" style="--tile-order:10"><button class="studio-tool studio-lilac" type="button" data-tool-idea="portfolio" data-prompt="Make a dashboard to explore my connected portfolio and sector exposure." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/portfolio-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Portfolio view</span></button></li>
@@ -259,7 +237,7 @@
         <p id="studio-prompt"></p>
       </div>
     </section>
-    <section class="watch-alerts" id="keep-watch" aria-labelledby="watch-title">
+    <section class="watch-alerts" id="keep-watch" aria-labelledby="watch-title" aria-describedby="demo-disclaimer">
       <div class="watch-copy">
         <h2 id="watch-title">It keeps watch,<br>so you don’t have to.</h2>
         <p class="watch-description">Tell your AI what matters. Get an alert when it happens, even after you log off.</p>
@@ -267,28 +245,28 @@
           <div class="watch-conversation">
             <div class="watch-conversation-bar">
               <span class="watch-chat-brand"><img src="assets/icons/markets-logomark-mono.svg" width="32" height="17" alt=""><span>markets</span></span>
-              <span class="watch-conversation-time"><img src="assets/icons/clock.svg" width="17" height="17" alt=""><time class="watch-chat-clock">17:00</time></span>
+              <span class="watch-conversation-time"><img src="assets/icons/clock.svg" width="17" height="17" alt=""><time class="watch-chat-clock">16:00</time></span>
             </div>
             <div class="watch-conversation-scroll" role="log" aria-label="Example alert conversation, scroll for earlier messages" aria-live="off" tabindex="0">
-              <p class="watch-request">Watch crude. Alert me on 1‑hour closes above 6,300, above 6,350, or back below 6,300.</p>
+              <p class="watch-request">Watch HSBC in London. Alert me on 1-hour closes above £10.50, above £10.60, or back below £10.50.</p>
               <div class="watch-reply watch-confirmation" data-watch-reveal="1">
                 <span class="watch-speaker"><img src="assets/icons/markets-logomark-mono.svg" width="30" height="15" alt="/markets"></span>
                 <p>Okay. I’ll watch all three levels and alert you when a 1‑hour candle closes past one, even after you log off.</p>
               </div>
               <div class="watch-reply watch-detection" data-watch-reveal="2">
-                <time class="watch-time-passed">15:00</time>
+                <time class="watch-time-passed">14:00</time>
                 <span class="watch-speaker"><img src="assets/icons/markets-logomark-mono.svg" width="30" height="15" alt="/markets"></span>
-                <p>Crude closed at <strong>6,312</strong>, above 6,300. Sending your notification now.</p>
+                <p>HSBC closed at <strong>£10.53</strong>, above £10.50. Sending your notification now.</p>
               </div>
               <div class="watch-reply watch-detection" data-watch-reveal="4">
-                <time class="watch-time-passed">16:00</time>
+                <time class="watch-time-passed">15:00</time>
                 <span class="watch-speaker"><img src="assets/icons/markets-logomark-mono.svg" width="30" height="15" alt="/markets"></span>
-                <p>The next 1‑hour candle closed at <strong>6,362</strong>, above 6,350. Sending another notification.</p>
+                <p>The next 1‑hour candle closed at <strong>£10.62</strong>, above £10.60. Sending another notification.</p>
               </div>
               <div class="watch-reply watch-detection" data-watch-reveal="6">
-                <time class="watch-time-passed">17:00</time>
+                <time class="watch-time-passed">16:00</time>
                 <span class="watch-speaker"><img src="assets/icons/markets-logomark-mono.svg" width="30" height="15" alt="/markets"></span>
-                <p>Crude closed back below 6,300 at <strong>6,294</strong>. Sending your alert. I’m still keeping watch.</p>
+                <p>HSBC closed back below £10.50 at <strong>£10.48</strong>. Sending your alert. I’m still keeping watch.</p>
               </div>
             </div>
           </div>
@@ -296,32 +274,32 @@
       </div>
       <div class="watch-art">
         <div class="watch-phone" aria-label="Example phone showing market notifications">
-          <img class="watch-phone-frame" src="assets/images/watch-iphone-v1.webp" width="668" height="1352" loading="lazy" decoding="async" alt="">
+          <img class="watch-phone-frame" src="assets/images/watch-iphone-v1.png" width="668" height="1352" loading="lazy" decoding="async" alt="">
           <div class="watch-phone-screen">
             <div class="watch-phone-island" aria-hidden="true"></div>
             <div class="watch-status" aria-hidden="true"><img class="watch-status-lock" src="assets/icons/lock.svg" width="16" height="16" alt=""><span class="watch-status-battery"></span></div>
             <p class="watch-date">Wednesday, 21 October</p>
-            <span class="watch-clock" aria-hidden="true">17:00</span>
+            <span class="watch-clock" aria-hidden="true">16:00</span>
             <ol class="watch-notifications" aria-label="Example notifications">
               <li class="watch-notification" data-watch-reveal="3">
                 <div class="watch-notification-inner">
                   <div class="watch-notification-header"><span class="watch-app-icon"><img src="assets/icons/markets-logomark-mono.svg" width="22" height="11" alt=""></span><span class="watch-app-name">markets</span><time>now</time></div>
-                  <strong>Crude closed above 6,300</strong>
-                  <p>1‑hour close: 6,312. Your first level was reached.</p>
+                  <strong>HSBC closed above £10.50</strong>
+                  <p>1‑hour close: £10.53. Your first level was reached.</p>
                 </div>
               </li>
               <li class="watch-notification" data-watch-reveal="5">
                 <div class="watch-notification-inner">
                   <div class="watch-notification-header"><span class="watch-app-icon"><img src="assets/icons/markets-logomark-mono.svg" width="22" height="11" alt=""></span><span class="watch-app-name">markets</span><time>now</time></div>
-                  <strong>Crude closed above 6,350</strong>
-                  <p>1‑hour close: 6,362. Your next level was reached.</p>
+                  <strong>HSBC closed above £10.60</strong>
+                  <p>1‑hour close: £10.62. Your next level was reached.</p>
                 </div>
               </li>
               <li class="watch-notification" data-watch-reveal="7">
                 <div class="watch-notification-inner">
                   <div class="watch-notification-header"><span class="watch-app-icon"><img src="assets/icons/markets-logomark-mono.svg" width="22" height="11" alt=""></span><span class="watch-app-name">markets</span><time>now</time></div>
-                  <strong>Crude closed below 6,300</strong>
-                  <p>1‑hour close: 6,294. Your downside alert was triggered.</p>
+                  <strong>HSBC closed below £10.50</strong>
+                  <p>1‑hour close: £10.48. Your downside alert was triggered.</p>
                 </div>
               </li>
             </ol>
@@ -336,6 +314,7 @@
         <div class="savings-visual">
           <img class="savings-poster" src="assets/images/savings-piggy-poster.webp" width="720" height="720" loading="lazy" decoding="async" alt="A glass piggy bank holds golden coins as a branded coin drops into its slot, illustrating AI cost savings.">
           <video class="savings-video" data-src="assets/video/savings-piggy-v1.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+          <button class="button button-primary demo-video-play" type="button" aria-label="Play cost-savings animation" hidden>Play animation</button>
         </div>
         <div class="savings-copy">
           <div class="savings-primary">
@@ -354,12 +333,13 @@
         <div class="clarity-lens">
           <img src="assets/images/clarity-lens-video-poster.webp" width="720" height="720" loading="lazy" decoding="async" alt="A glass lens brings scattered pastel pixels into sharp, organised detail.">
           <video class="clarity-video" data-src="assets/video/clarity-lens-v1.mp4" data-fallback-src="assets/video/clarity-lens-v1.mp4" data-file-src="assets/video/clarity-lens-source.js" muted loop playsinline preload="none" aria-hidden="true"></video>
+          <button class="button button-primary demo-video-play" type="button" aria-label="Play benchmark animation" hidden>Play animation</button>
         </div>
         <div class="benchmark-result">
           <div class="benchmark-primary">
             <img class="benchmark-mark" src="assets/icons/seeing-eye.svg" width="56" height="56" alt="" aria-hidden="true">
             <p class="benchmark-label">Claude with <span class="markets-label"><span class="markets-wordmark"><span class="markets-slash">/</span>markets</span></span></p>
-            <p class="benchmark-headline">Same AI.<br>Now 7 of 8 correct.</p>
+            <p class="benchmark-headline">Same AI.<br>Now 90% correct.</p>
             <p class="benchmark-count">Claude scored 7/8 with <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span>, versus 4/8 with a basic broker connection.</p>
           </div>
           <div class="benchmark-baseline">
@@ -502,18 +482,18 @@
     <div class="details-content"><p>October 2026 · Eight trader questions · One run per setup</p>
     <p>We asked Claude eight questions from a trader, once with <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> and once with a basic broker connection. Same AI. Same account.</p>
     <p><strong>Claude with <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span>: 7 out of 8 correct answers (87.5%).</strong><br>Claude with a basic broker connection: 4 out of 8 correct answers (50%).</p>
-    <p>Seven of eight is 87.5%. This small test is not an overall accuracy rate.</p>
+    <p>The 90% figure on the landing page is rounded from 87.5%. This small test is not an overall accuracy rate.</p>
     <p>Questions included candle-close checks and crude open-interest buildup. The basic connection returned only the last five candles, limiting what Claude could answer.</p></div>
   </dialog>
   <script src="details-popup.js?v=2" defer></script>
   <script src="scroll-motion.js?v=1" defer></script>
-  <script src="experience.js?v=28" defer></script>
+  <script src="experience.js?v=29" defer></script>
   <script src="text-reveal.js?v=4" defer></script>
-  <script src="market-checks.js?v=9" defer></script>
+  <script src="market-checks.js?v=10" defer></script>
   <script src="lens-dither.js?v=4" defer></script>
-  <script src="clarity-lens.js?v=5" defer></script>
-  <script src="tool-studio.js?v=7" defer></script>
-  <script src="watch-alerts.js?v=4" defer></script>
+  <script src="clarity-lens.js?v=6" defer></script>
+  <script src="tool-studio.js?v=8" defer></script>
+  <script src="watch-alerts.js?v=5" defer></script>
   <script src="get-connected.js?v=1" defer></script>
   <script src="floating-nav.js?v=1" defer></script>
 </body>

@@ -69,33 +69,33 @@
   }
 
   function levels(width) {
-    const svg = svgChart(width, 300, 'Bank Nifty: two tests of support at 49,800, with resistance at 50,200.');
+    const svg = svgChart(width, 300, 'Toyota (Tokyo: 7203) tested support at ¥2,950 twice, with resistance at ¥3,080.');
     const right = width - 62;
     const step = (right - 10) / 28;
     const x = index => 10 + (index + .5) * step;
-    const y = scale(49720, 50280, 16, 266);
-    const closes = [49930,49965,50020,50065,50130,50180,50120,50075,50030,49965,49900,49845,49830,49870,49915,49965,50020,50085,50180,50115,50080,50025,49970,49915,49855,49835,49870,49920];
+    const y = scale(2924, 3106, 16, 266);
+    const closes = [2992,3004,3022,3036,3057,3074,3054,3039,3025,3004,2982,2965,2960,2973,2987,3004,3022,3043,3074,3052,3041,3023,3005,2987,2968,2961,2973,2989];
     const values = closes.map((close, index) => {
-      const open = index ? closes[index - 1] : 49890;
-      const spread = 9 + index % 4 * 3;
+      const open = index ? closes[index - 1] : 2979;
+      const spread = 3 + index % 4;
       return { open, close, high: Math.max(open, close) + spread, low: Math.min(open, close) - spread };
     });
-    values[5].high = values[18].high = 50200;
-    values[12].low = values[25].low = 49800;
-    grid(svg, y, [49800, 50000, 50200], right);
-    add(svg, 'rect', { x: 5, y: y(49820), width: right - 5, height: y(49780) - y(49820), fill: '#dbe9ce', class: 'check-support-band' });
+    values[5].high = values[18].high = 3080;
+    values[12].low = values[25].low = 2950;
+    grid(svg, y, [2950, 3015, 3080], right, value => `¥${number.format(value)}`);
+    add(svg, 'rect', { x: 5, y: y(2956), width: right - 5, height: y(2944) - y(2956), fill: '#dbe9ce', class: 'check-support-band' });
     candles(svg, values, x, y, step);
     scan(svg, right, 16, 266, 'levels-read-sweep');
-    line(svg, 5, y(49800), right, y(49800), { class: 'check-level-line', pathLength: 1, 'data-level': 49800 });
-    line(svg, 5, y(50200), right, y(50200), { class: 'check-level-line check-resistance', pathLength: 1, 'data-level': 50200 });
+    line(svg, 5, y(2950), right, y(2950), { class: 'check-level-line', pathLength: 1, 'data-level': 2950 });
+    line(svg, 5, y(3080), right, y(3080), { class: 'check-level-line check-resistance', pathLength: 1, 'data-level': 3080 });
     [12, 25].forEach((index, point) => {
-      findingPoint(svg, x(index), y(49800), point);
-      add(svg, 'rect', { x: x(index) - 65, y: y(49800) - 31, width: 56, height: 21, rx: 5, fill: '#fffef9', stroke: '#dce6d4', class: 'check-retest-backdrop', style: `--point:${point}` });
-      label(svg, x(index) - 37, y(49800) - 16, `Retest ${point + 1}`, { class: 'check-retest-label', 'text-anchor': 'middle', style: `--point:${point}` });
+      findingPoint(svg, x(index), y(2950), point);
+      add(svg, 'rect', { x: x(index) - 65, y: y(2950) - 31, width: 56, height: 21, rx: 5, fill: '#fffef9', stroke: '#dce6d4', class: 'check-retest-backdrop', style: `--point:${point}` });
+      label(svg, x(index) - 37, y(2950) - 16, `Retest ${point + 1}`, { class: 'check-retest-label', 'text-anchor': 'middle', style: `--point:${point}` });
     });
-    label(svg, 10, y(50200) - 10, 'RESISTANCE', { class: 'check-chart-label', 'font-size': 11 });
-    label(svg, 10, y(49800) + 27, 'SUPPORT ZONE', { class: 'check-chart-label', 'font-size': 11 });
-    ['09:30', '12:00', '14:30'].forEach((time, i) => label(svg, x([1, 13, 26][i]), 295, time, { 'text-anchor': 'middle' }));
+    label(svg, 10, y(3080) - 10, 'RESISTANCE', { class: 'check-chart-label', 'font-size': 11 });
+    label(svg, 10, y(2950) + 27, 'SUPPORT ZONE', { class: 'check-chart-label', 'font-size': 11 });
+    ['13:00', '14:00', '15:05'].forEach((time, i) => label(svg, x([1, 13, 26][i]), 295, time, { 'text-anchor': 'middle' }));
     return svg;
   }
 
@@ -135,25 +135,25 @@
   }
 
   function indicators(width) {
-    const svg = svgChart(width, 350, 'Silver 1-hour: price makes a lower low from 90,800 to 90,400 while RSI makes a higher low from 27 to 34, showing bullish divergence.');
+    const svg = svgChart(width, 350, 'On the NVIDIA (Nasdaq: NVDA) 1-hour chart, price makes a lower low from $228 to $224 while RSI makes a higher low from 27 to 34, showing bullish divergence.');
     const right = width - 62;
     const step = (right - 10) / 24;
     const x = index => 10 + (index + .5) * step;
-    const priceY = scale(90000, 92500, 26, 192);
+    const priceY = scale(220, 245, 26, 192);
     const rsiY = scale(10, 90, 234, 322);
-    const closes = [91950,92100,91850,91620,91400,91250,91000,90920,91200,91520,91800,92050,91850,91600,91300,91050,90800,90600,90580,90950,91250,91500,91400,91700];
+    const closes = [239.5,241,238.5,236.2,234,232.5,230,229.2,232,235.2,238,240.5,238.5,236,233,230.5,228,226,225.8,229.5,232.5,235,234,237];
     const values = closes.map((close, index) => {
-      const open = index ? closes[index - 1] : 91800;
-      return { open, close, high: Math.max(open, close) + 90, low: Math.min(open, close) - 70 };
+      const open = index ? closes[index - 1] : 238;
+      return { open, close, high: Math.max(open, close) + .9, low: Math.min(open, close) - .7 };
     });
-    values[7].low = 90800;
-    values[18].low = 90400;
-    grid(svg, priceY, [90400,91200,92000], right);
+    values[7].low = 228;
+    values[18].low = 224;
+    grid(svg, priceY, [224,232,240], right, value => `$${value}`);
     label(svg, 5, 15, 'PRICE', { class: 'check-chart-label', 'font-size': 11 });
     candles(svg, values, x, priceY, step);
     scan(svg, right, 26, 192, 'indicators-read-sweep');
-    line(svg, x(7), priceY(90800), x(18), priceY(90400), { class: 'check-divergence check-price-divergence', 'data-first-low': 90800, 'data-second-low': 90400 });
-    label(svg, x(18), priceY(90400) + 22, 'Lower low', { 'text-anchor': 'middle', class: 'check-chart-label' });
+    line(svg, x(7), priceY(228), x(18), priceY(224), { class: 'check-divergence check-price-divergence', 'data-first-low': 228, 'data-second-low': 224 });
+    label(svg, x(18), priceY(224) + 22, 'Lower low', { 'text-anchor': 'middle', class: 'check-chart-label' });
     line(svg, 5, 218, width - 5, 218, { class: 'check-grid-line' });
     label(svg, 5, 237, 'RSI (14)', { class: 'check-chart-label', 'font-size': 11 });
     [30,70].forEach(value => {

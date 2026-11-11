@@ -129,7 +129,6 @@ button, input, select, textarea {
 
 .button {
   display: inline-flex;
-  text-decoration: none;
   align-items: center;
   justify-content: center;
   gap: 18px;
@@ -822,6 +821,7 @@ button, input, select, textarea {
 @keyframes backend-tile-in { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
 .price-feeds { display: grid; gap: 12px; padding-top: 8px; }
 .price-feed { display: grid; grid-template-columns: 76px minmax(0, 1fr) 16px; grid-template-rows: minmax(0, 1fr); align-items: center; gap: 10px; height: 40px; }
+.price-feed small { display: block; font-size: 11px; color: #5d7050; }
 .feed-check { color: #466b37; }
 .market-candles { display: block; width: 100%; height: 100%; overflow: visible; }
 .market-candle line { stroke: currentColor; stroke-width: 1.2; vector-effect: non-scaling-stroke; }
@@ -1074,6 +1074,8 @@ button, input, select, textarea {
 .clarity-lens { position: relative; align-self: stretch; aspect-ratio: 1; overflow: hidden; isolation: isolate; background: #d7e9de; }
 .clarity-lens img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
 .clarity-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; }
+.demo-video-play { position: absolute; z-index: 2; inset: auto auto 16px 16px; }
+.demo-video-play[hidden] { display: none; }
 .clarity-lens[data-video-ready="true"] .clarity-video { opacity: 1; }
 .video-dither-canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; pointer-events: none; opacity: 0; }
 .clarity-lens[data-video-dither="ready"] .video-dither-canvas { opacity: 1; }

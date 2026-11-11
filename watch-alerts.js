@@ -19,7 +19,7 @@
   }
   function step(value) {
     section.dataset.watchStep = String(value);
-    const hour = 14 + Math.floor(value / 2);
+    const hour = 13 + Math.floor(value / 2);
     clock.textContent = chatClock.textContent = `${hour}:00`;
     let addedMessage = false;
     messages.forEach(message => {

@@ -3,18 +3,21 @@
   if (!section) return;
   const lens = section.querySelector('.clarity-lens');
   const video = lens.querySelector('video');
+  const playButton = lens.querySelector('.demo-video-play');
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   let inView = false;
   let entrancePending = true;
   let renderer, sourceLoading = false;
+  let autoplayBlocked = false;
 
   if (!motion.matches) section.dataset.lensReveal = 'ready';
 
   function updatePlayback() {
     if (!video) return;
-    if (!inView || document.hidden || motion.matches) {
+    if (!inView || document.hidden || motion.matches || autoplayBlocked) {
       video.pause();
       renderer?.stop();
+      playButton.hidden = motion.matches || !autoplayBlocked;
       return;
     }
     if (!video.getAttribute('src')) {
@@ -48,18 +51,33 @@
       if (!renderer) lens.dataset.videoFallback = 'true';
     }
     video.muted = true;
-    video.play().catch(() => {});
+    video.play().catch(error => {
+      if (error?.name === 'AbortError' || video.error || !inView || document.hidden || motion.matches) return;
+      autoplayBlocked = true;
+      renderer?.stop();
+      delete lens.dataset.videoReady;
+      playButton.hidden = false;
+    });
   }
 
   if (video) {
+    playButton.addEventListener('click', () => {
+      autoplayBlocked = false;
+      updatePlayback();
+    });
     video.addEventListener('playing', () => {
+      playButton.hidden = true;
       lens.dataset.videoReady = 'true';
       if (inView && !document.hidden && !motion.matches) {
         renderer?.start(entrancePending);
         entrancePending = false;
       }
     });
-    video.addEventListener('error', () => { delete lens.dataset.videoReady; renderer?.stop(); });
+    video.addEventListener('error', () => {
+      delete lens.dataset.videoReady;
+      playButton.hidden = true;
+      renderer?.stop();
+    });
   }
 
   if ('IntersectionObserver' in window) {

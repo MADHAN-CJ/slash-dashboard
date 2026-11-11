@@ -46,38 +46,44 @@
   let measuredPreviewWidth;
 
   // Static illustrative data, never presented as a live market feed.
+  const screenStocks = [
+    ['INFY', 'NSE', 27.6],
+    ['NVDA', 'Nasdaq', 31.4],
+    ['7203', 'Tokyo', 29.1]
+  ];
+  const screenMatches = screenStocks.filter(([, , rsi]) => rsi < 30);
   const examples = {
     screen: {
-      question: 'Which Nifty 50 stocks look oversold?',
-      answer: 'TCS, Infosys and HCLTech match, each with a 14-day RSI below 30.',
+      question: 'Which of Infosys, NVIDIA and Toyota look oversold?',
+      answer: 'Infosys and Toyota are below 30. NVIDIA’s 14-day RSI is 31.4.',
       steps: [
-        ['Load Nifty 50 prices', 'chart', 'prices'],
+        ['Load prices from three exchanges', 'chart', 'prices'],
         ['Check 14-day RSI', 'rsi', 'rsi'],
         ['Find stocks below RSI 30', 'filter', 'matches']
       ]
     },
     levels: {
-      question: 'Mark support and resistance on Nifty.',
-      answer: 'Support is near 24,800 and resistance near 25,100. Both are marked on your chart.',
+      question: 'Mark support and resistance on Tencent.',
+      answer: 'Support is near HK$480 and resistance near HK$510. Both are marked on your chart.',
       steps: [
-        ['Read Nifty price action', 'chart', 'price-chart'],
+        ['Read Tencent price action', 'chart', 'price-chart'],
         ['Find and draw the key levels', 'draw', 'draw']
       ]
     },
     watch: {
-      question: 'Watch Nifty. Alert me above 25,100.',
-      answer: "I'll watch Nifty and alert you above 25,100, even after you close this chat.",
+      question: 'Watch HSBC in London. Alert me above £10.50.',
+      answer: "I'll watch HSBC in London and alert you above £10.50, even after you close this chat.",
       steps: [
-        ["Check Nifty's price", 'chart', 'instrument'],
-        ['Watch for a break above 25,100', 'watch', 'watch']
+        ["Check HSBC’s price", 'chart', 'instrument'],
+        ['Watch for a break above £10.50', 'watch', 'watch']
       ]
     }
   };
 
   const workTitles = {
     prices: 'Read daily prices', rsi: 'Check RSI(14)', matches: 'Your oversold stocks',
-    'price-chart': 'Read Nifty prices', draw: 'Mark the key levels',
-    instrument: 'Check Nifty', watch: 'Start your price watch'
+    'price-chart': 'Read Tencent prices', draw: 'Mark the key levels',
+    instrument: 'Check HSBC', watch: 'Start your price watch'
   };
 
   function marketCandles(variant = 0) {
@@ -96,20 +102,23 @@
 
   function backendVisual(view) {
     if (view === 'prices') {
-      return '<div class="price-feeds" role="img" aria-label="Daily candlestick price histories for TCS, Infosys and HCLTech">' + ['TCS', 'Infosys', 'HCLTech'].map((stock, index) => '<div class="price-feed" style="--tile:' + index + '"><span>' + stock + '</span>' + marketCandles(index) + '<span class="feed-check">✓</span></div>').join('') + '</div>';
+      return '<div class="price-feeds" role="img" aria-label="Daily candlestick price histories for Infosys on NSE, NVIDIA on Nasdaq, and Toyota in Tokyo">' + screenStocks.map(([ticker, exchange], index) => '<div class="price-feed" style="--tile:' + index + '"><span>' + ticker + '<small>' + exchange + '</small></span>' + marketCandles(index) + '<span class="feed-check">✓</span></div>').join('') + '</div>';
     }
     if (view === 'matches') {
-      return '<div class="visual-meta"><span>3 matches</span><span>RSI &lt; 30</span></div><div class="match-list">' + [['TCS',27.6],['Infosys',28.4],['HCLTech',29.1]].map(([name, rsi], index) => '<div class="match-row" style="--tile:' + index + '"><span class="feed-check">✓</span><strong>' + name + '</strong><span>' + rsi + '</span></div>').join('') + '</div>';
+      return '<div class="visual-meta"><span>' + screenMatches.length + ' matches</span><span>RSI &lt; 30</span></div><div class="match-list">' + screenMatches.map(([ticker, , rsi], index) => '<div class="match-row" style="--tile:' + index + '"><span class="feed-check">✓</span><strong>' + ticker + '</strong><span>' + rsi + '</span></div>').join('') + '</div>';
     }
     if (view === 'rsi') {
-      return '<div class="visual-meta"><span>14-day RSI</span><span>Below 30</span></div><div class="signal-list">' + [['TCS',27.6],['Infosys',28.4],['HCLTech',29.1]].map(([name, rsi], index) => '<div class="signal-row" style="--tile:' + index + ';--signal:' + rsi + '%"><span>' + name + '</span><span class="signal-track"><i></i></span><span class="signal-value">' + rsi + '</span></div>').join('') + '</div>';
+      return '<div class="visual-meta"><span>14-day RSI</span><span>Oversold below 30</span></div><div class="signal-list">' + screenStocks.map(([ticker, , rsi], index) => '<div class="signal-row" style="--tile:' + index + ';--signal:' + rsi + '%"><span>' + ticker + '</span><span class="signal-track"><i></i></span><span class="signal-value">' + rsi + '</span></div>').join('') + '</div>';
     }
     if (['instrument', 'price-chart', 'draw'].includes(view)) {
       const levels = view === 'draw';
-      return '<div class="visual-meta"><span>NIFTY 50</span><span>Daily</span></div><div class="backend-chart" role="img" aria-label="Nifty daily candlestick chart' + (levels ? ', with support at 24,800 and resistance at 25,100' : '') + '">' + marketCandles() + (levels ? '<div class="chart-level chart-resistance"><span>25,100</span></div><div class="chart-level chart-support"><span>24,800</span></div>' : '') + '</div>';
+      const instrument = view === 'instrument';
+      const ticker = instrument ? 'LSE:HSBA' : 'HKEX:0700';
+      const name = instrument ? 'HSBC' : 'Tencent';
+      return '<div class="visual-meta"><span>' + ticker + '</span><span>Daily</span></div><div class="backend-chart" role="img" aria-label="' + name + ' daily candlestick chart' + (levels ? ', with support at HK$480 and resistance at HK$510' : '') + '">' + marketCandles() + (levels ? '<div class="chart-level chart-resistance"><span>HK$510</span></div><div class="chart-level chart-support"><span>HK$480</span></div>' : '') + '</div>';
     }
     if (view === 'watch') {
-      return '<div class="watch-visual"><span class="watch-ring" aria-hidden="true"></span><div><span>Nifty above</span><strong>25,100</strong></div><span class="activity-icon activity-watch" aria-hidden="true"></span></div><div class="watch-connection"><span>NIFTY 50</span><span>Watch running</span></div>';
+      return '<div class="watch-visual"><span class="watch-ring" aria-hidden="true"></span><div><span>HSBC above</span><strong>£10.50</strong></div><span class="activity-icon activity-watch" aria-hidden="true"></span></div><div class="watch-connection"><span>LSE:HSBA</span><span>Watch running</span></div>';
     }
   }
 

@@ -63,14 +63,17 @@
   const visual = document.querySelector('.savings-visual');
   const video = visual?.querySelector('video');
   if (!video) return;
+  const playButton = visual.querySelector('.demo-video-play');
   let inView = false;
   let failed = false;
+  let autoplayBlocked = false;
   let renderer;
   let entrancePending = true;
   function update() {
-    if (!inView || document.hidden || motion.matches || failed) {
+    if (!inView || document.hidden || motion.matches || failed || autoplayBlocked) {
       video.pause();
       renderer?.stop();
+      playButton.hidden = motion.matches || failed || !autoplayBlocked;
       return;
     }
     if (!video.getAttribute('src')) {
@@ -80,12 +83,18 @@
     video.muted = true;
     video.play().catch(error => {
       if (error?.name === 'AbortError' || !inView || document.hidden || motion.matches || failed) return;
-      failed = true;
+      autoplayBlocked = true;
       renderer?.stop();
       delete visual.dataset.videoReady;
+      playButton.hidden = false;
     });
   }
+  playButton.addEventListener('click', () => {
+    autoplayBlocked = false;
+    update();
+  });
   video.addEventListener('playing', () => {
+    playButton.hidden = true;
     visual.dataset.videoReady = 'true';
     if (inView && !document.hidden && !motion.matches) {
       renderer?.start(entrancePending);

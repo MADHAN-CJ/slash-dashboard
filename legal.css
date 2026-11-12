@@ -1,0 +1,10 @@
+@font-face{font-family:"Onest";src:url("assets/fonts/onest-latin.woff2") format("woff2");font-weight:400 600;font-display:swap}
+@font-face{font-family:"Libre Baskerville";src:url("assets/fonts/libre-baskerville-500-latin.woff2") format("woff2");font-weight:500;font-display:swap}
+body{margin:0;background:#fff;color:#20251b;font:400 17px/1.7 "Onest",system-ui,sans-serif}
+main{max-width:720px;margin:0 auto;padding:48px 24px 96px}
+h1,h2{font-family:"Libre Baskerville",Georgia,serif;font-weight:500;color:#161816}
+h1{font-size:clamp(32px,5vw,44px);margin:32px 0 4px}
+h2{font-size:20px;margin:36px 0 6px}
+.meta{color:#62675f;font-size:14px;margin:0 0 28px}
+a{color:#20251b;text-underline-offset:2px}
+.back{font-size:14px;color:#62675f;text-decoration:none}

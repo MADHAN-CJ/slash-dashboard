@@ -1,500 +1,547 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>/markets · Your AI can finally see the charts</title>
-  <meta name="description" content="/markets gives Claude or ChatGPT eyes on the market. Read charts, draw levels, and keep watch, all from your chat.">
-  <link rel="stylesheet" href="styles.css?v=122">
-  <link rel="stylesheet" href="tool-studio.css?v=15">
-  <link rel="stylesheet" href="watch-alerts.css?v=16">
-  <link rel="stylesheet" href="get-connected.css?v=3">
-  <link rel="stylesheet" href="faq-footer.css?v=11">
-  <link rel="stylesheet" href="details-popup.css?v=3">
-  <link rel="stylesheet" href="floating-nav.css?v=4">
-  <script src="dither-background.js?v=23" defer></script>
-</head>
-<body id="top">
-  <header class="floating-nav">
-    <a class="nav-brand" href="#top" aria-label="/markets, back to top"><img src="assets/icons/markets-logomark-mono.svg" width="38" height="28" alt=""><span class="markets-wordmark"><span class="markets-slash">/</span>markets</span></a>
-    <button class="nav-menu" type="button" aria-expanded="false" aria-controls="page-navigation" aria-label="Open menu">
-      <svg class="nav-menu-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-      <svg class="nav-close-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
-    </button>
-    <nav class="nav-links" id="page-navigation" aria-label="Main navigation">
-      <a href="#examples-section">How it works</a>
-      <a href="#tool-studio">Build your tools</a>
-      <a href="#keep-watch">Alerts</a>
-      <a href="#faq">FAQ</a>
-    </nav>
-    <a class="nav-connect" href="#get-connected">Connect your AI<img src="assets/icons/arrow-up-right.svg" width="18" height="18" alt="" aria-hidden="true"></a>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>/markets · Search the market like the web</title>
+<meta name="description" content="/markets is a charting platform you can search. Ask about a stock, a level or an indicator, here or from your AI agent, and get a chart back.">
+<link rel="icon" href="assets/icons/markets-logomark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="tool-studio.css?v=15">
+<style>
+@font-face{font-family:"Departure Mono";src:url("assets/fonts/departure-mono.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Onest";src:url("assets/fonts/onest-latin.woff2") format("woff2");font-weight:400 600;font-display:swap}
+@font-face{font-family:"Libre Baskerville";src:url("assets/fonts/libre-baskerville-500-latin.woff2") format("woff2");font-weight:500;font-display:swap}
+:root{--ink:#20251b;--head:#161816;--muted:#62675f;--line:#e4e7dc;--soft:#fbfbf8;--warm:#f7f6f2;--btn:#171a17;
+  --up:#3f8f6b;--down:#cf5a4b;--yellow:#f6d64d;--yellow-ink:#c9a514;
+  --serif:"Libre Baskerville",Georgia,serif;--sans:"Onest",system-ui,sans-serif;--mono:"Departure Mono",ui-monospace,monospace;
+  --text-body:clamp(16px,1.5vw,19px);
+  --slash:url("data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%22113%22%20viewBox%3D%220%200%2060%20113%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%20%3Cpath%20d%3D%22M39.5479%2080.2607H19.7744V112.829H0V80.2598H19.7734V32.5703H39.5479V80.2607ZM59.3213%2032.5693H39.5469V0H59.3213V32.5693Z%22%20fill%3D%22black%22%2F%3E%20%3C%2Fsvg%3E");
+  --spark:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.5c.9 5.6 3.3 8.4 10.5 10.5-7.2 2.1-9.6 4.9-10.5 10.5C11.1 16.9 8.7 14.1 1.5 12 8.7 9.9 11.1 7.1 12 1.5z'/%3E%3C/svg%3E")}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:#fff;color:var(--ink);font:400 17px/1.65 var(--sans);overflow-x:hidden}
+h1,h2,h3{font-family:var(--serif);font-weight:500;color:var(--head)}
+.wrap{max-width:1280px;margin:0 auto;padding:0 32px}
+.sl{display:inline-block;width:.42em;height:.8em;vertical-align:-.06em;background:currentColor;-webkit-mask:var(--slash) center/contain no-repeat;mask:var(--slash) center/contain no-repeat}
+.spark{display:inline-block;width:1em;height:1em;background:currentColor;-webkit-mask:var(--spark) center/contain no-repeat;mask:var(--spark) center/contain no-repeat;flex:none}
+.agent-ic{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;background:var(--btn);color:#fff;flex:none}
+.agent-ic .spark{width:14px;height:14px}
+
+/* nav */
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:76px;gap:24px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:500;font-size:18px;text-decoration:none;color:inherit}
+.brand img{width:34px}
+.navlinks{display:flex;gap:28px;font-size:15px}
+.navlinks a{color:var(--muted);text-decoration:none}
+.navlinks a:hover{color:var(--ink)}
+.button{display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 22px;border-radius:999px;background:var(--btn);color:#fff;font:400 16px/1 var(--sans);text-decoration:none;white-space:nowrap}
+.button img{width:16px;filter:invert(1)}
+
+/* hero */
+.hero{text-align:center;padding-top:56px;padding-bottom:40px}
+.hero h1{font-size:clamp(36px,5vw,66px);line-height:1.08;letter-spacing:-.035em;margin:0 auto;max-width:13em;text-wrap:balance}
+.hero .sub{color:var(--muted);font-size:var(--text-body);max-width:33em;margin:22px auto 30px;text-wrap:balance}
+.works{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;font-size:14px;color:var(--muted)}
+
+/* app window */
+.app{margin-top:48px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:0 24px 60px rgb(32 37 27 / .1);overflow:hidden;text-align:left}
+.appbar{display:flex;align-items:center;gap:12px;height:42px;padding:0 16px;border-bottom:1px solid var(--line);background:var(--soft);font-size:13px;color:var(--muted)}
+.dots{display:flex;gap:6px}.dots i{width:10px;height:10px;border-radius:50%;background:#e3e4dc}
+.appbar .title{flex:1;text-align:center}
+.appbar .delay{display:flex;align-items:center;gap:6px}
+.live{width:8px;height:8px;border-radius:50%;background:var(--up);box-shadow:0 0 0 3px rgb(63 143 107 / .18)}
+.panes{display:grid;grid-template-columns:minmax(0,1fr) 400px}
+.chartpane{display:flex;flex-direction:column;min-width:0;border-right:1px solid var(--line)}
+.tools{display:flex;align-items:center;gap:6px;padding:10px 16px;border-bottom:1px solid var(--line);font-size:14px;flex-wrap:wrap}
+.sym{display:flex;align-items:center;gap:8px;font-weight:600;font-size:16px;margin-right:8px}
+.sym i{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#76b900;color:#fff;font:600 11px var(--sans);font-style:normal}
+.sym small{font-weight:400;color:var(--muted);font-size:14px}
+.tf{font:400 13px/1 var(--mono);padding:7px 9px;border-radius:7px;color:var(--muted)}
+.tf.on{background:var(--warm);color:var(--ink);box-shadow:0 0 0 1px var(--line)}
+.ind{display:flex;align-items:center;gap:6px;color:var(--muted);margin-left:6px}
+.ind img{width:15px;opacity:.6}
+.drew{margin-left:auto;display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:#fdf6d3;border:1px solid #efd76a;font-size:13px}
+.drew .agent-ic{width:18px;height:18px;border-radius:5px}
+.drew .agent-ic .spark{width:10px;height:10px}
+.chartbody{display:grid;grid-template-columns:44px minmax(0,1fr);flex:1}
+.rail{display:flex;flex-direction:column;align-items:center;gap:18px;padding:16px 0;border-right:1px solid var(--line)}
+.rail img{width:18px;opacity:.45}
+.rail img.on{opacity:1}
+.plotwrap{min-width:0;padding:8px 6px 4px 10px}
+.ohlc{display:flex;flex-wrap:wrap;gap:4px 14px;font:400 13px/1.4 var(--mono);color:var(--muted);padding:2px 4px 6px}
+.ohlc b{font-weight:400;color:var(--up)}
+.ohlc .src{margin-left:auto}
+#main-plot svg{display:block;width:100%;height:auto}
+.plotwrap text{font:400 11px var(--mono);fill:var(--muted)}
+.answer text{font:400 10px var(--mono);fill:var(--muted)}
+.log{border-top:1px solid var(--line);padding:10px 16px 12px;font:400 12px/1.9 var(--mono);color:var(--muted);background:var(--soft)}
+.log .h{font:400 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+.log div span{color:var(--ink)}
+
+/* agent pane */
+.agentpane{display:flex;flex-direction:column;background:#f6f5f0 radial-gradient(#e2e3d9 1px,transparent 1.2px) 0 0/16px 16px}
+.agentbar{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line);background:rgb(251 251 248 / .74);backdrop-filter:blur(8px);font-weight:600;font-size:15px}
+.agentbar .conn{margin-left:auto;display:flex;align-items:center;gap:6px;font-weight:400;font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 10px;background:#fff}
+.phone{position:relative;width:320px;margin:24px auto 0;flex:1;border-radius:46px 46px 0 0;border:10px solid #1d201b;border-bottom:0;background:#fbfaf6;box-shadow:0 18px 50px rgb(32 37 27 / .16);overflow:hidden;display:flex;flex-direction:column;min-height:600px}
+.status{display:flex;justify-content:space-between;align-items:center;padding:13px 22px 6px;font-size:13px;font-weight:600}
+.island{width:90px;height:26px;border-radius:20px;background:#1d201b}
+.status .sig{width:44px;height:10px;border-radius:3px;background:linear-gradient(90deg,#1d201b 70%,transparent 0) 0/8px 100%}
+.apphead{display:flex;align-items:center;gap:8px;padding:6px 16px 10px;font-weight:600;font-size:15px;border-bottom:1px solid #ecebe3}
+.apphead .agent-ic{width:22px;height:22px;border-radius:7px}
+.apphead .agent-ic .spark{width:12px;height:12px}
+.chat{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:10px;padding:14px 14px 8px;font-size:14px;line-height:1.55}
+.me{align-self:flex-end;max-width:88%;background:#efeee7;border-radius:16px;padding:9px 13px}
+.toolchip{align-self:flex-start;display:inline-flex;align-items:center;gap:7px;border:1px solid #e7e5da;border-radius:10px;padding:5px 10px;font-size:12px;color:var(--muted);background:#fff}
+.toolchip img{width:18px}
+.toolchip code{font:400 11px var(--mono);color:var(--ink)}
+.ai{font-family:var(--serif);font-size:14px;line-height:1.6}
+.answer{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden;box-shadow:0 6px 18px rgb(32 37 27 / .06)}
+.answer .ah{display:flex;justify-content:space-between;align-items:center;padding:8px 10px 2px;font-size:12px;color:var(--muted)}
+.answer .ah strong{color:var(--ink);font-weight:600}
+.answer .ah img{width:24px}
+.answer .af{display:flex;justify-content:space-between;align-items:center;padding:7px 10px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);background:var(--soft)}
+.answer .af a{display:inline-flex;align-items:center;gap:5px;color:var(--ink);text-decoration:none}
+.answer .af a img{width:12px}
+.answer .lk{padding:2px 10px 10px;font:400 12px var(--mono);color:var(--muted);overflow-wrap:anywhere}
+.compose{margin:4px 10px 12px;border:1px solid #e7e5da;border-radius:18px;padding:10px 14px;color:#a3a69c;font-size:13px;background:#fff}
+
+/* staged reveal: only hidden once JS has armed it, so the finished state is the default */
+.armed .seq{opacity:0;transform:translateY(6px)}
+.armed .agentdraw{opacity:0}
+.play .seq,.play .agentdraw{opacity:1;transform:none;transition:opacity .5s ease,transform .5s ease;transition-delay:var(--d,0s)}
+@media (prefers-reduced-motion:reduce){.armed .seq,.armed .agentdraw{opacity:1;transform:none}.play .seq,.play .agentdraw{transition:none}}
+
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0 0;text-align:left}
+.flow div{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--muted)}
+.flow b{flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--warm);border:1px solid var(--line);font:400 12px var(--mono);color:var(--ink)}
+.flow strong{color:var(--ink);font-weight:500}
+
+/* examples */
+section.block{padding:112px 0 0}
+.head{text-align:center;max-width:40em;margin:0 auto 48px}
+.head h2{font-size:clamp(32px,4vw,54px);line-height:1.15;letter-spacing:-.035em;margin:0;text-wrap:balance}
+.head p{color:var(--muted);font-size:var(--text-body);margin:20px 0 0}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{border:1px solid var(--line);border-radius:16px;background:#fff;display:flex;flex-direction:column;overflow:hidden}
+.card .k{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);background:var(--soft)}
+.card .k strong{font-weight:600;color:var(--ink);font-size:14px}
+.step{padding:16px 18px 0}
+.step .n{font:400 11px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.step .q{background:#efeee7;border-radius:14px;padding:9px 13px;font-size:15px;display:inline-block}
+.mini{border:1px solid var(--line);border-radius:12px;padding:8px 8px 4px;background:#fff}
+.mini svg{display:block;width:100%;height:auto}
+.mini text{font:400 10px var(--mono);fill:var(--muted)}
+.mini .cap{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);padding:0 4px 4px}
+.reply{display:flex;gap:8px;align-items:flex-start;font-family:var(--serif);font-size:14px;line-height:1.6;padding-bottom:18px}
+.reply .spark{margin-top:4px;color:var(--ink)}
+
+/* tile studio overrides */
+.tool-studio{padding-top:120px}
+.studio-heading h2{font-family:var(--serif)}
+.studio-callout-brands .agent-ic{width:20px;height:20px;border-radius:6px}
+.studio-callout-brands .agent-ic .spark{width:11px;height:11px}
+
+/* search bar */
+.search{display:flex;align-items:center;gap:14px;max-width:680px;min-height:62px;margin:0 auto 28px;padding:9px 9px 9px 22px;border:1px solid var(--line);border-radius:999px;background:#fff;box-shadow:0 10px 30px rgb(32 37 27 / .08);text-align:left;font-size:17px}
+.search>svg{flex:none;width:20px;height:20px;color:var(--muted)}
+.search .q{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.caret{display:inline-block;width:2px;height:1.1em;margin-left:2px;background:var(--ink);vertical-align:-.2em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.search .go{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--yellow)}
+.search .go img{width:18px}
+@media (prefers-reduced-motion:reduce){.caret{animation:none}}
+
+/* waitlist */
+.waitform{display:flex;gap:10px;max-width:520px;margin:0 auto}
+.waitform input{flex:1;min-width:0;min-height:50px;padding:0 20px;border:1px solid var(--line);border-radius:999px;font:400 16px var(--sans);color:var(--ink);background:#fff}
+.waitform input:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.waitform .button{min-height:50px;border:0;cursor:pointer}
+.waitnote{text-align:center;color:var(--muted);font-size:14px;margin:14px 0 0}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* connect */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.steps div{border:1px solid var(--line);border-radius:16px;padding:24px;background:var(--soft)}
+.steps b{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--yellow);font:400 13px var(--mono)}
+.steps h3{font-size:21px;letter-spacing:-.02em;margin:18px 0 8px}
+.steps p{margin:0;color:var(--muted);font-size:16px}
+.steps code{font:400 14px var(--mono);color:var(--ink)}
+.cta{text-align:center;margin-top:40px}
+/* how agents use /markets */
+.bench{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);border:1px solid #d4dccb;border-radius:18px;overflow:hidden;margin-bottom:20px;background:#fff}
+.bench-bar{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid #d4dccb;font-size:14px;color:var(--muted);background:#edf0e6}
+.bench-bar strong{color:var(--ink);font-weight:600}
+.bench-bar>span:last-child{margin-left:auto;font:400 12px var(--mono)}
+.bench-bar img{width:24px}
+.bench-bar .agent-ic{width:24px;height:24px;border-radius:7px}
+.bench-code{background:#fffef8;border-right:1px solid #d4dccb;min-width:0}
+.bench pre{margin:0;padding:18px 0;overflow-x:auto;font:400 14px/1.75 var(--mono);color:#34432e}
+.bench pre code{display:block;padding:0 18px;font:inherit}
+.bench .k{color:#45613b}.bench .s{color:#8a6a0d}.bench .n{color:#9a5a44}.bench .c{color:#8a9780}
+.bench-out{min-width:0;display:flex;flex-direction:column}
+#bench-plot{padding:10px 8px 0;flex:1}
+#bench-plot svg{display:block;width:100%;height:auto}
+#bench-plot text{font:400 11px var(--mono);fill:var(--muted)}
+.bench-rules{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:12px 16px 16px}
+.bench-rules li{font:400 12px var(--mono);padding:4px 10px;border-radius:999px;background:#f1f4e9;color:var(--ink)}
+.bench-rules li.no{background:var(--warm);color:var(--muted);text-decoration:line-through;text-decoration-color:#b9bdb2}
+.notrain{margin:20px 0 0;padding:16px 20px;border-radius:14px;background:#fdf6d3;border:1px solid #efd76a;font-size:16px;color:var(--ink)}
+.notrain strong{font-weight:600}
+
+
+footer{margin-top:120px;border-top:1px solid var(--line);padding:40px 0 56px;font-size:13px;line-height:1.7;color:var(--muted)}
+footer h4{font:600 13px var(--sans);color:var(--ink);margin:0 0 8px}
+footer p{margin:0 0 10px;max-width:72em}
+footer a,.waitnote a{color:var(--ink);text-underline-offset:2px}
+
+@media (max-width:1080px){
+  .panes{grid-template-columns:minmax(0,1fr)}
+  .chartpane{border-right:0;border-bottom:1px solid var(--line)}
+  .cards{grid-template-columns:minmax(0,1fr);max-width:520px;margin:0 auto}
+  .navlinks{display:none}
+}
+@media (max-width:680px){
+  .wrap{padding:0 16px}
+  .hero{padding-top:40px;padding-bottom:24px}
+  .app{margin-top:36px;border-radius:14px}
+  .flow,.steps,.bench{grid-template-columns:minmax(0,1fr)}
+  .bench-code{border-right:0;border-bottom:1px solid #d4dccb}
+  .bench pre{font-size:12px}
+  .bench pre code{padding:0 14px}
+  .search{min-height:84px;font-size:15px;padding:7px 7px 7px 16px;gap:10px;border-radius:28px}
+  .search .q{white-space:normal;line-height:1.4}
+  .search .go{width:38px;height:38px}
+  .waitform{flex-direction:column}
+  .drew,.ind{display:none}
+  .chartbody{grid-template-columns:minmax(0,1fr)}
+  .rail{display:none}
+  .log div:nth-child(n+4){display:none}
+  .phone{width:min(320px,calc(100% - 24px));min-height:560px}
+  section.block{padding-top:80px}
+  .tool-studio{padding-top:80px}
+  .tool-studio .studio-intro-line{white-space:normal;text-wrap:balance}
+  nav .button{padding:0 16px;font-size:15px}
+}
+@media (max-width:360px){.appbar .title{display:none}.tf:nth-of-type(1),.tf:nth-of-type(5){display:none}}
+</style>
+<meta property="og:title" content="markets" />
+<meta property="og:description" content="A charting platform that allows you to search for stocks, levels, and indicators by asking your AI agent to generate charts." />
+<meta property="og:url" content="https://lucid-marvel-pyk4.here.now/" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://here.now/og/lucid-marvel-pyk4.jpg" />
+<meta property="og:image:width" content="1280" />
+<meta property="og:image:height" content="720" />
+<meta name="twitter:image" content="https://here.now/og/lucid-marvel-pyk4.jpg" />
+<meta name="twitter:card" content="summary_large_image" /></head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="#"><img src="assets/icons/markets-logomark-mono.svg" alt=""><span><span class="sl"></span>markets</span></a>
+  <div class="navlinks"><a href="#how">How it works</a><a href="#tool-studio">Build your tools</a></div>
+  <a class="button" href="#waitlist">Join waitlist <img src="assets/icons/arrow-up-right.svg" alt=""></a>
+</div></nav>
+
+<main>
+<section class="hero wrap">
+  <h1>Search the market like you search the web.</h1>
+  <p class="sub">Ask about any stock, level or indicator. You get a chart back, not an opinion.</p>
+  <div class="search" aria-label="Example searches">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>
+    <span class="q"><span id="typed">How has NVIDIA traded around $185 this month?</span><i class="caret" aria-hidden="true"></i></span>
+    <span class="go" aria-hidden="true"><img src="assets/icons/arrow-up-right.svg" alt=""></span>
+  </div>
+  <a class="button" href="#waitlist">Join waitlist <img src="assets/icons/arrow-up-right.svg" alt=""></a>
+  <div class="works">Opening to a small group of traders first.</div>
+
+  <div class="app" id="app">
+    <div class="appbar"><span class="dots"><i></i><i></i><i></i></span><span class="title">app.slash.markets</span><span class="delay"><span class="live"></span>15 min delayed</span></div>
+    <div class="panes">
+      <div class="chartpane" aria-label="The /markets chart">
+        <div class="tools">
+          <span class="sym"><i>N</i>NVDA <small>· NVIDIA · Nasdaq</small></span>
+          <span class="tf">5m</span><span class="tf">15m</span><span class="tf on">1H</span><span class="tf">4H</span><span class="tf">1D</span>
+          <span class="ind"><img src="assets/icons/chart-candle.svg" alt="">Indicators</span>
+          <span class="drew seq" style="--d:2.2s"><span class="agent-ic"><span class="spark"></span></span>Drawn by your agent</span>
+        </div>
+        <div class="chartbody">
+          <div class="rail"><img class="on" src="assets/icons/plus.svg" alt=""><img src="assets/icons/pencil.svg" alt=""><img src="assets/icons/list-details.svg" alt=""><img src="assets/icons/bell-ringing.svg" alt=""></div>
+          <div class="plotwrap">
+            <div class="ohlc" id="ohlc"></div>
+            <div id="main-plot"></div>
+          </div>
+        </div>
+        <div class="log" aria-label="Activity">
+          <div class="h">Activity</div>
+          <div class="seq" style="--d:.4s">10:02:04 &nbsp;agent &nbsp;&nbsp;&nbsp;<span>asked how NVDA traded around $185 this month</span></div>
+          <div class="seq" style="--d:1.4s">10:02:05 &nbsp;/markets <span>drew a level at $185 on NVDA · 1H</span></div>
+          <div class="seq" style="--d:2s">10:02:05 &nbsp;/markets <span id="log-touches">marked each touch</span></div>
+        </div>
+      </div>
+
+      <div class="agentpane">
+        <div class="agentbar"><span class="agent-ic"><span class="spark"></span></span>Your agent<span class="conn"><span class="live"></span>Connected to <span><span class="sl"></span>markets</span></span></div>
+        <div class="phone" aria-label="Your agent, on your phone">
+          <div class="status"><span>9:41</span><span class="island"></span><span class="sig"></span></div>
+          <div class="apphead"><span class="agent-ic"><span class="spark"></span></span>Agent</div>
+          <div class="chat">
+            <div class="me seq" style="--d:.2s">How has NVIDIA traded around $185 this month?</div>
+            <div class="toolchip seq" style="--d:1.1s"><img src="assets/icons/markets-logomark-mono.svg" alt=""><span>Used <span class="sl"></span>markets</span><code>draw_chart</code></div>
+            <div class="ai seq" style="--d:1.8s" id="ai-text">Your NVIDIA 1-hour chart is ready on /markets, with $185 marked and each touch circled.</div>
+            <div class="answer seq" style="--d:2.2s">
+              <div class="ah"><strong>NVDA · 1H</strong><img src="assets/icons/markets-logomark-mono.svg" alt="/markets"></div>
+              <div class="lk">app.slash.markets/c/nvda-1h-185</div>
+              <div class="af"><span>15 min delayed</span><a href="#">Open in <span><span class="sl"></span>markets</span><img src="assets/icons/arrow-up-right.svg" alt=""></a></div>
+            </div>
+          </div>
+          <div class="compose">Ask your agent…</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow" id="how">
+    <div><b>1</b><span><strong>You ask your agent.</strong> In plain words, in the AI app you already use.</span></div>
+    <div><b>2</b><span><strong><span class="sl"></span>markets draws the chart.</strong> Levels, indicators and markers go on a real chart.</span></div>
+    <div><b>3</b><span><strong>You get a link to your chart.</strong> Open it on <span class="sl"></span>markets to zoom, change timeframe or keep watching.</span></div>
+  </div>
+</section>
+
+<section class="block wrap">
+  <div class="head">
+    <h2>Ask a question. Get a chart.</h2>
+    <p>Your agent tells <span class="sl"></span>markets what to draw. You decide what to ask and what to watch. <span class="sl"></span>markets doesn’t pick stocks, suggest levels or recommend trades.</p>
+  </div>
+  <div class="cards">
+    <article class="card">
+      <div class="k"><strong>Nifty</strong><span>Option chain &amp; OI</span></div>
+      <div class="step"><div class="n">You ask</div><span class="q">Show me where call open interest is building for this expiry.</span></div>
+      <div class="step"><div class="n"><span class="sl"></span>markets draws it</div><div class="mini"><div class="cap"><span>Nifty · OI by strike</span><span>15 min delayed</span></div><div data-mini="oi"></div></div></div>
+      <div class="step reply"><span class="spark"></span><span>Done. The largest call build-up is highlighted on your option chain.</span></div>
+    </article>
+    <article class="card">
+      <div class="k"><strong>Reliance</strong><span>Price level</span></div>
+      <div class="step"><div class="n">You ask</div><span class="q">Mark ₹1,400 on Reliance and show each time it was touched this week.</span></div>
+      <div class="step"><div class="n"><span class="sl"></span>markets draws it</div><div class="mini"><div class="cap"><span>Reliance · 1H</span><span>15 min delayed</span></div><div data-mini="level"></div></div></div>
+      <div class="step reply"><span class="spark"></span><span>Done. ₹1,400 is on your chart, with each touch marked.</span></div>
+    </article>
+    <article class="card">
+      <div class="k"><strong>Infosys</strong><span>Indicators</span></div>
+      <div class="step"><div class="n">You ask</div><span class="q">Add a 14-day RSI under my Infosys daily chart.</span></div>
+      <div class="step"><div class="n"><span class="sl"></span>markets draws it</div><div class="mini"><div class="cap"><span>Infosys · 1D · RSI 14</span><span>15 min delayed</span></div><div data-mini="rsi"></div></div></div>
+      <div class="step reply"><span class="spark"></span><span>Done. RSI 14 is under your Infosys chart.</span></div>
+    </article>
+  </div>
+</section>
+
+<section class="tool-studio" id="tool-studio" aria-labelledby="studio-title">
+  <header class="studio-heading">
+    <h2 id="studio-title">Your agent writes it.<br><span class="sl"></span>markets runs it.</h2>
+    <p class="studio-intro"><span class="studio-intro-line">Describe the chart tool you want. Your agent writes it.</span><span class="studio-intro-line">It runs on <span class="sl"></span>markets, next to the data, and draws on your charts.</span></p>
   </header>
-  <main>
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <h1 class="hero-title" id="hero-title"><span>Your AI</span><span>can finally</span><span>see the charts.</span></h1>
-        <p class="hero-description"><span class="markets-label"><span class="markets-wordmark"><span class="markets-slash">/</span>markets</span></span> gives Claude or ChatGPT eyes on the market. Read&nbsp;charts, draw&nbsp;levels, and keep&nbsp;watch, all from your chat.</p>
-        <div class="hero-actions">
-          <button class="button button-primary" type="button" data-connect>
-            Connect your AI
-            <svg class="icon icon-tabler icon-tabler-arrow-up-right" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-              <path d="M17 7l-10 10" />
-              <path d="M8 7l9 0l0 9" />
-            </svg>
-          </button>
-        </div>
-        <p class="hero-reassurance">Works inside Claude and ChatGPT. The examples use sample data.</p>
-        <p class="connection-note" aria-live="polite"></p>
-      </div>
-      <!-- 0.5s: A familiar AI conversation, with a clear choice of where to use /markets. -->
-      <div class="visual-container">
-          <div class="harness-selector">
-            <span id="platform-label">Use <span class="markets-wordmark"><span class="markets-slash">/</span>markets</span> in</span>
-            <div class="platform-options" role="group" aria-labelledby="platform-label">
-              <button class="platform-option" type="button" data-platform-choice="claude" aria-pressed="true"><span class="brand-logo logo-claude" aria-hidden="true"></span>Claude</button>
-              <button class="platform-option" type="button" data-platform-choice="chatgpt" aria-pressed="false"><span class="brand-logo logo-openai" aria-hidden="true"></span>ChatGPT</button>
-            </div>
-          </div>
-        <div class="hero-visual-home">
-        <span class="home-sentinel" aria-hidden="true"></span>
-        <div class="hero-visual" data-platform="claude">
-          <div class="chat-window" role="region" aria-label="Claude conversation" aria-describedby="demo-disclaimer" id="chat-preview">
-            <div class="chat-header">
-              <svg class="harness-icon sidebar-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"/><path d="M9 4v16"/></svg>
-              <span class="harness-name">Claude</span>
-              <svg class="harness-icon header-more" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/></svg>
-            </div>
-            <div class="chat-conversation">
-              <div class="user-message typed-message"><span class="typing-measure" aria-hidden="true">Which of Infosys, NVIDIA and Toyota look oversold?</span><span class="typed-text">Which of Infosys, NVIDIA and Toyota look oversold?</span></div>
-              <div class="assistant-message">
-                <div class="markets-connection"><span class="markets-avatar" aria-hidden="true"><img src="assets/icons/markets-logomark.svg" width="24" height="13" alt=""></span><span class="markets-status"><span class="markets-wordmark"><span class="markets-slash">/</span>markets</span><span class="markets-status-detail"></span></span></div>
-                <ol class="markets-activity" aria-label="Market actions">
-                  <li data-state="complete"><button class="tool-call" type="button" disabled aria-controls="tool-work" aria-expanded="false"><span class="activity-icon activity-chart" aria-hidden="true"></span><span class="activity-label">Load prices from three exchanges</span><svg class="activity-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4l10 -10"/></svg></button><div class="inline-tool-panel" hidden></div></li>
-                  <li data-state="complete"><button class="tool-call" type="button" disabled aria-controls="tool-work" aria-expanded="false"><span class="activity-icon activity-rsi" aria-hidden="true"></span><span class="activity-label">Check 14-day RSI</span><svg class="activity-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4l10 -10"/></svg></button><div class="inline-tool-panel" hidden></div></li>
-                  <li data-state="complete"><button class="tool-call" type="button" disabled aria-controls="tool-work" aria-expanded="false"><span class="activity-icon activity-filter" aria-hidden="true"></span><span class="activity-label">Find stocks below RSI 30</span><svg class="activity-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4l10 -10"/></svg></button><div class="inline-tool-panel" hidden></div></li>
-                </ol>
-                <p class="typed-message assistant-answer"><span class="typing-measure" aria-hidden="true">Infosys and Toyota are below 30. NVIDIA’s 14-day RSI is 31.4.</span><span class="typed-text">Infosys and Toyota are below 30. NVIDIA’s 14-day RSI is 31.4.</span></p>
-              </div>
-            </div>
-            <div class="chat-composer" aria-hidden="true">
-              <div class="composer-entry typed-message">
-                <span class="typing-measure">Which of Infosys, NVIDIA and Toyota look oversold?</span>
-                <span class="composer-placeholder">Ask about the market…</span>
-                <span class="composer-draft typed-text"></span>
-              </div>
-              <div class="composer-tools">
-                <svg class="harness-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-                <span class="composer-connection"><span class="markets-wordmark"><span class="markets-slash">/</span>markets</span></span>
-                <span class="composer-send"><svg class="harness-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19v-14M5 12l7 -7l7 7"/></svg></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-    </section>
-    <!-- 0.5s: The same conversation opens up into visible, connected market work. -->
-    <section class="examples-section" id="examples-section" aria-labelledby="examples-title">
-      <header class="examples-heading">
-        <h2 id="examples-title">Ask it. Watch it work.</h2>
-        <p>Pick something you want to do. See how <span class="markets-label"><span class="markets-wordmark"><span class="markets-slash">/</span>markets</span></span> gets it done.</p>
-      </header>
-      <div class="examples-stage" data-scene-active="false">
-          <div class="harness-selector scene-harness-selector">
-            <span id="scene-platform-label">Use <span class="markets-wordmark"><span class="markets-slash">/</span>markets</span> in</span>
-            <div class="platform-options" role="group" aria-labelledby="scene-platform-label">
-              <button class="platform-option" type="button" data-platform-choice="claude" aria-pressed="true"><span class="brand-logo logo-claude" aria-hidden="true"></span>Claude</button>
-              <button class="platform-option" type="button" data-platform-choice="chatgpt" aria-pressed="false"><span class="brand-logo logo-openai" aria-hidden="true"></span>ChatGPT</button>
-            </div>
-          </div>
-        <div class="examples-diagram">
-          <div class="chat-dock"><span class="dock-sentinel" aria-hidden="true"></span></div>
-          <div class="work-area" aria-live="off">
-            <section class="work-window" id="tool-work" aria-label="Markets backend activity" data-state="waiting" hidden>
-              <header class="work-chrome">
-                <img class="backend-logo" src="assets/icons/markets-logomark-mono.svg" width="32" height="16" alt="" aria-hidden="true">
-                <span class="work-app"><span class="markets-wordmark"><span class="markets-slash">/</span>markets</span> backend</span>
-                <button class="work-close" type="button" aria-label="Close backend window"><svg class="icon-tabler icon-tabler-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M18 6l-12 12M6 6l12 12"/></svg></button>
-              </header>
-              <div class="work-progress" aria-hidden="true"></div>
-              <div class="work-body">
-                <div class="work-meta"><p class="work-step">1 / 3</p><span class="work-state">Working…</span></div>
-                <h3 id="work-title">Market activity</h3>
-                <div class="backend-visual"></div>
-              </div>
-            </section>
-          </div>
-          <svg class="tool-connection" aria-hidden="true" focusable="false"><path class="connection-track"/><path class="connection-flow"/><circle class="connection-end" r="4"/></svg>
-        </div>
-        <div class="example-prompts">
-          <p class="example-prompts-help" id="example-prompts-help">Try a prompt. See <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> in action.</p>
-          <div class="example-choices" role="group" aria-label="Choose a trading prompt" aria-describedby="example-prompts-help">
-            <button type="button" class="example-choice" data-example="screen" aria-pressed="true">Find oversold stocks</button>
-            <button type="button" class="example-choice" data-example="levels" aria-pressed="false">Draw key levels</button>
-            <button type="button" class="example-choice" data-example="watch" aria-pressed="false">Watch a price</button>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="real-data-section" id="real-data" aria-label="Your AI, connected to real market data">
-      <p class="real-data-copy"><span class="real-data-opening">Pasting screenshots leaves your AI guessing.</span> <span class="real-data-promise"><span class="markets-label"><span class="markets-wordmark"><span class="markets-slash">/</span>markets</span></span> gives it real market data to read every candle and keep watch after you log off.</span></p>
-    </section>
-    <section class="market-checks" id="market-checks" aria-labelledby="market-checks-title" aria-describedby="demo-disclaimer">
-      <div class="market-checks-layout">
-        <div class="checks-copy">
-          <h2 id="market-checks-title">Anything you check on TradingView, your AI can check for you.</h2>
-          <p class="checks-lede">Just ask the way you’d ask a trader friend.</p>
-          <nav class="checks-topics" aria-label="Explore market checks">
-            <a class="checks-topic" href="#check-levels" data-check-link="levels" aria-current="step">
-            <img src="assets/icons/chart-candle.svg" width="24" height="24" alt="" aria-hidden="true">
-            <span><strong>Levels and trendlines</strong><span>Find and draw the prices that matter.</span></span>
-            </a>
-            <a class="checks-topic" href="#check-options" data-check-link="options">
-            <img src="assets/icons/list-details.svg" width="24" height="24" alt="" aria-hidden="true">
-            <span><strong>Option chain and OI</strong><span>See where positions are building.</span></span>
-            </a>
-            <a class="checks-topic" href="#check-indicators" data-check-link="indicators">
-            <img src="assets/icons/calculator.svg" width="24" height="24" alt="" aria-hidden="true">
-            <span><strong>Indicators</strong><span>Understand the signal behind the move.</span></span>
-            </a>
-          </nav>
-        </div>
-        <div class="checks-scenes">
-          <article class="check-scene" id="check-levels" data-check="levels" aria-label="Levels and trendlines">
-            <div class="check-conversation">
-              <p class="check-question">Where’s support on Toyota? Mark the key levels.</p>
-              <div class="check-response"><span class="check-response-avatar"><img class="check-response-mark" src="assets/icons/markets-logomark-mono.svg" width="25" height="14" alt="/markets"></span><p class="check-answer"><span class="check-word" style="--word:0">Support</span> <span class="check-word" style="--word:1">is</span> <span class="check-word" style="--word:2">around</span> <strong><span class="check-word" style="--word:3">¥2,950</span></strong><span class="check-word" style="--word:4">.</span> <span class="check-word" style="--word:5">Price</span> <span class="check-word" style="--word:6">has</span> <span class="check-word" style="--word:7">tested</span> <span class="check-word" style="--word:8">this</span> <span class="check-word" style="--word:9">zone</span> <span class="check-word" style="--word:10">twice</span> <span class="check-word" style="--word:11">and</span> <span class="check-word" style="--word:12">bounced.</span></p></div>
-              <figure class="check-result-figure">
-                <figcaption class="check-chart-heading"><strong>Toyota · 7203</strong><span>Tokyo · 5 min</span></figcaption>
-                <div class="check-chart" data-check-chart="levels"><p>Support: ¥2,950. Resistance: ¥3,080. Two tests of support.</p></div>
-                <div class="check-result-notes"><span>Support <strong>¥2,950</strong></span><span>Resistance <strong>¥3,080</strong></span></div>
-              </figure>
-              <div class="check-footer"><p class="check-takeaway">I’ve marked the support zone and resistance at ¥3,080, so you can see the levels in context.</p><button class="check-replay replay-button" type="button" aria-label="Replay animation" title="Replay animation" hidden><img src="assets/icons/refresh.svg" width="20" height="20" alt="" aria-hidden="true"></button></div>
-            </div>
-          </article>
-          <article class="check-scene" id="check-options" data-check="options" aria-label="Option chain and open interest">
-            <div class="check-conversation">
-              <p class="check-question">What’s the Nifty option chain saying for this expiry?</p>
-              <div class="check-response"><span class="check-response-avatar"><img class="check-response-mark" src="assets/icons/markets-logomark-mono.svg" width="25" height="14" alt="/markets"></span><p class="check-answer"><span class="check-word" style="--word:0">The</span> <span class="check-word" style="--word:1">biggest</span> <span class="check-word" style="--word:2">put</span> <span class="check-word" style="--word:3">wall</span> <span class="check-word" style="--word:4">is</span> <span class="check-word" style="--word:5">at</span> <strong><span class="check-word" style="--word:6">23,000</span></strong><span class="check-word" style="--word:7">.</span> <span class="check-word" style="--word:8">The</span> <span class="check-word" style="--word:9">biggest</span> <span class="check-word" style="--word:10">call</span> <span class="check-word" style="--word:11">wall</span> <span class="check-word" style="--word:12">is</span> <span class="check-word" style="--word:13">at</span> <strong><span class="check-word" style="--word:14">23,200</span></strong><span class="check-word" style="--word:15">.</span></p></div>
-              <figure class="check-result-figure">
-                <figcaption class="check-chart-heading"><strong>Nifty 50 option chain</strong><span>NSE</span></figcaption>
-                <div class="check-chart-legend"><span class="legend-puts">Puts</span><span class="legend-calls">Calls</span><span>OI · lakh contracts</span></div>
-                <div class="check-chart" data-check-chart="options"><p>Highest put open interest: 23,000. Highest call open interest: 23,200.</p></div>
-                <div class="check-result-notes"><span>Put wall <strong>23,000</strong></span><span>Call wall <strong>23,200</strong></span></div>
-              </figure>
-              <div class="check-footer"><p class="check-takeaway">Here’s how positions are distributed across strikes, with the largest build-ups highlighted.</p><button class="check-replay replay-button" type="button" aria-label="Replay animation" title="Replay animation" hidden><img src="assets/icons/refresh.svg" width="20" height="20" alt="" aria-hidden="true"></button></div>
-            </div>
-          </article>
-          <article class="check-scene" id="check-indicators" data-check="indicators" aria-label="Price and RSI divergence">
-            <div class="check-conversation">
-              <p class="check-question">Any RSI divergence on NVIDIA’s 1-hour chart?</p>
-              <div class="check-response"><span class="check-response-avatar"><img class="check-response-mark" src="assets/icons/markets-logomark-mono.svg" width="25" height="14" alt="/markets"></span><p class="check-answer"><span class="check-word" style="--word:0">Yes.</span> <span class="check-word" style="--word:1">Price</span> <span class="check-word" style="--word:2">made</span> <span class="check-word" style="--word:3">a</span> <strong><span class="check-word" style="--word:4">lower</span> <span class="check-word" style="--word:5">low</span></strong><span class="check-word" style="--word:6">,</span> <span class="check-word" style="--word:7">while</span> <span class="check-word" style="--word:8">RSI</span> <span class="check-word" style="--word:9">made</span> <span class="check-word" style="--word:10">a</span> <strong><span class="check-word" style="--word:11">higher</span> <span class="check-word" style="--word:12">low</span></strong><span class="check-word" style="--word:13">.</span> <span class="check-word" style="--word:14">That’s</span> <span class="check-word" style="--word:15">bullish</span> <span class="check-word" style="--word:16">divergence.</span></p></div>
-              <figure class="check-result-figure">
-                <figcaption class="check-chart-heading"><strong>NVIDIA · NVDA</strong><span>Nasdaq · 1 hour</span></figcaption>
-                <div class="check-chart" data-check-chart="indicators"><p>Price falls from 90,800 to 90,400 while RSI rises from 27 to 34.</p></div>
-                <div class="check-result-notes"><span>Price <strong>Lower low</strong></span><span>RSI <strong>Higher low</strong></span></div>
-              </figure>
-              <div class="check-footer"><p class="check-takeaway">I’ve connected the two lows on both charts so you can see the divergence for yourself.</p><button class="check-replay replay-button" type="button" aria-label="Replay animation" title="Replay animation" hidden><img src="assets/icons/refresh.svg" width="20" height="20" alt="" aria-hidden="true"></button></div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-    <section class="tool-studio" id="tool-studio" aria-labelledby="studio-title">
-      <header class="studio-heading">
-        <h2 id="studio-title">Your AI builds it.<br><span class="markets-wordmark"><span class="markets-slash">/</span>markets</span> powers it.</h2>
-        <p class="studio-intro"><span class="studio-intro-line">Build your trading tools with Claude or ChatGPT.</span><span class="studio-intro-line">Connect real market data through <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span>.</span></p>
-      </header>
-      <div class="studio-tile-stage" aria-label="Ideas for tools you can create with your AI">
-        <div class="studio-tile-field">
-            <ul class="studio-tile-row">
-              <li class="studio-tile-slot" style="--tile-order:0"><button class="studio-tool studio-cream" type="button" data-tool-idea="crude" data-prompt="Build me a crude tracker with Elliott waves and the key levels to watch." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/crude-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Crude tracker</span></button></li>
-              <li class="studio-tile-slot" style="--tile-order:1"><button class="studio-tool studio-rose" type="button" data-tool-idea="waves" data-prompt="Make me a tool to map Elliott waves and compare possible wave counts." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/waves-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Elliott waves</span></button></li>
-              <li class="studio-tile-slot" style="--tile-order:2"><button class="studio-tool studio-blue" type="button" data-tool-idea="silver" data-prompt="Build a silver planner with bullish, bearish and sideways scenarios." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/silver-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Silver planner</span></button></li>
-              <li class="studio-tile-slot" style="--tile-order:3"><button class="studio-tool studio-sage" type="button" data-tool-idea="screener" data-prompt="Build an RSI screener for my Nasdaq and NSE watchlists." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/screener-v1.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Stock screener</span></button></li>
-              <li class="studio-tile-slot" style="--tile-order:4"><button class="studio-tool studio-lilac" type="button" data-tool-idea="backtests" data-prompt="Build me a dashboard to test my strategy on historical candles." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/backtests-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Backtests</span></button></li>
-            </ul>
-            <ul class="studio-tile-row">
-              <li class="studio-tile-slot" style="--tile-order:5"><button class="studio-tool studio-blue" type="button" data-tool-idea="alerts" data-prompt="Make a tracker that watches my key levels and shows when they are reached." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/alerts-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Price alerts</span></button></li>
-              <li class="studio-tile-slot" style="--tile-order:6"><button class="studio-tool studio-sage" type="button" data-tool-idea="risk" data-prompt="Build a position-size calculator around my entry, stop and risk budget." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/risk-v1.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Risk calculator</span></button></li>
-              <li class="studio-tile-slot studio-brand-slot" style="--tile-order:7"><button class="studio-tool studio-brand" type="button" data-tool-idea="markets" data-prompt="Build me a trading tool around my strategy, powered by real market data from /markets." aria-label="Build with /markets" aria-expanded="false"><img src="assets/icons/markets-logomark-mono.svg" width="88" height="45" alt=""></button></li>
-              <li class="studio-tile-slot" style="--tile-order:8"><button class="studio-tool studio-rose" type="button" data-tool-idea="options" data-prompt="Make an option-chain dashboard that highlights put and call open interest." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/options-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Option chain</span></button></li>
-              <li class="studio-tile-slot" style="--tile-order:9"><button class="studio-tool studio-cream" type="button" data-tool-idea="watchlists" data-prompt="Compare momentum on NVIDIA, Toyota and Tencent in one watchlist." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/watchlists-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Watchlists</span></button></li>
-            </ul>
-            <ul class="studio-tile-row">
-              <li class="studio-tile-slot" style="--tile-order:10"><button class="studio-tool studio-lilac" type="button" data-tool-idea="portfolio" data-prompt="Make a dashboard to explore my connected portfolio and sector exposure." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/portfolio-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Portfolio view</span></button></li>
-              <li class="studio-tile-slot" style="--tile-order:11"><button class="studio-tool studio-blue" type="button" data-tool-idea="journal" data-prompt="Build a journal where I can record a trade idea alongside its market data." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/journal-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Market journal</span></button></li>
-              <li class="studio-tile-slot" style="--tile-order:12"><button class="studio-tool studio-sage" type="button" data-tool-idea="indicators" data-prompt="Create an indicator tool that combines RSI, moving averages and volume." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/indicators-v1.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Custom indicators</span></button></li>
-              <li class="studio-tile-slot" style="--tile-order:13"><button class="studio-tool studio-cream" type="button" data-tool-idea="strategy" data-prompt="Build me a tool to compare variations of my trading setup." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/strategy-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Strategy lab</span></button></li>
-            </ul>
-        </div>
-      </div>
-      <div class="studio-callout" id="studio-callout" role="tooltip" hidden>
-        <div class="studio-callout-header">
-          <span class="studio-callout-label">Ask your AI</span>
-          <span class="studio-callout-brands"><span class="brand-logo logo-claude" role="img" aria-label="Claude"></span><span class="brand-logo logo-openai" role="img" aria-label="ChatGPT"></span></span>
-        </div>
-        <p id="studio-prompt"></p>
-      </div>
-    </section>
-    <section class="watch-alerts" id="keep-watch" aria-labelledby="watch-title" aria-describedby="demo-disclaimer">
-      <div class="watch-copy">
-        <h2 id="watch-title">It keeps watch,<br>so you don’t have to.</h2>
-        <p class="watch-description">Tell your AI what matters. Get an alert when it happens, even after you log off.</p>
-        <div class="watch-chat-scene">
-          <div class="watch-conversation">
-            <div class="watch-conversation-bar">
-              <span class="watch-chat-brand"><img src="assets/icons/markets-logomark-mono.svg" width="32" height="17" alt=""><span>markets</span></span>
-              <span class="watch-conversation-time"><img src="assets/icons/clock.svg" width="17" height="17" alt=""><time class="watch-chat-clock">16:00</time></span>
-            </div>
-            <div class="watch-conversation-scroll" role="log" aria-label="Example alert conversation, scroll for earlier messages" aria-live="off" tabindex="0">
-              <p class="watch-request">Watch HSBC in London. Alert me on 1-hour closes above £10.50, above £10.60, or back below £10.50.</p>
-              <div class="watch-reply watch-confirmation" data-watch-reveal="1">
-                <span class="watch-speaker"><img src="assets/icons/markets-logomark-mono.svg" width="30" height="15" alt="/markets"></span>
-                <p>Okay. I’ll watch all three levels and alert you when a 1‑hour candle closes past one, even after you log off.</p>
-              </div>
-              <div class="watch-reply watch-detection" data-watch-reveal="2">
-                <time class="watch-time-passed">14:00</time>
-                <span class="watch-speaker"><img src="assets/icons/markets-logomark-mono.svg" width="30" height="15" alt="/markets"></span>
-                <p>HSBC closed at <strong>£10.53</strong>, above £10.50. Sending your notification now.</p>
-              </div>
-              <div class="watch-reply watch-detection" data-watch-reveal="4">
-                <time class="watch-time-passed">15:00</time>
-                <span class="watch-speaker"><img src="assets/icons/markets-logomark-mono.svg" width="30" height="15" alt="/markets"></span>
-                <p>The next 1‑hour candle closed at <strong>£10.62</strong>, above £10.60. Sending another notification.</p>
-              </div>
-              <div class="watch-reply watch-detection" data-watch-reveal="6">
-                <time class="watch-time-passed">16:00</time>
-                <span class="watch-speaker"><img src="assets/icons/markets-logomark-mono.svg" width="30" height="15" alt="/markets"></span>
-                <p>HSBC closed back below £10.50 at <strong>£10.48</strong>. Sending your alert. I’m still keeping watch.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="watch-art">
-        <div class="watch-phone" aria-label="Example phone showing market notifications">
-          <img class="watch-phone-frame" src="assets/images/watch-iphone-v1.png" width="668" height="1352" loading="lazy" decoding="async" alt="">
-          <div class="watch-phone-screen">
-            <div class="watch-phone-island" aria-hidden="true"></div>
-            <div class="watch-status" aria-hidden="true"><img class="watch-status-lock" src="assets/icons/lock.svg" width="16" height="16" alt=""><span class="watch-status-battery"></span></div>
-            <p class="watch-date">Wednesday, 21 October</p>
-            <span class="watch-clock" aria-hidden="true">16:00</span>
-            <ol class="watch-notifications" aria-label="Example notifications">
-              <li class="watch-notification" data-watch-reveal="3">
-                <div class="watch-notification-inner">
-                  <div class="watch-notification-header"><span class="watch-app-icon"><img src="assets/icons/markets-logomark-mono.svg" width="22" height="11" alt=""></span><span class="watch-app-name">markets</span><time>now</time></div>
-                  <strong>HSBC closed above £10.50</strong>
-                  <p>1‑hour close: £10.53. Your first level was reached.</p>
-                </div>
-              </li>
-              <li class="watch-notification" data-watch-reveal="5">
-                <div class="watch-notification-inner">
-                  <div class="watch-notification-header"><span class="watch-app-icon"><img src="assets/icons/markets-logomark-mono.svg" width="22" height="11" alt=""></span><span class="watch-app-name">markets</span><time>now</time></div>
-                  <strong>HSBC closed above £10.60</strong>
-                  <p>1‑hour close: £10.62. Your next level was reached.</p>
-                </div>
-              </li>
-              <li class="watch-notification" data-watch-reveal="7">
-                <div class="watch-notification-inner">
-                  <div class="watch-notification-header"><span class="watch-app-icon"><img src="assets/icons/markets-logomark-mono.svg" width="22" height="11" alt=""></span><span class="watch-app-name">markets</span><time>now</time></div>
-                  <strong>HSBC closed below £10.50</strong>
-                  <p>1‑hour close: £10.48. Your downside alert was triggered.</p>
-                </div>
-              </li>
-            </ol>
-            <div class="watch-phone-home" aria-hidden="true"></div>
-          </div>
-        </div>
-        <button class="watch-replay replay-button" type="button" aria-label="Replay notifications" title="Replay notifications" hidden><img src="assets/icons/refresh.svg" width="20" height="20" alt="" aria-hidden="true"></button>
-      </div>
-    </section>
-    <section class="ai-savings" id="ai-savings" aria-labelledby="savings-title">
-      <div class="savings-layout">
-        <div class="savings-visual">
-          <img class="savings-poster" src="assets/images/savings-piggy-poster.webp" width="720" height="720" loading="lazy" decoding="async" alt="A glass piggy bank holds golden coins as a branded coin drops into its slot, illustrating AI cost savings.">
-          <video class="savings-video" data-src="assets/video/savings-piggy-v1.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
-          <button class="button button-primary demo-video-play" type="button" aria-label="Play cost-savings animation" hidden>Play animation</button>
-        </div>
-        <div class="savings-copy">
-          <div class="savings-primary">
-            <img class="savings-icon" src="assets/icons/savings-pig-handdrawn.svg" width="56" height="56" alt="" aria-hidden="true">
-            <p class="savings-label">Your AI with <span class="markets-label"><span class="markets-wordmark"><span class="markets-slash">/</span>markets</span></span></p>
-            <h2 id="savings-title">Same task.<br>86% lower API cost.</h2>
-            <p class="savings-description">Estimated cost: $0.03 with <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span>, versus $0.22 processing raw market data.</p>
-          </div>
-          <p class="savings-note">AI API usage costs only. <button type="button" class="details-trigger" data-details="cost-details-dialog" aria-haspopup="dialog" aria-controls="cost-details-dialog">Learn more</button></p>
-        </div>
-      </div>
-    </section>
-    <section class="benchmark-section" id="benchmark" aria-labelledby="benchmark-title">
-      <h2 class="reveal-accessible" id="benchmark-title">Real trader questions. Put to the test.</h2>
-      <div class="benchmark-layout">
-        <div class="clarity-lens">
-          <img src="assets/images/clarity-lens-video-poster.webp" width="720" height="720" loading="lazy" decoding="async" alt="A glass lens brings scattered pastel pixels into sharp, organised detail.">
-          <video class="clarity-video" data-src="assets/video/clarity-lens-v1.mp4" data-fallback-src="assets/video/clarity-lens-v1.mp4" data-file-src="assets/video/clarity-lens-source.js" muted loop playsinline preload="none" aria-hidden="true"></video>
-          <button class="button button-primary demo-video-play" type="button" aria-label="Play benchmark animation" hidden>Play animation</button>
-        </div>
-        <div class="benchmark-result">
-          <div class="benchmark-primary">
-            <img class="benchmark-mark" src="assets/icons/seeing-eye.svg" width="56" height="56" alt="" aria-hidden="true">
-            <p class="benchmark-label">Claude with <span class="markets-label"><span class="markets-wordmark"><span class="markets-slash">/</span>markets</span></span></p>
-            <p class="benchmark-headline">Same AI.<br>Now 90% correct.</p>
-            <p class="benchmark-count">Claude scored 7/8 with <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span>, versus 4/8 with a basic broker connection.</p>
-          </div>
-          <div class="benchmark-baseline">
-            <p>Claude with a basic broker connection: <span class="benchmark-comparison-end"><strong>50%</strong> (4 of 8). <button type="button" class="details-trigger benchmark-learn-more" data-details="test-details-dialog" aria-haspopup="dialog" aria-controls="test-details-dialog">Learn more</button></span></p>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="get-connected" id="get-connected" aria-labelledby="setup-title">
-      <header class="setup-heading">
-        <h2 id="setup-title">Your AI is ready.<br>Connect it to the market.</h2>
-        <p class="setup-intro">Bring <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> into Claude or ChatGPT and start asking your own trading questions.</p>
-      </header>
-      <div class="setup-tabs" role="tablist" aria-label="Choose your AI for setup">
-        <button class="setup-tab" id="setup-tab-claude" type="button" role="tab" aria-selected="true" aria-controls="setup-panel-claude" tabindex="0" data-setup-platform="claude"><span class="brand-logo logo-claude" aria-hidden="true"></span>Claude</button>
-        <button class="setup-tab" id="setup-tab-chatgpt" type="button" role="tab" aria-selected="false" aria-controls="setup-panel-chatgpt" tabindex="-1" data-setup-platform="chatgpt"><span class="brand-logo logo-openai" aria-hidden="true"></span>ChatGPT</button>
-      </div>
-      <div class="setup-guide">
-        <div class="setup-panel" id="setup-panel-claude" role="tabpanel" aria-labelledby="setup-tab-claude" data-setup-panel="claude">
-          <ol class="setup-steps">
-            <li class="setup-step" style="--setup-order:0"><span class="setup-number" aria-hidden="true">1</span><h3>Create your account</h3><p>Sign up at <a href="https://app.slash.markets">app.slash.markets</a> and log in to Zerodha once. Your connector link is shown on your account page.</p></li>
-            <li class="setup-step" style="--setup-order:1"><span class="setup-number" aria-hidden="true">2</span><h3>Connect to Claude</h3><p>In Claude, add <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> as a connector with the link from your account page, then sign in with the same email.</p></li>
-            <li class="setup-step" style="--setup-order:2"><span class="setup-number" aria-hidden="true">3</span><h3>Ask your first question</h3><p>Open a chat in Claude and ask, “Where’s support on Bank Nifty?”</p></li>
-          </ol>
-        </div>
-        <div class="setup-panel" id="setup-panel-chatgpt" role="tabpanel" aria-labelledby="setup-tab-chatgpt" data-setup-panel="chatgpt" hidden>
-          <ol class="setup-steps">
-            <li class="setup-step" style="--setup-order:0"><span class="setup-number" aria-hidden="true">1</span><h3>Create your account</h3><p>Sign up at <a href="https://app.slash.markets">app.slash.markets</a> and log in to Zerodha once. Your connector link is shown on your account page.</p></li>
-            <li class="setup-step" style="--setup-order:1"><span class="setup-number" aria-hidden="true">2</span><h3>Connect to ChatGPT</h3><p>In ChatGPT, add <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> as a connector with the link from your account page, then sign in with the same email.</p></li>
-            <li class="setup-step" style="--setup-order:2"><span class="setup-number" aria-hidden="true">3</span><h3>Ask your first question</h3><p>Open a chat in ChatGPT and ask, “Where’s support on Bank Nifty?”</p></li>
-          </ol>
-        </div>
-      </div>
-      <div class="setup-actions"><a class="button button-primary" href="https://app.slash.markets">Create your account<img src="assets/icons/arrow-up-right.svg" width="20" height="20" alt="" aria-hidden="true"></a></div>
-      <p class="setup-reassurance">Indian markets supported. International markets coming soon.</p>
-    </section>
-    <section class="faq-section" id="faq" aria-labelledby="faq-title">
-      <h2 id="faq-title">Good questions.</h2>
-      <div class="faq-list">
-        <details class="faq-item">
-          <summary>Do I need to switch from Claude or ChatGPT?<img src="assets/icons/plus.svg" width="20" height="20" alt="" aria-hidden="true"></summary>
-          <div class="faq-answer"><p>No. Keep using the AI you know. Connect <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> to Claude or ChatGPT to bring real market data into your conversations.</p></div>
-        </details>
-        <details class="faq-item">
-          <summary>Which markets and brokers are supported?<img src="assets/icons/plus.svg" width="20" height="20" alt="" aria-hidden="true"></summary>
-          <div class="faq-answer"><p>Indian markets: NSE and BSE stocks and indices, index and stock futures and options, MCX commodities and currency derivatives. <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> connects to Zerodha through Kite Connect for your portfolio and market data. Other brokers and international markets are coming later.</p></div>
-        </details>
-        <details class="faq-item">
-          <summary>Can it see my portfolio?<img src="assets/icons/plus.svg" width="20" height="20" alt="" aria-hidden="true"></summary>
-          <div class="faq-answer"><p>Yes, once you log in to Zerodha from your account page. Your AI can then read positions, holdings, funds, orders and trades, and combine them with live market data. Zerodha ends every session during its overnight reset, so you log in again each trading morning.</p></div>
-        </details>
-        <details class="faq-item">
-          <summary>Will it keep watching after I close my chat?<img src="assets/icons/plus.svg" width="20" height="20" alt="" aria-hidden="true"></summary>
-          <div class="faq-answer"><p>Yes. Tell your AI what to watch and when to alert you. <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> checks the condition on a schedule during market hours and emails you when it becomes true, even after you log off. You pause, resume or cancel watches from your account page.</p></div>
-        </details>
-        <details class="faq-item">
-          <summary>Can it place trades for me?<img src="assets/icons/plus.svg" width="20" height="20" alt="" aria-hidden="true"></summary>
-          <div class="faq-answer"><p>No. <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> is read-only by design. It cannot place, modify or cancel orders through your broker, and the connection has no permission to do so. You decide which trades to take and place them in Kite.</p></div>
-        </details>
-        <details class="faq-item">
-          <summary>Is my broker login safe?<img src="assets/icons/plus.svg" width="20" height="20" alt="" aria-hidden="true"></summary>
-          <div class="faq-answer"><p>Your Zerodha login happens on Zerodha's own page; <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> never sees your password. The resulting session is stored encrypted and is used only on our servers. Nothing about your login is ever sent to Claude or ChatGPT.</p></div>
-        </details>
-        <details class="faq-item">
-          <summary>Can I build my own trading tools with it?<img src="assets/icons/plus.svg" width="20" height="20" alt="" aria-hidden="true"></summary>
-          <div class="faq-answer"><p>Yes. Build with Claude or ChatGPT as usual, then use <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> for the market data and calculations. Think crude trackers, Elliott Wave tools or a screener built around your strategy.</p></div>
-        </details>
-      </div>
-    </section>
-    <section class="final-cta" id="start-asking" aria-labelledby="final-cta-title">
-      <div class="final-cta-inner">
-        <img class="final-cta-mark" src="assets/icons/markets-logomark-mono.svg" width="80" height="44" alt="" aria-hidden="true">
-        <h2 id="final-cta-title">Put your AI to work<br>on the market.</h2>
-        <p class="final-cta-copy">Connect <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> to Claude or ChatGPT.<br>Bring your next trading question.</p>
-        <a class="button button-primary" href="#get-connected">Connect your AI<img src="assets/icons/arrow-up-right.svg" width="20" height="20" alt="" aria-hidden="true"></a>
-      </div>
-    </section>
-  </main>
-  <footer class="site-footer" id="footer">
-    <div class="footer-content">
-      <div class="footer-main">
-        <div class="footer-identity">
-          <a class="footer-brand" href="#top" aria-label="/markets, back to top"><img src="assets/icons/markets-logomark-mono.svg" width="80" height="44" alt=""><span class="markets-wordmark"><span class="markets-slash">/</span>markets</span></a>
-          <p class="footer-tagline">Your AI. Connected to the market.</p>
-        </div>
-        <nav class="footer-nav" aria-label="Footer">
-          <div class="footer-link-group"><span>Explore</span><a href="#examples-section">How it works</a><a href="#tool-studio">Build your tools</a><a href="#keep-watch">Keep watch</a></div>
-          <div class="footer-link-group"><span>Get to know us</span><a href="#get-connected">Get connected</a><a href="#faq">FAQ</a><a href="brand-guidelines/">Brand guidelines</a><a href="brand/">Pixel study</a><button type="button" class="details-trigger" data-details="test-details-dialog" aria-haspopup="dialog" aria-controls="test-details-dialog">About the test</button><button type="button" class="details-trigger" data-details="cost-details-dialog" aria-haspopup="dialog" aria-controls="cost-details-dialog">About the savings</button></div>
-          <div class="footer-link-group"><span>Legal</span><a href="https://app.slash.markets/terms">Terms of Service</a><a href="https://app.slash.markets/privacy">Privacy Policy</a><a href="https://app.slash.markets">Your account</a></div>
-        </nav>
-      </div>
-      <section class="footer-disclaimer" aria-labelledby="disclaimer-title">
-        <h2 id="disclaimer-title">Important information</h2>
-        <div class="footer-disclaimer-columns">
-          <div>
-            <p><span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> is a research and analysis assistant, not a financial adviser. It provides market data and tools for informational purposes only, not investment advice or recommendations to buy, sell or hold securities. It does not place trades, execute orders, or authorise your AI to buy or sell on your behalf.</p>
-            <p>Trading and investing involve risk, including loss of capital. AI responses, calculations, market data and alerts may contain errors, be incomplete or arrive late. Verify information independently before acting. You remain responsible for your trading decisions. For personalised investment advice, consult a SEBI-registered investment adviser.</p>
-          </div>
-          <div>
-            <p id="demo-disclaimer">Conversations, charts, prices and notifications shown on this website are illustrative and are not live trading signals. Test results and cost comparisons reflect the stated conditions and assumptions; they do not guarantee future accuracy, savings or returns.</p>
-            <p>To the extent permitted by applicable law, <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> is not liable for trading or investment losses arising from reliance on its data, tools, analysis or alerts.</p>
-          </div>
-        </div>
-      </section>
+  <div class="studio-tile-stage" aria-label="Ideas for tools you can build with your agent">
+    <div class="studio-tile-field">
+      <ul class="studio-tile-row">
+        <li class="studio-tile-slot" style="--tile-order:0"><button class="studio-tool studio-cream" type="button" data-tool-idea="indicators" data-prompt="Write an indicator that shades the chart when RSI is under 30 and price is above the 50-day average." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/indicators-v1.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Custom indicators</span></button></li>
+        <li class="studio-tile-slot" style="--tile-order:1"><button class="studio-tool studio-rose" type="button" data-tool-idea="waves" data-prompt="Make a tool that draws trendlines and channels between the highs and lows I pick." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/waves-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Trendlines</span></button></li>
+        <li class="studio-tile-slot" style="--tile-order:2"><button class="studio-tool studio-blue" type="button" data-tool-idea="options" data-prompt="Make an option-chain view that highlights where put and call open interest is building." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/options-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Option chain</span></button></li>
+        <li class="studio-tile-slot" style="--tile-order:3"><button class="studio-tool studio-sage" type="button" data-tool-idea="screener" data-prompt="Make a screener that lists Nifty 500 stocks matching my RSI and moving-average conditions." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/screener-v1.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Stock screener</span></button></li>
+        <li class="studio-tile-slot" style="--tile-order:4"><button class="studio-tool studio-lilac" type="button" data-tool-idea="history" data-prompt="Count how many times Bank Nifty closed above a level I pick, over the last two years." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/backtests-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Level history</span></button></li>
+      </ul>
+      <ul class="studio-tile-row">
+        <li class="studio-tile-slot" style="--tile-order:5"><button class="studio-tool studio-blue" type="button" data-tool-idea="alerts" data-prompt="Watch the levels I mark and alert me on /markets when a 1-hour candle closes past one." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/alerts-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Price alerts</span></button></li>
+        <li class="studio-tile-slot" style="--tile-order:6"><button class="studio-tool studio-sage" type="button" data-tool-idea="watchlists" data-prompt="Build a watchlist that shows RSI and distance from the 50-day average for the stocks I follow." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/watchlists-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Watchlists</span></button></li>
+        <li class="studio-tile-slot studio-brand-slot" style="--tile-order:7"><button class="studio-tool studio-brand" type="button" data-tool-idea="markets" data-prompt="Build me a chart layout for the stocks I follow, with the indicators I use." aria-label="Build with /markets" aria-expanded="false"><img src="assets/icons/markets-logomark-mono.svg" width="88" height="45" alt=""></button></li>
+        <li class="studio-tile-slot" style="--tile-order:8"><button class="studio-tool studio-rose" type="button" data-tool-idea="sectors" data-prompt="Make a heatmap of today’s moves across Nifty 50 stocks, grouped by sector." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/portfolio-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Sector heatmap</span></button></li>
+        <li class="studio-tile-slot" style="--tile-order:9"><button class="studio-tool studio-cream" type="button" data-tool-idea="volatility" data-prompt="Build a view that compares daily ranges and volatility across the stocks I follow." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/strategy-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Volatility view</span></button></li>
+      </ul>
+      <ul class="studio-tile-row">
+        <li class="studio-tile-slot" style="--tile-order:10"><button class="studio-tool studio-lilac" type="button" data-tool-idea="journal" data-prompt="Build a journal where I can pin notes to the charts I’m watching." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/journal-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Market journal</span></button></li>
+        <li class="studio-tile-slot" style="--tile-order:11"><button class="studio-tool studio-blue" type="button" data-tool-idea="metals" data-prompt="Make a chart board for Hindalco, Vedanta and Hindustan Zinc, with daily ranges and volume." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/silver-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Metal stocks</span></button></li>
+        <li class="studio-tile-slot" style="--tile-order:12"><button class="studio-tool studio-sage" type="button" data-tool-idea="energy" data-prompt="Make a chart board for Reliance, ONGC and BPCL, with the levels I set and open interest." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/crude-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Oil &amp; gas stocks</span></button></li>
+        <li class="studio-tile-slot" style="--tile-order:13"><button class="studio-tool studio-cream" type="button" data-tool-idea="risk" data-prompt="Build a position-size calculator from my entry, stop and the amount I’m willing to risk." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/risk-v1.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Risk calculator</span></button></li>
+      </ul>
     </div>
-    <div class="footer-art" aria-hidden="true"><img src="assets/images/footer-horizon-v1.webp" width="1536" height="512" loading="lazy" decoding="async" alt=""></div>
-  </footer>
-  <dialog class="details-dialog" id="cost-details-dialog" aria-labelledby="cost-details-dialog-title">
-    <header class="details-header">
-      <h2 id="cost-details-dialog-title" tabindex="-1">How we estimated the AI cost saving.</h2>
-      <button class="details-close" type="button" aria-label="Close details"><span>Close</span><img src="assets/icons/plus.svg" width="20" height="20" alt="" aria-hidden="true"></button>
-    </header>
-    <div class="details-content"><p><strong>This is an illustrative model, not a measured <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> benchmark.</strong> The example compares a workflow that passes raw market data into an AI model with one that processes the data in <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> and returns calculated results.</p>
-    <div class="details-table-wrap" role="region" aria-label="AI API cost comparison" tabindex="0">
-      <table>
-        <caption>Assumptions for one hypothetical analysis</caption>
-        <thead><tr><th scope="col">Model usage</th><th scope="col">Raw-data workflow</th><th scope="col">Calculated-results workflow</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">Input tokens</th><td>100,000</td><td>5,000</td></tr>
-          <tr><th scope="row">Output tokens</th><td>2,000</td><td>2,000</td></tr>
-          <tr><th scope="row">Input cost</th><td>$0.20</td><td>$0.01</td></tr>
-          <tr><th scope="row">Output cost</th><td>$0.02</td><td>$0.02</td></tr>
-          <tr><th scope="row">Total model API cost</th><td><strong>$0.22</strong></td><td><strong>$0.03</strong></td></tr>
-        </tbody>
-      </table>
+  </div>
+  <div class="studio-callout" id="studio-callout" role="tooltip" hidden>
+    <div class="studio-callout-header">
+      <span class="studio-callout-label">Ask your agent</span>
+      <span class="studio-callout-brands"><span class="agent-ic"><span class="spark"></span></span></span>
     </div>
-    <p>The assumed rates are $2 per million input tokens and $10 per million output tokens, matching the published standard Sonnet 5.5 rates used for this example. <a href="https://www.anthropic.com/claude-sonnet-5-5">Pricing source</a>.</p>
-    <h3>Where 86% comes from</h3>
-    <p>($0.22 − $0.03) ÷ $0.22 = 86.36%, rounded to 86%. Input-token usage falls by 95% under these assumptions; that is a different figure from the total model-cost reduction.</p>
-    <h3>What the example leaves out</h3>
-    <p>The figures exclude <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> subscription, market-data and sandbox-compute fees. They also omit other conversation context, extra generated code, retries, caching discounts and other tool charges. Actual usage depends on the task, model and implementation.</p>
-    <p>The comparison is against sending a large raw dataset through the model. A small query, or an alternative tool that already returns calculated results, may show much smaller savings. Creating and refreshing an app can involve additional model calls.</p>
-    <p>This estimate does not mean a fixed-price ChatGPT or Claude subscription becomes 86% cheaper, and it does not establish an 86% saving in the total cost of running a trading app.</p></div>
-  </dialog>
-  <dialog class="details-dialog" id="test-details-dialog" aria-labelledby="test-details-dialog-title">
-    <header class="details-header">
-      <h2 id="test-details-dialog-title" tabindex="-1">Real trader questions.<br>Put to the test.</h2>
-      <button class="details-close" type="button" aria-label="Close details"><span>Close</span><img src="assets/icons/plus.svg" width="20" height="20" alt="" aria-hidden="true"></button>
-    </header>
-    <div class="details-content"><p>October 2026 · Eight trader questions · One run per setup</p>
-    <p>We asked Claude eight questions from a trader, once with <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span> and once with a basic broker connection. Same AI. Same account.</p>
-    <p><strong>Claude with <span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span>: 7 out of 8 correct answers (87.5%).</strong><br>Claude with a basic broker connection: 4 out of 8 correct answers (50%).</p>
-    <p>The 90% figure on the landing page is rounded from 87.5%. This small test is not an overall accuracy rate.</p>
-    <p>Questions included candle-close checks and crude open-interest buildup. The basic connection returned only the last five candles, limiting what Claude could answer.</p></div>
-  </dialog>
-  <script src="details-popup.js?v=2" defer></script>
-  <script src="scroll-motion.js?v=1" defer></script>
-  <script src="experience.js?v=29" defer></script>
-  <script src="text-reveal.js?v=4" defer></script>
-  <script src="market-checks.js?v=10" defer></script>
-  <script src="lens-dither.js?v=4" defer></script>
-  <script src="clarity-lens.js?v=6" defer></script>
-  <script src="tool-studio.js?v=8" defer></script>
-  <script src="watch-alerts.js?v=5" defer></script>
-  <script src="get-connected.js?v=1" defer></script>
-  <script src="floating-nav.js?v=1" defer></script>
+    <p id="studio-prompt"></p>
+  </div>
+</section>
+
+<section class="block wrap" id="ai">
+  <div class="head">
+    <h2>How agents use <span class="sl"></span>markets.</h2>
+    <p>Your agent writes the script. <span class="sl"></span>markets runs it and draws the chart.</p>
+  </div>
+  <div class="bench">
+    <div class="bench-code">
+      <div class="bench-bar"><span class="agent-ic"><span class="spark"></span></span><strong>script.py</strong><span>sent by your agent</span></div>
+<pre><code><span class="c"># "How has NVIDIA traded around $185?"</span>
+<span class="k">from</span> markets <span class="k">import</span> bars, chart
+
+nvda = bars(<span class="s">"NVDA"</span>, <span class="s">"1h"</span>, days=<span class="n">8</span>)
+level = <span class="n">185</span>
+
+chart.show(nvda)
+chart.hline(level, label=<span class="s">"$185"</span>)
+chart.mark(nvda.touches(level))</code></pre>
+    </div>
+    <div class="bench-out">
+      <div class="bench-bar"><img src="assets/icons/markets-logomark.svg" alt=""><strong>Ran on <span class="sl"></span>markets</strong><span>sandbox · 0.4s</span></div>
+      <div id="bench-plot"></div>
+      <ul class="bench-rules"><li>Reads prices</li><li>Draws on the chart</li><li class="no">No orders</li><li class="no">No internet</li><li class="no">No export</li></ul>
+    </div>
+  </div>
+  <div class="steps">
+    <div><b>1</b><h3>Your agent writes a script</h3><p>You ask in plain English. Your agent turns it into a short Python script and sends it in, the same as typing it in our editor.</p></div>
+    <div><b>2</b><h3><span class="sl"></span>markets runs it</h3><p>The script runs in a sandbox on our servers, next to the data. It can read prices and draw. It can’t place orders, reach the internet or export data.</p></div>
+    <div><b>3</b><h3>You get a chart</h3><p><span class="sl"></span>markets draws the result on your chart, and your agent gets a link to it.</p></div>
+  </div>
+  <p class="notrain"><strong>No training on market data.</strong> <span class="sl"></span>markets doesn’t train AI models on market data, and doesn’t share it with anyone to train theirs.</p>
+</section>
+
+<section class="block wrap" id="waitlist">
+  <div class="head">
+    <h2>Join the waitlist.</h2>
+    <p>We’re opening <span class="sl"></span>markets to a small group of traders first. Leave your email and we’ll write when it’s your turn.</p>
+  </div>
+  <!-- Not wired yet: connect this form to the waitlist backend before launch. -->
+  <form class="waitform" id="waitform" novalidate>
+    <label class="vh" for="wl-email">Email</label>
+    <input id="wl-email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+    <button class="button" type="submit">Join waitlist <img src="assets/icons/arrow-up-right.svg" alt=""></button>
+  </form>
+  <p class="waitnote">We’ll only use your email to tell you about <span class="sl"></span>markets. See our <a href="privacy.html">Privacy Policy</a>.</p>
+</section>
+</main>
+
+<footer><div class="wrap">
+  <h4>Important information</h4>
+  <p>/markets does not train AI models on market data. AI agents are only an input channel: they send Python scripts, which /markets checks and runs in a sandbox on its own servers. Scripts can read data and draw on charts. They cannot place orders, reach the internet or export data.</p>
+  <p>Market data is delayed by at least 15 minutes. Charts and prices are shown only on /markets; your agent receives a link to the chart, not prices.</p>
+  <p>/markets is a charting and analytics application, not a financial adviser. It does not give investment advice or recommendations, show returns, place trades or offer virtual trading, contests or games. /markets is not registered with SEBI as an investment adviser or research analyst. Trading involves risk, including loss of capital. Data, calculations and alerts may contain errors or arrive late.</p>
+  <p>Conversations, charts, prices and notifications on this page are illustrative and use sample data. © 2026 Certus Innovations Pvt Ltd · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a></p>
+</div></footer>
+
+<script>
+const NS="http://www.w3.org/2000/svg";
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function txt(p,x,y,s,a={}){const t=el("text",Object.assign({x,y},a),p);t.textContent=s;return t}
+function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function makeBars(points,n,seed,noise){
+  const r=rng(seed),out=[];let prev=points[0][1];
+  for(let i=0;i<n;i++){
+    const t=i/(n-1);let k=0;while(k<points.length-2&&t>points[k+1][0])k++;
+    const [t0,v0]=points[k],[t1,v1]=points[k+1],target=v0+(v1-v0)*((t-t0)/(t1-t0));
+    const o=prev,c=target+(r()-.5)*noise*2;
+    out.push({o,c,h:Math.max(o,c)+r()*noise*.9,l:Math.min(o,c)-r()*noise*.9,v:.35+r()*.65});prev=c;
+  }
+  return out;
+}
+// one marker per visit to the level (consecutive bars count once)
+function touches(bars,L,gap=4){const out=[];let lastHit=-99;bars.forEach((b,i)=>{if(b.l<=L&&b.h>=L){if(i-lastHit>gap)out.push(i);lastHit=i}});return out}
+function candles(g,bars,X,Y,bw){bars.forEach((b,i)=>{const col=b.c>=b.o?"var(--up)":"var(--down)";
+  el("line",{x1:X(i),x2:X(i),y1:Y(b.h),y2:Y(b.l),stroke:col},g);
+  el("rect",{x:X(i)-bw/2,y:Y(Math.max(b.o,b.c)),width:bw,height:Math.max(1,Math.abs(Y(b.o)-Y(b.c))),fill:col,rx:.5},g)})}
+
+// ---- NVDA 1H, 8 sessions, level $185 ----
+const LV=185, DAYS=["3 Nov","4 Nov","5 Nov","6 Nov","7 Nov","10 Nov","11 Nov","12 Nov"], PER=7;
+const NB=makeBars([[0,180.4],[.1,183.2],[.16,185.3],[.24,182.4],[.38,188.8],[.5,184.7],[.6,189.6],[.7,191.8],[.81,184.8],[.9,190.4],[1,192.6]],DAYS.length*PER,21,.95);
+const TOUCH=touches(NB,LV), last=NB[NB.length-1], prevC=NB[NB.length-2].c;
+const usd=v=>"$"+v.toFixed(2);
+document.getElementById("ohlc").innerHTML=`<span>O <b>${last.o.toFixed(2)}</b></span><span>H <b>${last.h.toFixed(2)}</b></span><span>L <b>${last.l.toFixed(2)}</b></span><span>C <b>${last.c.toFixed(2)}</b></span><span class="src">Sample data · 15 min delayed</span>`;
+document.getElementById("log-touches").textContent=`marked ${TOUCH.length} touches of $185`;
+
+function nvdaChart(box,{H,padR,small}){
+  const W=Math.max(240,box.clientWidth);box.innerHTML="";
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":`NVIDIA 1-hour chart with a level at $185, touched ${TOUCH.length} times.`},box);
+  const axisH=small?16:22,volH=small?0:H*.12,top=small?8:12,bot=H-axisH-volH-(small?4:8);
+  const n=NB.length,step=(W-padR)/n,X=i=>step*(i+.5);
+  const lo=Math.min(...NB.map(b=>b.l))-.6,hi=Math.max(...NB.map(b=>b.h))+.6,Y=v=>top+(hi-v)/(hi-lo)*(bot-top);
+  const gs=small?4:2;
+  for(let v=Math.ceil(lo/gs)*gs;v<hi;v+=gs){el("line",{x1:0,x2:W-padR,y1:Y(v),y2:Y(v),stroke:"#f0f1ea"},svg);
+    if(Math.abs(Y(v)-Y(LV))>16&&Math.abs(Y(v)-Y(last.c))>16)txt(svg,W-padR+6,Y(v)+4,v)}
+  DAYS.forEach((d,k)=>{const i=k*PER;el("line",{x1:X(i)-step/2,x2:X(i)-step/2,y1:top,y2:bot+volH,stroke:"#f5f6f0"},svg);
+    if(!small&&(W>620||k%2===0))txt(svg,X(i)-step/2+4,H-6,d);if(small&&k%3===0)txt(svg,X(i)-step/2+2,H-4,d)});
+  if(volH)NB.forEach((b,i)=>el("rect",{x:X(i)-step*.32,y:bot+8+volH-b.v*volH,width:step*.64,height:b.v*volH,fill:b.c>=b.o?"rgb(63 143 107 / .18)":"rgb(207 90 75 / .18)"},svg));
+  candles(svg,NB,X,Y,Math.max(1.6,step*.6));
+  // last price tag
+  el("rect",{x:W-padR+2,y:Y(last.c)-9,width:padR-4,height:18,rx:4,fill:last.c>=prevC?"var(--up)":"var(--down)"},svg);
+  txt(svg,W-padR+6,Y(last.c)+4,last.c.toFixed(2),{style:"fill:#fff"});
+  // what the agent drew
+  const g=el("g",{class:"agentdraw"},svg);
+  el("line",{x1:0,x2:W-padR,y1:Y(LV),y2:Y(LV),stroke:"var(--yellow-ink)","stroke-width":small?1.3:1.6},g);
+  el("rect",{x:W-padR+2,y:Y(LV)-9,width:padR-4,height:18,rx:4,fill:"var(--yellow)"},g);
+  txt(g,W-padR+6,Y(LV)+4,"185.00",{style:"fill:var(--ink)"});
+  if(!small){el("rect",{x:6,y:Y(LV)-24,width:70,height:18,rx:4,fill:"#fdf6d3",stroke:"#efd76a"},g);txt(g,12,Y(LV)-11,"✦ AGENT",{style:"fill:var(--ink)"})}
+  TOUCH.forEach(i=>el("circle",{cx:X(i),cy:Y(LV),r:small?5:8,fill:"rgb(246 214 77 / .25)",stroke:"var(--yellow-ink)","stroke-width":small?1.3:1.8},g));
+}
+
+// ---- small example charts ----
+function mini(kind){
+  const box=document.querySelector(`[data-mini="${kind}"]`),W=Math.max(240,box.clientWidth),H=150;
+  box.innerHTML="";const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img"},box);
+  if(kind==="oi"){
+    const strikes=[25800,25900,26000,26100,26200,26300,26400,26500],calls=[18,24,41,52,63,88,71,124],puts=[96,108,131,84,61,38,26,17];
+    const max=140,base=H-20,gw=W/strikes.length,bw=gw*.3,Y=v=>v/max*(H-36);
+    strikes.forEach((s,i)=>{const x=gw*i+gw/2;
+      el("rect",{x:x-bw-1,y:base-Y(puts[i]),width:bw,height:Y(puts[i]),fill:"#cfd6c4",rx:1.5},svg);
+      el("rect",{x:x+1,y:base-Y(calls[i]),width:bw,height:Y(calls[i]),fill:i===7?"var(--yellow)":"#e7d9a8",stroke:i===7?"var(--yellow-ink)":"none",rx:1.5},svg);
+      if(i%2===1||W>360)txt(svg,x,H-5,String(s).slice(0,2)+","+String(s).slice(2),{"text-anchor":"middle"})});
+    txt(svg,gw*7.5+1+bw/2-2,base-Y(124)-6,"Call OI",{"text-anchor":"end",style:"fill:var(--ink)"});
+    el("rect",{x:6,y:6,width:8,height:8,fill:"#cfd6c4"},svg);txt(svg,18,14,"Puts");el("rect",{x:54,y:6,width:8,height:8,fill:"#e7d9a8"},svg);txt(svg,66,14,"Calls");
+  }
+  if(kind==="level"){
+    const B=makeBars([[0,1406],[.15,1413],[.3,1398.5],[.48,1421],[.66,1397.5],[.8,1414],[1,1428]],34,3,2.6),L=1400;
+    const lo=Math.min(...B.map(b=>b.l))-3,hi=Math.max(...B.map(b=>b.h))+3,padR=44,step=(W-padR)/B.length,X=i=>step*(i+.5),Y=v=>8+(hi-v)/(hi-lo)*(H-20);
+    el("line",{x1:0,x2:W-padR,y1:Y(L),y2:Y(L),stroke:"var(--ink)","stroke-dasharray":"5 4"},svg);
+    candles(svg,B,X,Y,Math.max(2,step*.55));
+    touches(B,L).forEach(i=>el("circle",{cx:X(i),cy:Y(L),r:6,fill:"rgb(246 214 77 / .3)",stroke:"var(--yellow-ink)","stroke-width":1.5},svg));
+    el("rect",{x:W-padR+2,y:Y(L)-9,width:padR-2,height:18,rx:4,fill:"var(--ink)"},svg);txt(svg,W-padR+6,Y(L)+4,"1,400",{style:"fill:#fff"});
+  }
+  if(kind==="rsi"){
+    const B=makeBars([[0,1540],[.4,1490],[.65,1468],[1,1512]],40,5,6),r=[];let g=0,l=0;
+    for(let i=1;i<B.length;i++){const d=B[i].c-B[i-1].c;g=(g*13+Math.max(d,0))/14;l=(l*13+Math.max(-d,0))/14;r.push(i<6?null:100-100/(1+g/(l||1e-9)))}
+    const padR=26,split=H*.55,step=(W-padR)/B.length,X=i=>step*(i+.5);
+    const lo=Math.min(...B.map(b=>b.l)),hi=Math.max(...B.map(b=>b.h)),Y=v=>6+(hi-v)/(hi-lo)*(split-14);
+    candles(svg,B,X,Y,Math.max(2,step*.55));
+    const Ys=v=>split+6+(100-v)/100*(H-split-12);
+    el("line",{x1:0,x2:W-padR,y1:split,y2:split,stroke:"var(--line)"},svg);
+    [70,30].forEach(v=>{el("line",{x1:0,x2:W-padR,y1:Ys(v),y2:Ys(v),stroke:"#b9bdb2","stroke-dasharray":"2 3"},svg);txt(svg,W-padR+4,Ys(v)+3,v)});
+    el("polyline",{points:r.map((v,i)=>v==null?null:X(i+1)+","+Ys(v)).filter(Boolean).join(" "),fill:"none",stroke:"var(--ink)","stroke-width":1.5},svg);
+    txt(svg,4,split+14,"RSI 14",{style:"fill:var(--ink)"});
+  }
+}
+
+function drawAll(){
+  const wide=innerWidth>680;
+  nvdaChart(document.getElementById("main-plot"),{H:wide?470:300,padR:wide?62:52,small:false});
+  nvdaChart(document.getElementById("bench-plot"),{H:wide?300:220,padR:52,small:!wide});
+  ["oi","level","rsi"].forEach(mini);
+}
+const app=document.getElementById("app");
+if(!matchMedia("(prefers-reduced-motion: reduce)").matches)app.classList.add("armed");
+drawAll();
+let rw;addEventListener("resize",()=>{clearTimeout(rw);rw=setTimeout(drawAll,80)});
+const play=()=>app.classList.add("play");
+
+// search bar: type example questions in turn
+(()=>{const el=document.getElementById("typed");if(!el||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const Q=["How has NVIDIA traded around $185 this month?","Where is call open interest building on Nifty this expiry?","Mark ₹1,400 on Reliance and show each touch this week.","Add a 14-day RSI under my Infosys chart."];
+  let qi=0,ci=Q[0].length,del=false;
+  (function tick(){const q=Q[qi];
+    if(!del&&ci<q.length){ci++;el.textContent=q.slice(0,ci);return setTimeout(tick,38)}
+    if(!del){del=true;return setTimeout(tick,2600)}
+    if(ci>0){ci--;el.textContent=q.slice(0,ci);return setTimeout(tick,14)}
+    del=false;qi=(qi+1)%Q.length;setTimeout(tick,300)})();
+})();
+document.getElementById("waitform")?.addEventListener("submit",e=>e.preventDefault());
+if("IntersectionObserver" in window){const io=new IntersectionObserver(e=>{if(e.some(x=>x.isIntersecting)){play();io.disconnect()}},{threshold:.05});io.observe(app)}else play();
+</script>
+<script src="tool-studio.js?v=8" defer></script>
 </body>
 </html>

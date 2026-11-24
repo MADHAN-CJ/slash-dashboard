@@ -157,6 +157,13 @@ section.block{padding:112px 0 0}
 .waitform input{flex:1;min-width:0;min-height:50px;padding:0 20px;border:1px solid var(--line);border-radius:999px;font:400 16px var(--sans);color:var(--ink);background:#fff}
 .waitform input:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .waitform .button{min-height:50px;border:0;cursor:pointer}
+.waitform .button:disabled{opacity:.6;cursor:progress}
+.waitform.is-done input{display:none}
+.waitform.is-done .button{display:none}
+.waitstatus{min-height:1.4em;margin:14px 0 0;text-align:center;font-size:15px;color:var(--muted)}
+.waitstatus[data-kind="ok"]{color:var(--up)}
+.waitstatus[data-kind="error"]{color:var(--down)}
+.waitstatus:empty{display:none}
 .waitnote{text-align:center;color:var(--muted);font-size:14px;margin:14px 0 0}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
@@ -409,12 +416,15 @@ chart.mark(nvda.touches(level))</code></pre>
     <h2>Join the waitlist.</h2>
     <p>We’re opening <span class="sl"></span>markets to a small group of traders first. Leave your email and we’ll write when it’s your turn.</p>
   </div>
-  <!-- Not wired yet: connect this form to the waitlist backend before launch. -->
-  <form class="waitform" id="waitform" novalidate>
+  <!-- Submissions go to a Google Sheet via Apps Script (waitlist.js + waitlist-apps-script.gs). Set data-endpoint to the deployed /exec URL. -->
+  <form class="waitform" id="waitform" novalidate aria-describedby="wl-status"
+        data-endpoint="https://script.google.com/macros/s/AKfycbwbzOVJ2Il2WK4IVMESw-Pkx9srdMUTOFLqDoQmMAhfVmYCOcGPVJlvDRgoeHL-TL_q/exec" data-source="website">
     <label class="vh" for="wl-email">Email</label>
     <input id="wl-email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+    <input class="vh" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
     <button class="button" type="submit">Join waitlist <img src="assets/icons/arrow-up-right.svg" alt=""></button>
   </form>
+  <p class="waitstatus" id="wl-status" role="status" aria-live="polite"></p>
   <p class="waitnote">We’ll only use your email to tell you about <span class="sl"></span>markets. See our <a href="privacy.html">Privacy Policy</a>.</p>
 </section>
 </main>
@@ -539,9 +549,9 @@ const play=()=>app.classList.add("play");
     if(ci>0){ci--;el.textContent=q.slice(0,ci);return setTimeout(tick,14)}
     del=false;qi=(qi+1)%Q.length;setTimeout(tick,300)})();
 })();
-document.getElementById("waitform")?.addEventListener("submit",e=>e.preventDefault());
 if("IntersectionObserver" in window){const io=new IntersectionObserver(e=>{if(e.some(x=>x.isIntersecting)){play();io.disconnect()}},{threshold:.05});io.observe(app)}else play();
 </script>
 <script src="tool-studio.js?v=8" defer></script>
+<script type="module" src="waitlist.js?v=1"></script>
 </body>
 </html>

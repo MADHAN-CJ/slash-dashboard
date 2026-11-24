@@ -19,3 +19,7 @@ Read [AGENTS.md](AGENTS.md) and [BRAND_GUIDELINES.md](BRAND_GUIDELINES.md) first
 The homepage includes illustrative examples from India, the US, Japan, the UK and Hong Kong. The setup section links to the existing /markets account app. Savings and test details open in native popups, and the footer explains the comparison assumptions and limitations.
 
 Only active website dependencies are included. Archives, other concepts, generation prompts, research, credentials and old Git history are excluded. Third-party notices are included beside the assets and in licenses/. No blanket open-source license is added to /markets branding, copy or artwork.
+
+## Waitlist → Google Sheet
+
+The waitlist form (`#waitform` in index.html) posts to a Google Apps Script web app bound to a Google Sheet. Front end: `waitlist.js` (framework-agnostic ES module; Astro imports the same file). Backend: `waitlist-apps-script.gs` (paste into the Sheet's Apps Script editor, deploy as Web app, access "Anyone"). Put the deployed `/exec` URL in the form's `data-endpoint`. Honeypot field `company`, duplicates are de-duped server side, columns: timestamp, email, source, page, referrer, user_agent.

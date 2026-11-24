@@ -1,0 +1,24 @@
+# Netlify config for the /markets static site.
+# No build step: publish the repo root as-is (mirrors the previous Vercel setup).
+
+[build]
+  publish = "."
+  command = ""
+
+# Keep URLs byte-identical to the Vercel deployment: no "Pretty URLs" rewriting,
+# no asset minification. Links in the HTML point at *.html files directly.
+[build.processing]
+  skip_processing = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Fonts, artwork and video are content-hashed by name only in a few cases, so keep
+# a conservative cache policy for assets and let HTML revalidate on every request.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"

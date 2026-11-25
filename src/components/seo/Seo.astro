@@ -1,0 +1,48 @@
+---
+import { PUBLIC_GA4_ID, PUBLIC_GSC_VERIFICATION, PUBLIC_BING_VERIFICATION } from "astro:env/client";
+import { SHOW_DRAFTS } from "astro:env/server";
+import { SITE } from "../../config/site";
+import { serialize } from "../../lib/graph";
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  graph: unknown;
+  noindex?: boolean;
+  ogType?: "website" | "article";
+  ogImage?: string;
+}
+const { title, description, path, graph, noindex = false, ogType = "website", ogImage = SITE.defaultOgImage } = Astro.props;
+const canonical = new URL(path, Astro.site).href;
+const robots = noindex || SHOW_DRAFTS ? "noindex, nofollow" : "index, follow, max-image-preview:large";
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+{!noindex && <link rel="canonical" href={canonical} />}
+<meta name="robots" content={robots} />
+<link rel="icon" href={SITE.logo} type="image/svg+xml" />
+<meta property="og:site_name" content={SITE.name} />
+<meta property="og:locale" content={SITE.ogLocale} />
+<meta property="og:type" content={ogType} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+<meta name="twitter:card" content="summary_large_image" />
+{PUBLIC_GSC_VERIFICATION && <meta name="google-site-verification" content={PUBLIC_GSC_VERIFICATION} />}
+{PUBLIC_BING_VERIFICATION && <meta name="msvalidate.01" content={PUBLIC_BING_VERIFICATION} />}
+{/* Phase 2 adds /rss.xml and, with it: <link rel="alternate" type="application/rss+xml" title="/markets guides" href="/rss.xml" /> */}
+<script type="application/ld+json" is:inline set:html={serialize(graph)} />
+{PUBLIC_GA4_ID && <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${PUBLIC_GA4_ID}`}></script>}
+{PUBLIC_GA4_ID && (
+  <script is:inline define:vars={{ id: PUBLIC_GA4_ID }}>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag("js", new Date());
+    gtag("config", id);
+    const ai = /(chatgpt\.com|chat\.openai\.com|perplexity\.ai|claude\.ai|gemini\.google\.com|copilot\.microsoft\.com)/;
+    const ref = document.referrer;
+    if (ai.test(ref)) gtag("event", "ai_referral", { ai_source: new URL(ref).hostname });
+  </script>
+)}

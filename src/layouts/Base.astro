@@ -1,0 +1,33 @@
+---
+import { Font } from "astro:assets";
+import Seo from "../components/seo/Seo.astro";
+import { PAGES } from "../data/pages";
+type SeoProps = import("astro/types").ComponentProps<typeof Seo>;
+interface Props { seo: SeoProps }
+const { seo } = Astro.props;
+// Footer links come from the registry. /disclaimer, /privacy and /terms appear as soon as they are live.
+const footer = PAGES.filter((p) => p.status === "live" && (p.nav === "footer" || p.nav === "both"));
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <Font cssVariable="--font-serif" preload />
+    <Font cssVariable="--font-sans" preload />
+    <Seo {...seo} />
+  </head>
+  <body>
+    <main><slot /></main>
+    <footer>
+      <nav aria-label="Footer">
+        {footer.map((p) => <a href={p.path}>{p.h1}</a>)}
+      </nav>
+    </footer>
+  </body>
+</html>
+<style is:global>
+  body { margin: 0; font-family: var(--font-sans); }
+  h1, h2 { font-family: var(--font-serif); font-weight: 500; }
+  pre[data-language="prompt"] { background: #f6d64d; }
+</style>

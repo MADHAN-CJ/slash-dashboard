@@ -15,6 +15,13 @@
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
+// Google Analytics events. dataLayer exists only where Seo.astro loads GA4 (production).
+// Seo.astro's gtag() is scoped to its own script, so push here the way gtag() does:
+// gtag.js reads an Arguments object, not an array.
+function track() {
+  if (typeof window !== "undefined" && Array.isArray(window.dataLayer)) window.dataLayer.push(arguments);
+}
+
 export async function submitWaitlist(email, { endpoint, source = "website", honeypot = "" } = {}) {
   if (!endpoint) throw new Error("waitlist endpoint not configured");
   const payload = {
@@ -76,6 +83,7 @@ export function bindWaitlistForm(form, opts = {}) {
       form.classList.add("is-done");
       say(r.duplicate ? "You’re already on the list — we’ll be in touch." : "You’re on the list. We’ll write when it’s your turn.", "ok");
       form.reset();
+      track("event", "sign_up", { method: "waitlist" });
     } catch (err) {
       form.classList.remove("is-busy");
       say("Something went wrong. Please try again, or email hello@slash.markets.", "error");

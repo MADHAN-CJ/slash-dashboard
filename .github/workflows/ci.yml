@@ -1,0 +1,38 @@
+# CI, first version (Phase 1): type check, tests, then the production and deploy-preview builds,
+# each followed by the gates. Later phases add Prettier, ESLint, Playwright, axe and Lighthouse CI
+# (.claude/rules/quality-gates.md).
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Check, test and build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Type check
+        run: npm run check
+      - name: Unit and gate tests
+        run: npm run test
+      - name: Production build and gates
+        run: npm run build
+      - name: Deploy-preview build and gates (drafts shown, noindex)
+        run: npm run build
+        env:
+          SHOW_DRAFTS: "true"

@@ -1,13 +1,21 @@
+---
+// The homepage, ported unchanged from index.html (Phase 1). Only <head> metadata and the
+// legal links changed. Legacy CSS and JS stay inline (is:inline) so Astro neither scopes nor bundles them.
+// Sunny's new Home replaces this file in Phase 3.
+import Seo from "../components/seo/Seo.astro";
+import { page } from "../data/pages";
+import { graph, webPage, softwareApplication } from "../lib/graph";
+const p = page("/");
+const g = graph(webPage({ path: p.path, name: p.title, description: p.description }), softwareApplication());
+---
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>/markets · Search the market like the web</title>
-<meta name="description" content="/markets is a charting platform you can search. Ask about a stock, a level or an indicator, here or from your AI agent, and get a chart back.">
-<link rel="icon" href="assets/icons/markets-logomark.svg" type="image/svg+xml">
-<link rel="stylesheet" href="tool-studio.css?v=15">
-<style>
+<Seo title={p.title} description={p.description} path={p.path} graph={g} />
+<link rel="stylesheet" href="/tool-studio.css?v=15">
+<style is:inline>
 @font-face{font-family:"Departure Mono";src:url("assets/fonts/departure-mono.woff2") format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"Onest";src:url("assets/fonts/onest-latin.woff2") format("woff2");font-weight:400 600;font-display:swap}
 @font-face{font-family:"Libre Baskerville";src:url("assets/fonts/libre-baskerville-500-latin.woff2") format("woff2");font-weight:500;font-display:swap}
@@ -232,17 +240,8 @@ footer a,.waitnote a{color:var(--ink);text-underline-offset:2px}
 }
 @media (max-width:360px){.appbar .title{display:none}.tf:nth-of-type(1),.tf:nth-of-type(5){display:none}}
 </style>
-<meta property="og:title" content="markets" />
-<meta property="og:description" content="A charting platform that allows you to search for stocks, levels, and indicators by asking your AI agent to generate charts." />
-<meta property="og:url" content="https://lucid-marvel-pyk4.here.now/" />
-<meta property="og:type" content="website" />
-<meta property="og:image" content="https://here.now/og/lucid-marvel-pyk4.jpg" />
-<meta property="og:image:width" content="1280" />
-<meta property="og:image:height" content="720" />
-<meta name="twitter:image" content="https://here.now/og/lucid-marvel-pyk4.jpg" />
-<meta name="twitter:card" content="summary_large_image" /></head>
+</head>
 <body>
-
 <nav><div class="wrap">
   <a class="brand" href="#"><img src="assets/icons/markets-logomark-mono.svg" alt=""><span><span class="sl"></span>markets</span></a>
   <div class="navlinks"><a href="#how">How it works</a><a href="#tool-studio">Build your tools</a></div>
@@ -425,7 +424,7 @@ chart.mark(nvda.touches(level))</code></pre>
     <button class="button" type="submit">Join waitlist <img src="assets/icons/arrow-up-right.svg" alt=""></button>
   </form>
   <p class="waitstatus" id="wl-status" role="status" aria-live="polite"></p>
-  <p class="waitnote">We’ll only use your email to tell you about <span class="sl"></span>markets. See our <a href="privacy.html">Privacy Policy</a>.</p>
+  <p class="waitnote">We’ll only use your email to tell you about <span class="sl"></span>markets. See our <a href="/privacy">Privacy Policy</a>.</p>
 </section>
 </main>
 
@@ -434,10 +433,10 @@ chart.mark(nvda.touches(level))</code></pre>
   <p>/markets does not train AI models on market data. AI agents are only an input channel: they send Python scripts, which /markets checks and runs in a sandbox on its own servers. Scripts can read data and draw on charts. They cannot place orders, reach the internet or export data.</p>
   <p>Market data is delayed by at least 15 minutes. Charts and prices are shown only on /markets; your agent receives a link to the chart, not prices.</p>
   <p>/markets is a charting and analytics application, not a financial adviser. It does not give investment advice or recommendations, show returns, place trades or offer virtual trading, contests or games. /markets is not registered with SEBI as an investment adviser or research analyst. Trading involves risk, including loss of capital. Data, calculations and alerts may contain errors or arrive late.</p>
-  <p>Conversations, charts, prices and notifications on this page are illustrative and use sample data. © 2026 Certus Innovations Pvt Ltd · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a></p>
+  <p>Conversations, charts, prices and notifications on this page are illustrative and use sample data. © 2026 Certus Innovations Pvt Ltd · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Use</a></p>
 </div></footer>
 
-<script>
+<script is:inline>
 const NS="http://www.w3.org/2000/svg";
 function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
 function txt(p,x,y,s,a={}){const t=el("text",Object.assign({x,y},a),p);t.textContent=s;return t}
@@ -551,7 +550,7 @@ const play=()=>app.classList.add("play");
 })();
 if("IntersectionObserver" in window){const io=new IntersectionObserver(e=>{if(e.some(x=>x.isIntersecting)){play();io.disconnect()}},{threshold:.05});io.observe(app)}else play();
 </script>
-<script src="tool-studio.js?v=8" defer></script>
-<script type="module" src="waitlist.js?v=1"></script>
+<script is:inline src="/tool-studio.js?v=8" defer></script>
+<script is:inline type="module" src="/waitlist.js?v=1"></script>
 </body>
 </html>

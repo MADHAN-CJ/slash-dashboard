@@ -1,0 +1,18 @@
+{
+  "description": "/markets gives your AI live Indian market data, option chain analytics, charts and a Python sandbox, so it can answer any NSE, BSE or MCX question from real data and watch the market for you.",
+  "descriptionLocked": false,
+  "access": { "status": "waitlist", "price": "Free for now" },
+  "data": { "delayMinutes": 15, "exchanges": ["NSE", "BSE", "MCX"] },
+  "integrations": [
+    { "id": "claude", "name": "Claude", "status": "live" },
+    { "id": "chatgpt", "name": "ChatGPT", "status": "coming" },
+    { "id": "kite", "name": "Kite", "status": "coming" },
+    { "id": "whatsapp", "name": "WhatsApp", "status": "coming" }
+  ],
+  "company": { "legalName": null, "emails": { "hello": "hello@slash.markets", "privacy": "privacy@slash.markets" } },
+  "founders": [
+    { "id": "anil", "name": "Anil Dukkipatty", "sameAs": [] },
+    { "id": "raunaq", "name": "Raunaq Vaisoha", "sameAs": [] }
+  ],
+  "sameAs": []
+}

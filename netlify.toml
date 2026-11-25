@@ -1,24 +1,42 @@
-# Netlify config for the /markets static site.
-# No build step: publish the repo root as-is (mirrors the previous Vercel setup).
-
 [build]
-  publish = "."
-  command = ""
+  command = "npm run build"
+  publish = "dist"
 
-# Keep URLs byte-identical to the Vercel deployment: no "Pretty URLs" rewriting,
-# no asset minification. Links in the HTML point at *.html files directly.
-[build.processing]
-  skip_processing = true
+# Deploy previews show drafts (with noindex). Production never does.
+[context.deploy-preview.environment]
+  SHOW_DRAFTS = "true"
+
+# Analytics and verification IDs: production only. They are public values.
+# [context.production.environment]
+#   PUBLIC_GA4_ID = "G-XXXXXXXXXX"
+#   PUBLIC_GSC_VERIFICATION = ""
+#   PUBLIC_BING_VERIFICATION = ""
 
 [[headers]]
   for = "/*"
   [headers.values]
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    X-Frame-Options = "DENY"
 
-# Fonts, artwork and video are content-hashed by name only in a few cases, so keep
-# a conservative cache policy for assets and let HTML revalidate on every request.
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Legacy homepage files have no hash in their names, so keep a short cache.
 [[headers]]
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/brand/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/brand-guidelines/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"

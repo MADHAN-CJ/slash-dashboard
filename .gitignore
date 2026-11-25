@@ -1,9 +1,15 @@
 .DS_Store
-.env
-.env.*
+.env*
 .herenow/
 node_modules/
 *.log
+
+# Astro build output and generated types
+dist/
+.astro/
+
+# Personal Claude Code settings
+.claude/settings.local.json
 
 # Local Netlify folder
 .netlify

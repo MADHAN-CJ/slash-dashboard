@@ -1,0 +1,7 @@
+# 2026-11-25: moved to Astro. Old .html URLs end on the clean URLs.
+# Verify on the first deploy preview: /privacy must return 200 (no loop) and
+# /privacy.html must return 301 to /privacy. If /privacy loops, delete the two
+# .html rules: Netlify's Pretty URLs handle them and the canonical covers the rest.
+/privacy.html   /privacy   301!
+/terms.html     /terms     301!
+/index.html     /          301!

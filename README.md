@@ -1,25 +1,63 @@
-# /markets Alliance presentation website
+# slash.markets website
 
-The current landing page, visual brand guidelines and Pixel study. Static HTML, CSS and JavaScript, with self-hosted fonts, icons, artwork and video. No npm installation or build step.
+The marketing website for /markets at https://slash.markets: an Astro static site on Netlify. Every page is server-rendered HTML. The product itself runs at https://app.slash.markets and is not in this repo.
 
-## Run locally
+**Read [CLAUDE.md](CLAUDE.md) before changing anything.** It holds the rules for people and AI agents (`AGENTS.md` links to it), and `.claude/rules/` has the detail for each topic. What to build next is in [docs/site-build-plan.md](docs/site-build-plan.md).
 
-```sh
-python3 -m http.server 8000 --bind 127.0.0.1
+## Run it
+
+You need Node 24 (`.nvmrc`). Then:
+
+| Command | What it does |
+|---|---|
+| `npm install` | Install the pinned dependencies |
+| `npm run dev` | Local dev server at http://localhost:4321 |
+| `npm run build` | Build to `dist/`, then run every gate. Fails on any error |
+| `SHOW_DRAFTS=true npm run build` | Build the way deploy previews do: drafts shown, every page `noindex` |
+| `npm run preview` | Serve the built `dist/` |
+| `npm run check` | Type check (`astro check`) |
+| `npm run test` | Unit tests, including the gate tests |
+
+Browser checks (`npm run test:e2e`) arrive in a later phase.
+
+## Where things live
+
+```
+src/pages/            routes: the homepage, /privacy, /terms, /404, sitemap.xml, robots.txt, llms.txt
+src/data/pages.ts     the route registry: every page's URL, title, description, H1, status and sign-off
+src/data/facts.json   product facts (data delay, markets, integrations): never type these into a page
+src/config/site.ts    the domain, brand strings and site-wide IDs
+src/content/legal/    the privacy and terms text, in Markdown
+src/components/seo/   Seo.astro: every head tag, structured data and analytics
+src/lib/              graph.ts (JSON-LD), facts.ts, content.ts
+public/               files served as-is: the homepage's assets and scripts, /brand/ and /brand-guidelines/
+scripts/gates/        build gates that run after every build, with their tests
+design/legacy-v1/     the previous homepage's files, kept for reference and not deployed
+ops/                  the waitlist's Google Apps Script backend
+docs/                 the site build plan and the starter code
 ```
 
-- Homepage: http://127.0.0.1:8000/
-- Brand guidelines: http://127.0.0.1:8000/brand-guidelines/
-- Pixel study: http://127.0.0.1:8000/brand/
+The homepage (`src/pages/index.astro`) is the old static page ported unchanged. Its CSS and scripts stay inline until the new Home replaces it.
 
-## Make changes with AI
+## Gates and CI
 
-Read [AGENTS.md](AGENTS.md) and [BRAND_GUIDELINES.md](BRAND_GUIDELINES.md) first. The visual guidelines include exact values, live components, approved imagery, motion rules, a copyable AI brief and a source-file map. Preserve the homepage's style.
+`npm run build` runs `scripts/gates/run.mjs` on `dist/` after `astro build`, so a rule that breaks fails the build locally, in CI and on Netlify alike. The gates check URLs and links, head tags, structured data, the sitemap, em dashes in `src/` and banned compliance phrases. See `.claude/rules/quality-gates.md`.
 
-The homepage includes illustrative examples from India, the US, Japan, the UK and Hong Kong. The setup section links to the existing /markets account app. Savings and test details open in native popups, and the footer explains the comparison assumptions and limitations.
+GitHub Actions (`.github/workflows/ci.yml`) runs the type check, the tests and both builds on every pull request.
 
-Only active website dependencies are included. Archives, other concepts, generation prompts, research, credentials and old Git history are excluded. Third-party notices are included beside the assets and in licenses/. No blanket open-source license is added to /markets branding, copy or artwork.
+## Deploys
 
-## Waitlist → Google Sheet
+Netlify builds `main` with `npm run build` and publishes `dist/`. Every pull request gets a deploy preview that shows drafts and sends `noindex`. Work on a branch and open a pull request; never push to `main`.
 
-The waitlist form (`#waitform` in index.html) posts to a Google Apps Script web app bound to a Google Sheet. Front end: `waitlist.js` (framework-agnostic ES module; Astro imports the same file). Backend: `waitlist-apps-script.gs` (paste into the Sheet's Apps Script editor, deploy as Web app, access "Anyone"). Put the deployed `/exec` URL in the form's `data-endpoint`. Honeypot field `company`, duplicates are de-duped server side, columns: timestamp, email, source, page, referrer, user_agent.
+## Waitlist to Google Sheet
+
+The waitlist form (`#waitform` on the homepage) posts to a Google Apps Script web app bound to a Google Sheet.
+
+- **Front end:** `public/waitlist.js`, a framework-free ES module. It also sends the Google Analytics `sign_up` event when a sign-up succeeds.
+- **Backend:** `ops/waitlist-apps-script.gs`. Paste it into the Sheet's Apps Script editor and deploy it as a web app with access for "Anyone".
+- **Endpoint:** the deployed `/exec` URL is in the form's `data-endpoint` (in `src/pages/index.astro`) and in `src/config/site.ts`.
+- **Storage:** a honeypot field (`company`) stops bots, and duplicates are removed on the server. Columns: timestamp, email, source, page, referrer, user_agent.
+
+## Licences
+
+Third-party licences are listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). No open-source licence covers the /markets brand, copy or artwork.

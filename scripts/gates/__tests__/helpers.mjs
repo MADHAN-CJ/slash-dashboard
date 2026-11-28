@@ -28,6 +28,17 @@ export const HOME = {
 };
 export const HOME_HTML = `<!doctype html><html lang="en"><head><title>Home · /markets</title></head><body><h1>Home</h1><a href="/example">Example page</a></body></html>`;
 
+// The facts the facts and compliance gates read (a cut-down src/data/facts.json).
+export const FACTS = {
+  description: "slash.markets gives your AI Indian market data for the gate tests, so it can answer questions from real data.",
+  data: { delayMinutes: 15, exchanges: ["NSE", "BSE", "MCX"] },
+  integrations: [
+    { id: "claude", name: "Claude", status: "live" },
+    { id: "chatgpt", name: "ChatGPT", status: "coming" },
+    { id: "kite", name: "Kite", status: "coming" },
+  ],
+};
+
 export const ctx = (over = {}) => ({
   site: SITE,
   showDrafts: false,
@@ -41,6 +52,10 @@ export const ctx = (over = {}) => ({
   src: [],
   styleExclude: [],
   allow: [],
+  entries: new Map(),
+  facts: FACTS,
+  brandNames: ["/markets"],
+  now: new Date("2026-11-28T12:00:00Z"),
   ...over,
 });
 

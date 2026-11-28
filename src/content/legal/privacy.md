@@ -1,10 +1,10 @@
 ---
 title: "Privacy Policy"
-description: "How /markets handles personal data collected on this website, in line with India's Digital Personal Data Protection Act, 2023."
+description: "How slash.markets handles personal data collected on this website, in line with India's Digital Personal Data Protection Act, 2023."
 lastUpdated: 2026-11-25
 ---
 
-/markets is operated by Certus Innovations Pvt Ltd (“we”, “us”). This policy explains how we handle personal data collected on this website, in line with India’s Digital Personal Data Protection Act, 2023.
+slash.markets is operated by Certus Innovations Pvt Ltd (“we”, “us”). This policy explains how we handle personal data collected on this website, in line with India’s Digital Personal Data Protection Act, 2023.
 
 ## What we collect
 
@@ -18,7 +18,7 @@ We use Google Analytics to see how people use this website. It records the pages
 
 ## Why we use it
 
-We use your email only to tell you about /markets, including when your access is ready. We use the page, referrer and browser details stored with it, and Google Analytics, to understand how people find and use this website. We do not sell your data, and we do not share it with anyone for their own marketing.
+We use your email only to tell you about slash.markets, including when your access is ready. We use the page, referrer and browser details stored with it, and Google Analytics, to understand how people find and use this website. We do not sell your data, and we do not share it with anyone for their own marketing.
 
 ## How long we keep it
 
@@ -30,7 +30,7 @@ You can withdraw your consent, ask to see, correct or delete your data, or raise
 
 ## Market data
 
-/markets does not train AI models on market data and does not share market data with anyone to train theirs.
+slash.markets does not train AI models on market data and does not share market data with anyone to train theirs.
 
 ## Changes
 

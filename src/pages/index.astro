@@ -1,10 +1,12 @@
 ---
-// The homepage, ported unchanged from index.html (Phase 1). Only <head> metadata and the
-// legal links changed. Legacy CSS and JS stay inline (is:inline) so Astro neither scopes nor bundles them.
+// The homepage, ported from index.html (Phase 1). Since then only <head> metadata, the legal links and the
+// name changed: the copy writes slash.markets (the rename pull request), and the Important information block
+// matches /disclaimer. Legacy CSS and JS stay inline (is:inline) so Astro neither scopes nor bundles them.
 // Sunny's new Home replaces this file in Phase 3.
 import Seo from "../components/seo/Seo.astro";
 import { navLabel, page } from "../data/pages";
 import { isBuilt } from "../lib/content";
+import { facts } from "../lib/facts";
 import { graph, webPage, softwareApplication } from "../lib/graph";
 const p = page("/");
 const g = graph(webPage({ path: p.path, name: p.title, description: p.description }), softwareApplication());
@@ -187,7 +189,7 @@ section.block{padding:112px 0 0}
 .steps p{margin:0;color:var(--muted);font-size:16px}
 .steps code{font:400 14px var(--mono);color:var(--ink)}
 .cta{text-align:center;margin-top:40px}
-/* how agents use /markets */
+/* how agents use slash.markets */
 .bench{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);border:1px solid #d4dccb;border-radius:18px;overflow:hidden;margin-bottom:20px;background:#fff}
 .bench-bar{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid #d4dccb;font-size:14px;color:var(--muted);background:#edf0e6}
 .bench-bar strong{color:var(--ink);font-weight:600}
@@ -247,7 +249,7 @@ footer a,.waitnote a{color:var(--ink);text-underline-offset:2px}
 </head>
 <body>
 <nav><div class="wrap">
-  <a class="brand" href="#"><img src="assets/icons/markets-logomark-mono.svg" alt=""><span><span class="sl"></span>markets</span></a>
+  <a class="brand" href="#"><img src="assets/icons/markets-logomark-mono.svg" alt="slash.markets"><span aria-hidden="true"><span class="sl"></span>markets</span></a>
   <div class="navlinks"><a href="#how">How it works</a><a href="#tool-studio">Build your tools</a></div>
   <a class="button" href="#waitlist">Join waitlist <img src="assets/icons/arrow-up-right.svg" alt=""></a>
 </div></nav>
@@ -267,7 +269,7 @@ footer a,.waitnote a{color:var(--ink);text-underline-offset:2px}
   <div class="app" id="app">
     <div class="appbar"><span class="dots"><i></i><i></i><i></i></span><span class="title">app.slash.markets</span><span class="delay"><span class="live"></span>15 min delayed</span></div>
     <div class="panes">
-      <div class="chartpane" aria-label="The /markets chart">
+      <div class="chartpane" aria-label="The slash.markets chart">
         <div class="tools">
           <span class="sym"><i>N</i>NVDA <small>· NVIDIA · Nasdaq</small></span>
           <span class="tf">5m</span><span class="tf">15m</span><span class="tf on">1H</span><span class="tf">4H</span><span class="tf">1D</span>
@@ -284,24 +286,24 @@ footer a,.waitnote a{color:var(--ink);text-underline-offset:2px}
         <div class="log" aria-label="Activity">
           <div class="h">Activity</div>
           <div class="seq" style="--d:.4s">10:02:04 &nbsp;agent &nbsp;&nbsp;&nbsp;<span>asked how NVDA traded around $185 this month</span></div>
-          <div class="seq" style="--d:1.4s">10:02:05 &nbsp;/markets <span>drew a level at $185 on NVDA · 1H</span></div>
-          <div class="seq" style="--d:2s">10:02:05 &nbsp;/markets <span id="log-touches">marked each touch</span></div>
+          <div class="seq" style="--d:1.4s">10:02:05 &nbsp;slash.markets <span>drew a level at $185 on NVDA · 1H</span></div>
+          <div class="seq" style="--d:2s">10:02:05 &nbsp;slash.markets <span id="log-touches">marked each touch</span></div>
         </div>
       </div>
 
       <div class="agentpane">
-        <div class="agentbar"><span class="agent-ic"><span class="spark"></span></span>Your agent<span class="conn"><span class="live"></span>Connected to <span><span class="sl"></span>markets</span></span></div>
+        <div class="agentbar"><span class="agent-ic"><span class="spark"></span></span>Your agent<span class="conn"><span class="live"></span>Connected to <span>slash.markets</span></span></div>
         <div class="phone" aria-label="Your agent, on your phone">
           <div class="status"><span>9:41</span><span class="island"></span><span class="sig"></span></div>
           <div class="apphead"><span class="agent-ic"><span class="spark"></span></span>Agent</div>
           <div class="chat">
             <div class="me seq" style="--d:.2s">How has NVIDIA traded around $185 this month?</div>
-            <div class="toolchip seq" style="--d:1.1s"><img src="assets/icons/markets-logomark-mono.svg" alt=""><span>Used <span class="sl"></span>markets</span><code>draw_chart</code></div>
-            <div class="ai seq" style="--d:1.8s" id="ai-text">Your NVIDIA 1-hour chart is ready on /markets, with $185 marked and each touch circled.</div>
+            <div class="toolchip seq" style="--d:1.1s"><img src="assets/icons/markets-logomark-mono.svg" alt=""><span>Used slash.markets</span><code>draw_chart</code></div>
+            <div class="ai seq" style="--d:1.8s" id="ai-text">Your NVIDIA 1-hour chart is ready on slash.markets, with $185 marked and each touch circled.</div>
             <div class="answer seq" style="--d:2.2s">
-              <div class="ah"><strong>NVDA · 1H</strong><img src="assets/icons/markets-logomark-mono.svg" alt="/markets"></div>
+              <div class="ah"><strong>NVDA · 1H</strong><img src="assets/icons/markets-logomark-mono.svg" alt="slash.markets"></div>
               <div class="lk">app.slash.markets/c/nvda-1h-185</div>
-              <div class="af"><span>15 min delayed</span><a href="#">Open in <span><span class="sl"></span>markets</span><img src="assets/icons/arrow-up-right.svg" alt=""></a></div>
+              <div class="af"><span>15 min delayed</span><a href="#">Open in <span>slash.markets</span><img src="assets/icons/arrow-up-right.svg" alt=""></a></div>
             </div>
           </div>
           <div class="compose">Ask your agent…</div>
@@ -312,33 +314,33 @@ footer a,.waitnote a{color:var(--ink);text-underline-offset:2px}
 
   <div class="flow" id="how">
     <div><b>1</b><span><strong>You ask your agent.</strong> In plain words, in the AI app you already use.</span></div>
-    <div><b>2</b><span><strong><span class="sl"></span>markets draws the chart.</strong> Levels, indicators and markers go on a real chart.</span></div>
-    <div><b>3</b><span><strong>You get a link to your chart.</strong> Open it on <span class="sl"></span>markets to zoom, change timeframe or keep watching.</span></div>
+    <div><b>2</b><span><strong>slash.markets draws the chart.</strong> Levels, indicators and markers go on a real chart.</span></div>
+    <div><b>3</b><span><strong>You get a link to your chart.</strong> Open it on slash.markets to zoom, change timeframe or keep watching.</span></div>
   </div>
 </section>
 
 <section class="block wrap">
   <div class="head">
     <h2>Ask a question. Get a chart.</h2>
-    <p>Your agent tells <span class="sl"></span>markets what to draw. You decide what to ask and what to watch. <span class="sl"></span>markets doesn’t pick stocks, suggest levels or recommend trades.</p>
+    <p>Your agent tells slash.markets what to draw. You decide what to ask and what to watch. slash.markets doesn’t pick stocks, suggest levels or recommend trades.</p>
   </div>
   <div class="cards">
     <article class="card">
       <div class="k"><strong>Nifty</strong><span>Option chain &amp; OI</span></div>
       <div class="step"><div class="n">You ask</div><span class="q">Show me where call open interest is building for this expiry.</span></div>
-      <div class="step"><div class="n"><span class="sl"></span>markets draws it</div><div class="mini"><div class="cap"><span>Nifty · OI by strike</span><span>15 min delayed</span></div><div data-mini="oi"></div></div></div>
+      <div class="step"><div class="n">slash.markets draws it</div><div class="mini"><div class="cap"><span>Nifty · OI by strike</span><span>15 min delayed</span></div><div data-mini="oi"></div></div></div>
       <div class="step reply"><span class="spark"></span><span>Done. The largest call build-up is highlighted on your option chain.</span></div>
     </article>
     <article class="card">
       <div class="k"><strong>Reliance</strong><span>Price level</span></div>
       <div class="step"><div class="n">You ask</div><span class="q">Mark ₹1,400 on Reliance and show each time it was touched this week.</span></div>
-      <div class="step"><div class="n"><span class="sl"></span>markets draws it</div><div class="mini"><div class="cap"><span>Reliance · 1H</span><span>15 min delayed</span></div><div data-mini="level"></div></div></div>
+      <div class="step"><div class="n">slash.markets draws it</div><div class="mini"><div class="cap"><span>Reliance · 1H</span><span>15 min delayed</span></div><div data-mini="level"></div></div></div>
       <div class="step reply"><span class="spark"></span><span>Done. ₹1,400 is on your chart, with each touch marked.</span></div>
     </article>
     <article class="card">
       <div class="k"><strong>Infosys</strong><span>Indicators</span></div>
       <div class="step"><div class="n">You ask</div><span class="q">Add a 14-day RSI under my Infosys daily chart.</span></div>
-      <div class="step"><div class="n"><span class="sl"></span>markets draws it</div><div class="mini"><div class="cap"><span>Infosys · 1D · RSI 14</span><span>15 min delayed</span></div><div data-mini="rsi"></div></div></div>
+      <div class="step"><div class="n">slash.markets draws it</div><div class="mini"><div class="cap"><span>Infosys · 1D · RSI 14</span><span>15 min delayed</span></div><div data-mini="rsi"></div></div></div>
       <div class="step reply"><span class="spark"></span><span>Done. RSI 14 is under your Infosys chart.</span></div>
     </article>
   </div>
@@ -346,8 +348,8 @@ footer a,.waitnote a{color:var(--ink);text-underline-offset:2px}
 
 <section class="tool-studio" id="tool-studio" aria-labelledby="studio-title">
   <header class="studio-heading">
-    <h2 id="studio-title">Your agent writes it.<br><span class="sl"></span>markets runs it.</h2>
-    <p class="studio-intro"><span class="studio-intro-line">Describe the chart tool you want. Your agent writes it.</span><span class="studio-intro-line">It runs on <span class="sl"></span>markets, next to the data, and draws on your charts.</span></p>
+    <h2 id="studio-title">Your agent writes it.<br>slash.markets runs&nbsp;it.</h2>
+    <p class="studio-intro"><span class="studio-intro-line">Describe the chart tool you want. Your agent writes it.</span><span class="studio-intro-line">It runs on slash.markets, next to the data, and draws on your charts.</span></p>
   </header>
   <div class="studio-tile-stage" aria-label="Ideas for tools you can build with your agent">
     <div class="studio-tile-field">
@@ -359,9 +361,9 @@ footer a,.waitnote a{color:var(--ink);text-underline-offset:2px}
         <li class="studio-tile-slot" style="--tile-order:4"><button class="studio-tool studio-lilac" type="button" data-tool-idea="history" data-prompt="Count how many times Bank Nifty closed above a level I pick, over the last two years." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/backtests-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Level history</span></button></li>
       </ul>
       <ul class="studio-tile-row">
-        <li class="studio-tile-slot" style="--tile-order:5"><button class="studio-tool studio-blue" type="button" data-tool-idea="alerts" data-prompt="Watch the levels I mark and alert me on /markets when a 1-hour candle closes past one." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/alerts-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Price alerts</span></button></li>
+        <li class="studio-tile-slot" style="--tile-order:5"><button class="studio-tool studio-blue" type="button" data-tool-idea="alerts" data-prompt="Watch the levels I mark and alert me on slash.markets when a 1-hour candle closes past one." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/alerts-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Price alerts</span></button></li>
         <li class="studio-tile-slot" style="--tile-order:6"><button class="studio-tool studio-sage" type="button" data-tool-idea="watchlists" data-prompt="Build a watchlist that shows RSI and distance from the 50-day average for the stocks I follow." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/watchlists-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Watchlists</span></button></li>
-        <li class="studio-tile-slot studio-brand-slot" style="--tile-order:7"><button class="studio-tool studio-brand" type="button" data-tool-idea="markets" data-prompt="Build me a chart layout for the stocks I follow, with the indicators I use." aria-label="Build with /markets" aria-expanded="false"><img src="assets/icons/markets-logomark-mono.svg" width="88" height="45" alt=""></button></li>
+        <li class="studio-tile-slot studio-brand-slot" style="--tile-order:7"><button class="studio-tool studio-brand" type="button" data-tool-idea="markets" data-prompt="Build me a chart layout for the stocks I follow, with the indicators I use." aria-label="Build with slash.markets" aria-expanded="false"><img src="assets/icons/markets-logomark-mono.svg" width="88" height="45" alt=""></button></li>
         <li class="studio-tile-slot" style="--tile-order:8"><button class="studio-tool studio-rose" type="button" data-tool-idea="sectors" data-prompt="Make a heatmap of today’s moves across Nifty 50 stocks, grouped by sector." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/portfolio-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Sector heatmap</span></button></li>
         <li class="studio-tile-slot" style="--tile-order:9"><button class="studio-tool studio-cream" type="button" data-tool-idea="volatility" data-prompt="Build a view that compares daily ranges and volatility across the stocks I follow." aria-expanded="false"><img class="studio-generated-icon" src="assets/images/studio-icons/strategy-v2.webp" width="64" height="64" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>Volatility view</span></button></li>
       </ul>
@@ -384,8 +386,8 @@ footer a,.waitnote a{color:var(--ink);text-underline-offset:2px}
 
 <section class="block wrap" id="ai">
   <div class="head">
-    <h2>How agents use <span class="sl"></span>markets.</h2>
-    <p>Your agent writes the script. <span class="sl"></span>markets runs it and draws the chart.</p>
+    <h2>How agents use slash.markets.</h2>
+    <p>Your agent writes the script. slash.markets runs it and draws the chart.</p>
   </div>
   <div class="bench">
     <div class="bench-code">
@@ -401,23 +403,23 @@ chart.hline(level, label=<span class="s">"$185"</span>)
 chart.mark(nvda.touches(level))</code></pre>
     </div>
     <div class="bench-out">
-      <div class="bench-bar"><img src="assets/icons/markets-logomark.svg" alt=""><strong>Ran on <span class="sl"></span>markets</strong><span>sandbox · 0.4s</span></div>
+      <div class="bench-bar"><img src="assets/icons/markets-logomark.svg" alt=""><strong>Ran on slash.markets</strong><span>sandbox · 0.4s</span></div>
       <div id="bench-plot"></div>
       <ul class="bench-rules"><li>Reads prices</li><li>Draws on the chart</li><li class="no">No orders</li><li class="no">No internet</li><li class="no">No export</li></ul>
     </div>
   </div>
   <div class="steps">
     <div><b>1</b><h3>Your agent writes a script</h3><p>You ask in plain English. Your agent turns it into a short Python script and sends it in, the same as typing it in our editor.</p></div>
-    <div><b>2</b><h3><span class="sl"></span>markets runs it</h3><p>The script runs in a sandbox on our servers, next to the data. It can read prices and draw. It can’t place orders, reach the internet or export data.</p></div>
-    <div><b>3</b><h3>You get a chart</h3><p><span class="sl"></span>markets draws the result on your chart, and your agent gets a link to it.</p></div>
+    <div><b>2</b><h3>slash.markets runs it</h3><p>The script runs in a sandbox on our servers, next to the data. It can read prices and draw. It can’t place orders or reach the internet.</p></div>
+    <div><b>3</b><h3>You get a chart</h3><p>slash.markets draws the result on your chart, and your agent gets a link to it.</p></div>
   </div>
-  <p class="notrain"><strong>No training on market data.</strong> <span class="sl"></span>markets doesn’t train AI models on market data, and doesn’t share it with anyone to train theirs.</p>
+  <p class="notrain"><strong>No training on market data.</strong> slash.markets doesn’t train AI models on market data, and doesn’t share it with anyone to train theirs.</p>
 </section>
 
 <section class="block wrap" id="waitlist">
   <div class="head">
     <h2>Join the waitlist.</h2>
-    <p>We’re opening <span class="sl"></span>markets to a small group of traders first. Leave your email and we’ll write when it’s your turn.</p>
+    <p>We’re opening slash.markets to a small group of traders first. Leave your email and we’ll write when it’s your turn.</p>
   </div>
   <!-- Submissions go to a Google Sheet via Apps Script (waitlist.js + waitlist-apps-script.gs). Set data-endpoint to the deployed /exec URL. -->
   <form class="waitform" id="waitform" novalidate aria-describedby="wl-status"
@@ -428,15 +430,15 @@ chart.mark(nvda.touches(level))</code></pre>
     <button class="button" type="submit">Join waitlist <img src="assets/icons/arrow-up-right.svg" alt=""></button>
   </form>
   <p class="waitstatus" id="wl-status" role="status" aria-live="polite"></p>
-  <p class="waitnote">We’ll only use your email to tell you about <span class="sl"></span>markets. See our <a href="/privacy">Privacy Policy</a>.</p>
+  <p class="waitnote">We’ll only use your email to tell you about slash.markets. See our <a href="/privacy">Privacy Policy</a>.</p>
 </section>
 </main>
 
 <footer><div class="wrap">
   <h4>Important information</h4>
-  <p>/markets does not train AI models on market data. AI agents are only an input channel: they send Python scripts, which /markets checks and runs in a sandbox on its own servers. Scripts can read data and draw on charts. They cannot place orders, reach the internet or export data.</p>
-  <p>Market data is delayed by at least 15 minutes. Charts and prices are shown only on /markets; your agent receives a link to the chart, not prices.</p>
-  <p>/markets is a charting and analytics application, not a financial adviser. It does not give investment advice or recommendations, show returns, place trades or offer virtual trading, contests or games. /markets is not registered with SEBI as an investment adviser or research analyst. Trading involves risk, including loss of capital. Data, calculations and alerts may contain errors or arrive late.</p>
+  <p>slash.markets does not train AI models on market data. Python code that your AI sends to slash.markets runs in a sandbox on its own servers. The code can read market data and draw on charts. It cannot place orders or reach the internet.</p>
+  <p>Market data is delayed by at least {facts.data.delayMinutes} minutes.</p>
+  <p>slash.markets is a charting and analytics application, not a financial adviser. It does not give investment advice, tell you what to buy or sell, show returns, place trades, or offer virtual trading, contests or games. slash.markets is not registered with SEBI as an investment adviser or research analyst. Trading involves risk, including loss of capital. Data, calculations and alerts may contain errors or arrive late.</p>
   <p>Conversations, charts, prices and notifications on this page are illustrative and use sample data. © 2026 Certus Innovations Pvt Ltd · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Use</a>{linkDisclaimer && <> · <a href={disclaimer.path}>{navLabel(disclaimer)}</a></>}</p>
 </div></footer>
 

@@ -17,9 +17,12 @@ export type PageEntry = {
 };
 
 const CARRIED_OVER = { by: "carried over unchanged from the old site", on: "2026-11-25" };
+// The live-copy rename changed the text of /, /privacy, /terms and /404 (slash.markets in place of the old word mark).
+// Before it merges, record Sahil's sign-off here: { by: "Sahil", on: "<date>" }.
+const RENAMED = CARRIED_OVER;
 
 export const PAGES: PageEntry[] = [
-  { path: "/", title: "/markets · Search the market like the web", description: "/markets is a charting platform you can search. Ask about a stock, a level or an indicator, here or from your AI agent, and get a chart back.", h1: "Search the market like you search the web.", nav: "none", status: "live", signoff: CARRIED_OVER },
+  { path: "/", title: "slash.markets · Search the market like the web", description: "slash.markets is a charting platform you can search. Ask about a stock, a level or an indicator, here or from your AI agent, and get a chart back.", h1: "Search the market like you search the web.", nav: "none", status: "live", signoff: RENAMED },
   { path: "/how-it-works", title: "", description: "", h1: "", nav: "header", status: "planned" },
   { path: "/use-cases", title: "", description: "", h1: "", nav: "header", status: "planned" },
   { path: "/markets-covered", title: "", description: "", h1: "", nav: "footer", status: "planned" },
@@ -77,9 +80,9 @@ export const PAGES: PageEntry[] = [
     nav: "footer",
     status: "draft", // Prefer's temporary text, for Sahil to edit and sign off
   },
-  { path: "/privacy", title: "/markets · Privacy Policy", description: "How /markets handles personal data collected on this website, in line with India's Digital Personal Data Protection Act, 2023.", h1: "Privacy Policy", nav: "footer", status: "live", signoff: CARRIED_OVER },
-  { path: "/terms", title: "/markets · Terms of Use", description: "The terms for using the /markets website: what /markets is and is not, how you may use the market data it shows, and that trading decisions are yours.", h1: "Terms of Use", nav: "footer", status: "live", signoff: CARRIED_OVER },
-  { path: "/404", title: "Page not found · /markets", description: "This page does not exist. Go back to the /markets home page and try again.", h1: "Page not found", nav: "none", status: "live", noindex: true, signoff: CARRIED_OVER },
+  { path: "/privacy", title: "Privacy Policy · slash.markets", description: "How slash.markets handles personal data collected on this website, in line with India's Digital Personal Data Protection Act, 2023.", h1: "Privacy Policy", nav: "footer", status: "live", signoff: RENAMED },
+  { path: "/terms", title: "Terms of Use · slash.markets", description: "The terms for using the slash.markets website: what it is and is not, how you may use the market data it shows, and that trading decisions are yours.", h1: "Terms of Use", nav: "footer", status: "live", signoff: RENAMED },
+  { path: "/404", title: "Page not found · slash.markets", description: "This page does not exist. Go back to the slash.markets home page and try again.", h1: "Page not found", nav: "none", status: "live", noindex: true, signoff: RENAMED },
 ];
 
 // The four article hubs. Each lists its collection and opens with the intro above.

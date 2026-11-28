@@ -6,7 +6,7 @@
 
 The marketing website for slash.markets, served at https://slash.markets. It is an Astro 7 static site on Netlify. Every page is server-rendered HTML. Articles are Markdown files added by pull request; there is no CMS. The product itself runs at https://app.slash.markets and is not in this repo.
 
-**Status (28 Nov 2026):** Phase 1 (the Astro foundation) merged on 25 Nov in PR #1, but production still serves the old static site. Phase 2 (the article system: collections, the article and hub templates, RSS, `<Fact>` and the second set of gates) is built in its own pull request. The four hubs and a temporary `/disclaimer` are drafts until Sahil signs them off, so no article can go live yet. `docs/site-build-plan.md` has the phases, dates and what is done. Parts of this guide describe the target state.
+**Status (28 Nov 2026):** Phase 1 (the Astro foundation) merged on 25 Nov in PR #1, but production still serves the old static site. Phase 2 (the article system: collections, the article and hub templates, RSS, `<Fact>` and the second set of gates) is built in its own pull request. The rename PR, stacked on it, writes the name as slash.markets everywhere and puts `/disclaimer` and `/guides` live with Sahil's sign-off. `/best`, `/rules` and `/compare` stay drafts. Articles can go live once both pull requests merge and production deploys `main`. `docs/site-build-plan.md` has the phases, dates and what is done. Parts of this guide describe the target state.
 
 ## What slash.markets is
 
@@ -21,7 +21,7 @@ The marketing website for slash.markets, served at https://slash.markets. It is 
    - It applies to every word we write: page copy, titles, meta descriptions, H1s, FAQs, alt text, `og:site_name`, structured data, llms.txt, articles, docs, commit messages, pull requests, client documents and the prompts we track in Prefer.
    - "/markets" is the visual word mark only. It appears in the logo and in images, never as typed text. The logo's alt text is "slash.markets".
    - Never "Slash" or "Slash Markets": those are other companies.
-   - This rule overrides the inline-badge guidance in `BRAND_GUIDELINES.md`. Copy that still writes /markets (the homepage, `src/config/site.ts`, `src/data/facts.json`, the titles in `src/data/pages.ts`, the legal pages and `llms.txt`) changes in one pull request with Sahil's sign-off. Never add a new one.
+   - This rule overrides the inline-badge guidance in `BRAND_GUIDELINES.md`. The live copy is renamed in one pull request (the rename PR, 28 Nov 2026), which merges only with Sahil's sign-off. The `compliance` gate fails any "/markets" written as text, and "slash markets" in copy. Structured data may keep "slash markets" as an `alternateName`.
 2. **Compliance (SEBI).** Research and education only. Never tips, buy or sell calls, signals, recommendations, targets, return or profit claims, win rates, backtest returns, "best stocks", "guaranteed" or "never miss a move". Rank products, never securities. No forecasts. Examples use sample or past data, dated, with no real user's name, trades or P&L. Say alerts "can be delayed". Every page links to /disclaimer. Full rules: `.claude/rules/compliance.md`.
 3. **Only claim what is live today.** Anything not live yet (ChatGPT, Kite, WhatsApp, more markets) is marked "coming" or left out. Status lives in `src/data/facts.json`.
 4. **Sign-off.** Nothing goes live without Sahil's compliance sign-off, recorded in the entry's `signoff` field (articles) or in `src/data/pages.ts` (pages). The build fails without it.

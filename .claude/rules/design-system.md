@@ -62,7 +62,7 @@ New pages read these from `src/styles/tokens.css`, lifted unchanged from the hom
 ## Components to reuse
 
 - **Primary button.** `.button`: a pill (`border-radius: 999px`), dark fill, Onest 16px/400, with the Tabler arrow-up-right icon. One main action per section.
-- **The word mark is visual only.** "/markets" appears only as the logo and in images (`public/assets/icons/`). Never set it as text in prose, headings, buttons or alt text. Write slash.markets as plain text instead (CLAUDE.md, hard rule 1). The homepage's inline badge (`.markets-wordmark`) predates this rule: remove it when that copy is renamed, and don't use it on new pages.
+- **The word mark is visual only.** "/markets" appears only as the logo and in images (`public/assets/icons/`). Never set it as text in prose, headings, buttons or alt text. Write slash.markets as plain text instead (CLAUDE.md, hard rule 1). The rename removed the homepage's inline badge from all copy. The CSS slash (`.sl`) now appears only in the nav logo, whose accessible name is "slash.markets". Don't use it anywhere else.
 - **Glass surfaces:** 74% fill, `backdrop-filter: blur(8px) saturate(1.1)`, a subtle full border. Never a coloured side border.
 - **Corners:**
   - buttons and pills fully rounded;

@@ -1,6 +1,6 @@
 # slash.markets website
 
-The marketing website for /markets at https://slash.markets: an Astro static site on Netlify. Every page is server-rendered HTML. The product itself runs at https://app.slash.markets and is not in this repo.
+The marketing website for slash.markets, served at https://slash.markets: an Astro static site on Netlify. Every page is server-rendered HTML. The product itself runs at https://app.slash.markets and is not in this repo.
 
 **Read [CLAUDE.md](CLAUDE.md) before changing anything.** It holds the rules for people and AI agents (`AGENTS.md` links to it), and `.claude/rules/` has the detail for each topic. What to build next is in [docs/site-build-plan.md](docs/site-build-plan.md).
 
@@ -60,4 +60,4 @@ The waitlist form (`#waitform` on the homepage) posts to a Google Apps Script we
 
 ## Licences
 
-Third-party licences are listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). No open-source licence covers the /markets brand, copy or artwork.
+Third-party licences are listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). No open-source licence covers the slash.markets brand, copy or artwork.

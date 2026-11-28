@@ -21,7 +21,7 @@ Every page renders `<Seo>` exactly once. Pages never write their own title, cano
 - **Open Graph and Twitter.**
   - `og:url` equals the canonical.
   - `og:image` is absolute and the file must exist. The default is `/og/default.jpg`, a self-hosted copy of today's card, until Sunny's design arrives. Per-page images come in Phase 4.
-  - `og:site_name` is "/markets", `og:locale` is `en_IN`, and the card is `summary_large_image`.
+  - `og:site_name` is "slash.markets", `og:locale` is `en_IN`, and the card is `summary_large_image`.
 - **Verification tags.** Rendered only when `PUBLIC_GSC_VERIFICATION` or `PUBLIC_BING_VERIFICATION` is set (DNS verification also works).
 - **Other.** An RSS `alternate` link, and analytics (below).
 
@@ -67,7 +67,8 @@ Every page renders `<Seo>` exactly once. Pages never write their own title, cano
 - **A FAQ block** with FAQPage schema where the page has questions.
 - **Freshness dates.** "Checked on" for rules pages; "Reviewed on" for best lists and comparisons.
 - **Navigation.** Breadcrumbs on every inner page, and links to the matching use case and related guides.
-- **Consistent description.** The one-line description is used word for word wherever /markets is described in one sentence.
+- **Consistent description.** The one-line description is used word for word wherever slash.markets is described in one sentence.
+- **Consistent name.** Titles, descriptions, structured data, `og:site_name` and llms.txt write the name as slash.markets, never the "/markets" word mark (CLAUDE.md, hard rule 1). Engines learn the name we use most, and we want them to learn the one people can type.
 
 ## Internal links
 

@@ -54,7 +54,7 @@ The sign-off and SEO-limit rules are also enforced earlier, by the schemas in `s
 |---|---|---|
 | 1 | H1, SEO title and meta description match what Prefer supplied | `meta` gate |
 | 2 | The opening two lines say what the page is or does | review (articles must have an `answer`) |
-| 3 | "/markets" written with the slash; the one-line description used where it fits | review (the `facts` gate checks the description in llms.txt) |
+| 3 | The name written "slash.markets" in all text, never the "/markets" word mark (CLAUDE.md, hard rule 1); the one-line description used where it fits | review (the `facts` gate checks the description in llms.txt) |
 | 4 | Real prompts and outputs, sample or past data, dated | schema (`prompts` need a `dataDate`) plus review |
 | 5 | No banned words or claims | `compliance` and `compliance-words` gates plus review |
 | 6 | Nothing claimed that is not live; "coming" items marked | `compliance` gate plus review |

@@ -23,15 +23,21 @@ Browser checks (`npm run test:e2e`) arrive in a later phase.
 ## Where things live
 
 ```
-src/pages/            routes: the homepage, /privacy, /terms, /404, sitemap.xml, robots.txt, llms.txt
-src/data/pages.ts     the route registry: every page's URL, title, description, H1, status and sign-off
+src/pages/            routes: the homepage, the four hubs and their articles, /disclaimer, /privacy, /terms,
+                      /404, sitemap.xml, robots.txt, llms.txt and rss.xml
+src/data/pages.ts     the route registry: every page's URL, title, description, H1, intro, status and sign-off
 src/data/facts.json   product facts (data delay, markets, integrations): never type these into a page
 src/config/site.ts    the domain, brand strings and site-wide IDs
-src/content/legal/    the privacy and terms text, in Markdown
-src/components/seo/   Seo.astro: every head tag, structured data and analytics
+src/content.config.ts the collection schemas: SEO limits and the sign-off rule
+src/content/          articles (guides/, best/, rules/, compare/), legal text, authors.json, faq.yaml
+src/layouts/          Base (head and footer), Article and Hub templates
+src/components/       Seo.astro (every head tag, structured data and analytics), Fact.astro, Breadcrumbs.astro
 src/lib/              graph.ts (JSON-LD), facts.ts, content.ts
+src/styles/tokens.css the colour tokens, from the homepage
 public/               files served as-is: the homepage's assets and scripts, /brand/ and /brand-guidelines/
 scripts/gates/        build gates that run after every build, with their tests
+compliance/allow.json approved exceptions to the compliance word lists (Sahil approves each one)
+.claude/commands/     /new-guide, /new-best, /new-rules, /new-compare and /seo-check
 design/legacy-v1/     the previous homepage's files, kept for reference and not deployed
 ops/                  the waitlist's Google Apps Script backend
 docs/                 the site build plan and the starter code
@@ -41,7 +47,9 @@ The homepage (`src/pages/index.astro`) is the old static page ported unchanged. 
 
 ## Gates and CI
 
-`npm run build` runs `scripts/gates/run.mjs` on `dist/` after `astro build`, so a rule that breaks fails the build locally, in CI and on Netlify alike. The gates check URLs and links, head tags, structured data, the sitemap, em dashes in `src/` and banned compliance phrases. See `.claude/rules/quality-gates.md`.
+`npm run build` runs `scripts/gates/run.mjs` on `dist/` after `astro build`, so a rule that breaks fails the build locally, in CI and on Netlify alike. The gates check URLs and links, head tags, structured data, the sitemap, em dashes in `src/`, banned compliance phrases and warning words, product facts, the freshness of rules pages, and that no draft reaches production. See `.claude/rules/quality-gates.md`.
+
+To publish an article, add one Markdown file to its collection with `draft: true`, check it on the deploy preview, then add Sahil's `signoff` and set `draft: false`. `.claude/rules/content-model.md` has the fields and the flow.
 
 GitHub Actions (`.github/workflows/ci.yml`) runs the type check, the tests and both builds on every pull request.
 

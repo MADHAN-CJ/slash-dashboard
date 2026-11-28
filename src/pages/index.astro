@@ -3,10 +3,14 @@
 // legal links changed. Legacy CSS and JS stay inline (is:inline) so Astro neither scopes nor bundles them.
 // Sunny's new Home replaces this file in Phase 3.
 import Seo from "../components/seo/Seo.astro";
-import { page } from "../data/pages";
+import { navLabel, page } from "../data/pages";
+import { isBuilt } from "../lib/content";
 import { graph, webPage, softwareApplication } from "../lib/graph";
 const p = page("/");
 const g = graph(webPage({ path: p.path, name: p.title, description: p.description }), softwareApplication());
+// The footer links /disclaimer whenever that page is built (live, or a draft on a deploy preview).
+const disclaimer = page("/disclaimer");
+const linkDisclaimer = isBuilt(disclaimer);
 ---
 <!doctype html>
 <html lang="en">
@@ -433,7 +437,7 @@ chart.mark(nvda.touches(level))</code></pre>
   <p>/markets does not train AI models on market data. AI agents are only an input channel: they send Python scripts, which /markets checks and runs in a sandbox on its own servers. Scripts can read data and draw on charts. They cannot place orders, reach the internet or export data.</p>
   <p>Market data is delayed by at least 15 minutes. Charts and prices are shown only on /markets; your agent receives a link to the chart, not prices.</p>
   <p>/markets is a charting and analytics application, not a financial adviser. It does not give investment advice or recommendations, show returns, place trades or offer virtual trading, contests or games. /markets is not registered with SEBI as an investment adviser or research analyst. Trading involves risk, including loss of capital. Data, calculations and alerts may contain errors or arrive late.</p>
-  <p>Conversations, charts, prices and notifications on this page are illustrative and use sample data. © 2026 Certus Innovations Pvt Ltd · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Use</a></p>
+  <p>Conversations, charts, prices and notifications on this page are illustrative and use sample data. © 2026 Certus Innovations Pvt Ltd · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Use</a>{linkDisclaimer && <> · <a href={disclaimer.path}>{navLabel(disclaimer)}</a></>}</p>
 </div></footer>
 
 <script is:inline>

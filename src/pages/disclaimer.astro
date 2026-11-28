@@ -1,0 +1,26 @@
+---
+// /disclaimer: every page links here from the footer, and every article ends with a note linking here.
+// Builds only while the registry says "live", or "draft" on a deploy preview.
+import { getEntry, render } from "astro:content";
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Fact from "../components/Fact.astro";
+import { page } from "../data/pages";
+import { crumb, isBuilt, isoDate, notBuilt } from "../lib/content";
+import { breadcrumbs, graph, webPage } from "../lib/graph";
+
+const p = page("/disclaimer");
+if (!isBuilt(p)) return notBuilt();
+const entry = await getEntry("legal", "disclaimer");
+if (!entry) throw new Error("src/content/legal/disclaimer.mdx is missing");
+const { Content } = await render(entry);
+const trail = [{ name: "Home", path: "/" }, crumb(p)];
+const g = graph(webPage({ path: p.path, name: p.title, description: p.description, crumbs: true }), breadcrumbs(p.path, trail));
+const updated = entry.data.lastUpdated;
+---
+<Base seo={{ title: p.title, description: p.description, path: p.path, graph: g }} draft={p.status === "draft"}>
+  <Breadcrumbs trail={trail} />
+  <h1>{p.h1}</h1>
+  <p class="meta">Last updated <time datetime={isoDate(updated)}>{updated.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })}</time></p>
+  <Content components={{ Fact }} />
+</Base>

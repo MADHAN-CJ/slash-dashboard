@@ -1,0 +1,178 @@
+---
+// One template for the four article collections (guides, best, rules, compare): .claude/rules/content-model.md.
+// Order: breadcrumbs, H1, the answer, the meta row, contents, the body, then questions, sources,
+// related links and the disclaimer note. Every word is in the server-rendered HTML; no client JavaScript.
+import { getEntry, render } from "astro:content";
+import Base from "./Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Fact from "../components/Fact.astro";
+import { SITE } from "../config/site";
+import { articlePath, crumb, hubPage, isoDate, related, showDate, type ArticleEntry } from "../lib/content";
+import { articleNode, breadcrumbs, faqPage, graph, itemList, webPage, type Author } from "../lib/graph";
+
+interface Props {
+  entry: ArticleEntry;
+}
+const { entry } = Astro.props;
+const d = entry.data;
+const path = articlePath(entry.collection, entry.id);
+const hub = hubPage(entry.collection);
+const { Content, headings } = await render(entry);
+const author = await getEntry(d.author);
+if (!author) throw new Error(`${path}: author "${d.author.id}" is not in src/content/authors.json`);
+
+// Fields that only some collections have.
+const checkedOn = entry.collection === "rules" || entry.collection === "guides" ? entry.data.checkedOn : undefined;
+const reviewedOn = entry.collection === "best" || entry.collection === "compare" ? entry.data.reviewedOn : undefined;
+const sources = entry.collection === "rules" || entry.collection === "guides" ? entry.data.sources : [];
+const items = entry.collection === "best" ? entry.data.items : [];
+const products = entry.collection === "compare" ? entry.data.products : [];
+const productUrl = (p: { url?: string; ours: boolean }) => (p.ours ? "/" : p.url!);
+// "A, B and C": what follows item i of n.
+const separator = (i: number, n: number) => (i < n - 2 ? ", " : i === n - 2 ? " and " : "");
+const absUrl = (p: { url?: string; ours: boolean }) => new URL(productUrl(p), SITE.url).href;
+const others = await related(entry);
+
+// Contents: the body's ## headings, plus the template's own sections.
+const contents = [
+  ...(items.length ? [{ slug: "at-a-glance", text: "At a glance" }] : []),
+  ...headings.filter((h) => h.depth === 2),
+  ...(d.faqs.length ? [{ slug: "questions", text: "Questions" }] : []),
+  ...(sources.length ? [{ slug: "sources", text: "Sources" }] : []),
+];
+
+const trail = [{ name: "Home", path: "/" }, crumb(hub), { name: d.title, path }];
+const byline: Author =
+  author.data.type === "Person"
+    ? { type: "Person", id: author.id, name: author.data.name, jobTitle: author.data.role, sameAs: author.data.sameAs }
+    : { type: "Organization" };
+const g = graph(
+  webPage({ path, name: d.seoTitle ?? d.title, description: d.description, crumbs: true }),
+  breadcrumbs(path, trail),
+  articleNode({ path, headline: d.title, description: d.description, published: d.publishedAt, modified: d.updatedAt, author: byline }),
+  ...(items.length ? [itemList(path, d.title, items.map((i) => ({ name: i.name, url: absUrl(i) })))] : []),
+  ...(products.length ? [itemList(path, d.title, products.map((p) => ({ name: p.name, url: absUrl(p) })))] : []),
+  ...(d.faqs.length ? [faqPage(path, d.faqs)] : []),
+);
+---
+<Base seo={{ title: d.seoTitle ?? d.title, description: d.description, path, graph: g, ogType: "article" }} draft={d.draft} mono>
+  <article class="article">
+    <Breadcrumbs trail={trail} />
+    <h1>{d.title}</h1>
+    <p class="answer">{d.answer}</p>
+
+    <div class="meta-row">
+      <p class="dates">
+        {d.updatedAt ? <span>Updated <time datetime={isoDate(d.updatedAt)}>{showDate(d.updatedAt)}</time></span> : <span>Published <time datetime={isoDate(d.publishedAt)}>{showDate(d.publishedAt)}</time></span>}
+        {checkedOn && entry.collection === "guides" && <span>Facts checked on <time datetime={isoDate(checkedOn)}>{showDate(checkedOn)}</time></span>}
+        {checkedOn && entry.collection === "rules" && <span>Checked on <time data-checked-on datetime={isoDate(checkedOn)}>{showDate(checkedOn)}</time></span>}
+        {reviewedOn && <span>Reviewed on <time datetime={isoDate(reviewedOn)}>{showDate(reviewedOn)}</time></span>}
+      </p>
+      <p class="byline">By <span class="author">{author.data.name}</span>{author.data.type === "Person" && <>, {author.data.role}</>}</p>
+      {author.data.bio && <p class="bio">{author.data.bio}</p>}
+      {/* One line: Astro keeps line breaks inside an expression as spaces, which would put one before each comma. */}
+      {products.length > 0 && <p class="compared">Compared: {products.map((p, i) => <><a href={productUrl(p)}>{p.name}</a>{separator(i, products.length)}</>)}</p>}
+    </div>
+
+    {contents.length >= 2 && (
+      <nav class="toc" aria-labelledby="toc-title">
+        <p id="toc-title" class="toc-title">On this page</p>
+        <ol>{contents.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+      </nav>
+    )}
+
+    {items.length > 0 && (
+      <section class="glance" aria-labelledby="at-a-glance">
+        <h2 id="at-a-glance">At a glance</h2>
+        <ol>
+          {items.map((i) => (
+            <li>
+              <a href={productUrl(i)}>{i.name}</a>
+              {i.ours && <span class="ours">We make this</span>}
+              <span class="summary">{i.summary}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )}
+
+    <div class="body">
+      <Content components={{ Fact }} />
+    </div>
+
+    {d.faqs.length > 0 && (
+      <section class="faqs" aria-labelledby="questions">
+        <h2 id="questions">Questions</h2>
+        {d.faqs.map((f) => (
+          <>
+            <h3>{f.q}</h3>
+            <p>{f.a}</p>
+          </>
+        ))}
+      </section>
+    )}
+
+    {sources.length > 0 && (
+      <section class="sources" aria-labelledby="sources">
+        <h2 id="sources">Sources</h2>
+        <ul>{sources.map((s) => <li><a href={s.url}>{s.name}</a>{s.note && <span>: {s.note}</span>}</li>)}</ul>
+      </section>
+    )}
+
+    {others.length > 0 && (
+      <section class="related" aria-labelledby="related">
+        <h2 id="related">Related</h2>
+        <ul>{others.map((o) => <li><a href={articlePath(o.collection, o.id)}>{o.data.title}</a></li>)}</ul>
+      </section>
+    )}
+
+    <p class="disclaimer-note">This article is for research and education only, and is not investment advice. Read the <a href="/disclaimer">disclaimer</a>.</p>
+  </article>
+</Base>
+
+<style>
+  .article { overflow-wrap: break-word; }
+  .article h1 { line-height: 1.2; text-wrap: balance; margin-top: 20px; }
+  .answer { margin: 16px 0 20px; font-size: clamp(18px, 2vw, 20px); line-height: 1.6; color: var(--head); text-wrap: pretty; }
+  .meta-row { padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+  .meta-row p { margin: 0; }
+  .meta-row p + p { margin-top: 6px; }
+  .dates { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+  .author { color: var(--ink); font-weight: 500; }
+  .bio { line-height: 1.6; }
+  .toc { margin: 28px 0; padding: 16px 20px; border: 1px solid var(--line); border-radius: 14px; background: var(--soft); font-size: 15px; }
+  .toc-title { margin: 0 0 6px; font-weight: 500; color: var(--head); }
+  .toc ol { margin: 0; padding-left: 20px; }
+  .toc li + li { margin-top: 2px; }
+  .glance ol { padding-left: 22px; }
+  .glance li { margin-bottom: 12px; }
+  .glance li > a { font-weight: 500; }
+  .ours { display: inline-block; margin-left: 8px; padding: 0 8px; border-radius: 999px; background: var(--yellow); font-size: 13px; color: var(--ink); }
+  .summary { display: block; color: var(--ink); }
+  .faqs h3 { font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: var(--head); margin: 22px 0 4px; }
+  .faqs p { margin: 0; }
+  .sources li, .related li { margin-bottom: 6px; }
+  .disclaimer-note { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+  .disclaimer-note a { color: var(--muted); }
+
+  /* The Markdown body. Its elements come from <Content />, so they need :global(). */
+  .body :global(h2) { scroll-margin-top: 16px; }
+  .body :global(h3) { font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: var(--head); margin: 24px 0 4px; }
+  .body :global(img) { max-width: 100%; height: auto; }
+  .body :global(table) { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: 15px; }
+  .body :global(th), .body :global(td) { padding: 8px 12px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+  .body :global(th) { background: var(--soft); font-weight: 600; }
+  .body :global(code) { font-family: var(--font-mono); font-size: 0.88em; }
+  /* Code and setup blocks: square like a terminal, and they scroll sideways inside themselves. */
+  .body :global(pre) { max-width: 100%; overflow-x: auto; margin: 20px 0; padding: 14px 16px; border: 1px solid var(--line); font: 400 14px/1.6 var(--font-mono); }
+  .body :global(pre code) { font-size: inherit; }
+  /* Prompts look like the user's yellow chat bubble; outputs sit on the warm surface. Both wrap. */
+  .body :global(pre[data-language="prompt"]),
+  .body :global(pre[data-language="output"]) { white-space: pre-wrap; overflow-wrap: anywhere; font: 400 16px/1.6 var(--font-sans); color: var(--ink) !important; }
+  .body :global(pre[data-language="prompt"] code),
+  .body :global(pre[data-language="output"] code) { font-family: inherit; }
+  .body :global(pre[data-language="prompt"]) { width: fit-content; max-width: 88%; margin: 24px 0 10px auto; padding: 10px 14px; border: 0; border-radius: 16px 16px 4px 16px; background-color: var(--yellow) !important; }
+  .body :global(pre[data-language="output"]) { margin: 10px 0 6px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; background-color: var(--warm) !important; }
+  /* The caption line under an output: "Sample data, 12 Nov 2026." */
+  .body :global(pre[data-language="output"] + p) { margin-top: 4px; font-size: 14px; color: var(--muted); }
+</style>

@@ -1,0 +1,10 @@
+---
+// The /compare hub: newest first.
+import Hub from "../../layouts/Hub.astro";
+import { getPublished, hubPage, isBuilt, newestFirst, notBuilt } from "../../lib/content";
+
+const p = hubPage("compare");
+if (!isBuilt(p)) return notBuilt();
+const entries = newestFirst(await getPublished("compare"));
+---
+<Hub p={p} collection="compare" sections={[{ entries }]} />

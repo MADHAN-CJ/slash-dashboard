@@ -1,0 +1,17 @@
+/* Design tokens, lifted unchanged from the homepage :root (src/pages/index.astro).
+   New pages read colours from here. Never invent new colours (.claude/rules/design-system.md).
+   Fonts come from Astro's fonts API as --font-serif, --font-sans and --font-mono. */
+:root {
+  --ink: #20251b;
+  --head: #161816;
+  --muted: #62675f;
+  --line: #e4e7dc;
+  --soft: #fbfbf8;
+  --warm: #f7f6f2;
+  --btn: #171a17;
+  --yellow: #f6d64d;
+  --yellow-ink: #c9a514;
+  --up: #3f8f6b;
+  --down: #cf5a4b;
+  --text-body: clamp(16px, 1.5vw, 19px);
+}

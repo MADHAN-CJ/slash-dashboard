@@ -18,8 +18,11 @@ export const organization = (): Node => ({
   email: facts.company.emails.hello,
   ...(facts.company.legalName ? { legalName: facts.company.legalName } : {}),
   ...(facts.sameAs.length ? { sameAs: facts.sameAs } : {}),
-  founder: facts.founders.map((f) => ({ "@type": "Person", "@id": abs(`/about#${f.id}`), name: f.name })),
+  founder: facts.founders.map((f) => ({ "@type": "Person", "@id": personId(f.id), name: f.name, ...(f.sameAs.length ? { sameAs: f.sameAs } : {}) })),
 });
+
+// A person's node id. Founders and article authors share it, so engines see one person.
+export const personId = (id: string) => abs(`/about#${id}`);
 
 export const website = (): Node => ({
   "@type": "WebSite",
@@ -47,17 +50,33 @@ export const breadcrumbs = (path: string, trail: { name: string; path: string }[
   itemListElement: trail.map((t, i) => ({ "@type": "ListItem", position: i + 1, name: t.name, item: abs(t.path) })),
 });
 
-export const articleNode = (p: { path: string; headline: string; description: string; published: Date; modified?: Date; authorName: string; authorType: string }): Node => ({
+// A Person author gets a full node; the Organization author is the one Organization, by reference.
+export type Author = { type: "Person"; id: string; name: string; jobTitle: string; sameAs: string[] } | { type: "Organization" };
+
+export const articleNode = (p: { path: string; headline: string; description: string; published: Date; modified?: Date; author: Author; image?: string }): Node => ({
   "@type": "Article",
   "@id": `${abs(p.path)}#article`,
   headline: p.headline,
   description: p.description,
   datePublished: p.published.toISOString(),
   dateModified: (p.modified ?? p.published).toISOString(),
-  author: { "@type": p.authorType, name: p.authorName },
+  author:
+    p.author.type === "Person"
+      ? { "@type": "Person", "@id": personId(p.author.id), name: p.author.name, jobTitle: p.author.jobTitle, ...(p.author.sameAs.length ? { sameAs: p.author.sameAs } : {}) }
+      : { "@id": ORG_ID },
   publisher: { "@id": ORG_ID },
   mainEntityOfPage: { "@id": `${abs(p.path)}#webpage` },
+  image: abs(p.image ?? SITE.defaultOgImage),
   inLanguage: SITE.lang,
+});
+
+// Best lists and comparisons: the products, in order.
+export const itemList = (path: string, name: string, items: { name: string; url: string }[]): Node => ({
+  "@type": "ItemList",
+  "@id": `${abs(path)}#items`,
+  name,
+  numberOfItems: items.length,
+  itemListElement: items.map((it, i) => ({ "@type": "ListItem", position: i + 1, name: it.name, url: it.url })),
 });
 
 export const faqPage = (path: string, items: { q: string; a: string }[]): Node => ({

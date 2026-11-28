@@ -1,0 +1,4 @@
+# The 12 to 15 site questions for /faq (Phase 3). Prefer supplies the questions; Anil and Raunaq the answers.
+# Each entry is keyed by an id: { q: "Ends with a question mark?", a: "Two to three sentences.", order: 1 }.
+# Empty until then. Keep the {} so the file stays a valid, empty collection.
+{}

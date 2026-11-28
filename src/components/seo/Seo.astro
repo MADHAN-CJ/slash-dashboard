@@ -32,7 +32,7 @@ const robots = noindex || SHOW_DRAFTS ? "noindex, nofollow" : "index, follow, ma
 <meta name="twitter:card" content="summary_large_image" />
 {PUBLIC_GSC_VERIFICATION && <meta name="google-site-verification" content={PUBLIC_GSC_VERIFICATION} />}
 {PUBLIC_BING_VERIFICATION && <meta name="msvalidate.01" content={PUBLIC_BING_VERIFICATION} />}
-{/* Phase 2 adds /rss.xml and, with it: <link rel="alternate" type="application/rss+xml" title="/markets guides" href="/rss.xml" /> */}
+<link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
 <script type="application/ld+json" is:inline set:html={serialize(graph)} />
 {PUBLIC_GA4_ID && <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${PUBLIC_GA4_ID}`}></script>}
 {PUBLIC_GA4_ID && (

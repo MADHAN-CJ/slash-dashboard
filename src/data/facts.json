@@ -1,5 +1,5 @@
 {
-  "description": "/markets gives your AI live Indian market data, option chain analytics, charts and a Python sandbox, so it can answer any NSE, BSE or MCX question from real data and watch the market for you.",
+  "description": "slash.markets gives your AI live Indian market data, option chain analytics, charts and a Python sandbox, so it can answer any NSE, BSE or MCX question from real data and watch the market for you.",
   "descriptionLocked": false,
   "access": { "status": "waitlist", "price": "Free for now" },
   "data": { "delayMinutes": 15, "exchanges": ["NSE", "BSE", "MCX"] },
@@ -12,7 +12,7 @@
   "company": { "legalName": null, "emails": { "hello": "hello@slash.markets", "privacy": "privacy@slash.markets" } },
   "founders": [
     { "id": "anil", "name": "Anil Dukkipatty", "sameAs": [] },
-    { "id": "raunaq", "name": "Raunaq Vaisoha", "sameAs": [] }
+    { "id": "raunaq", "name": "Raunaq Vaisoha", "sameAs": ["https://www.linkedin.com/in/raunaq-vaisoha/"] }
   ],
   "sameAs": []
 }

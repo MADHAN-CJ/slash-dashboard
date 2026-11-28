@@ -7,7 +7,7 @@ paths:
   - "public/**"
 ---
 
-# Design system: how /markets looks and how pages are built
+# Design system: how slash.markets looks and how pages are built
 
 ## Sources of truth, in order
 
@@ -16,6 +16,7 @@ paths:
 3. **`BRAND_GUIDELINES.md`** for typography, colour, components, imagery, motion and voice.
    - **Caveat:** its "Where to edit" table and several components (watch alerts, setup tabs, FAQ footer, floating nav, dithered videos) describe the previous homepage. Those files now sit in `design/legacy-v1/` and are not deployed.
    - Where the guide and the live homepage disagree, the homepage wins.
+   - **Naming beats both.** CLAUDE.md hard rule 1 overrides the guide's "Identity and inline /markets" section and the homepage's inline badge: text always says slash.markets.
    - Sunny updates the guide in Phase 4.
 
 Preserve the style. Do not introduce a dashboard look, a dark terminal theme, a blue or purple SaaS gradient, stock photos of trading desks, or a grid of identical feature cards.
@@ -35,7 +36,7 @@ Preserve the style. Do not introduce a dashboard look, a dark terminal theme, a 
 | `--yellow-ink` | `#c9a514` | lines drawn on charts |
 | `--up` / `--down` | `#3f8f6b` / `#cf5a4b` | chart candles only |
 
-New pages read these from `src/styles/tokens.css`, which you create in Phase 3 by lifting them out of the homepage. Never invent new colours. Pastels belong to imagery and existing feature surfaces, never body text.
+New pages read these from `src/styles/tokens.css`, lifted unchanged from the homepage in Phase 2 (`Base.astro` imports it). Never invent new colours. Pastels belong to imagery and existing feature surfaces, never body text.
 
 ## Type
 
@@ -61,7 +62,7 @@ New pages read these from `src/styles/tokens.css`, which you create in Phase 3 b
 ## Components to reuse
 
 - **Primary button.** `.button`: a pill (`border-radius: 999px`), dark fill, Onest 16px/400, with the Tabler arrow-up-right icon. One main action per section.
-- **Inline /markets badge.** Use it in descriptive prose only: `<span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span>`. On pages ported from the homepage, the slash uses the `.sl` mask.
+- **The word mark is visual only.** "/markets" appears only as the logo and in images (`public/assets/icons/`). Never set it as text in prose, headings, buttons or alt text. Write slash.markets as plain text instead (CLAUDE.md, hard rule 1). The rename removed the homepage's inline badge from all copy. The CSS slash (`.sl`) now appears only in the nav logo, whose accessible name is "slash.markets". Don't use it anywhere else.
 - **Glass surfaces:** 74% fill, `backdrop-filter: blur(8px) saturate(1.1)`, a subtle full border. Never a coloured side border.
 - **Corners:**
   - buttons and pills fully rounded;
@@ -69,9 +70,10 @@ New pages read these from `src/styles/tokens.css`, which you create in Phase 3 b
   - chat and chart cards about 14px;
   - terminals square.
 - **Icons:** Tabler for interface icons. Brand marks come from `public/assets/icons/`. No emoji, no hand-drawn substitutes.
-- **Prompt and output blocks:**
-  - `pre[data-language="prompt"]` is styled like the yellow user bubble;
+- **Prompt and output blocks** (built in `src/layouts/Article.astro`):
+  - `pre[data-language="prompt"]` is styled like the yellow user bubble, with the asymmetric corner;
   - `pre[data-language="output"]` sits on the warm surface;
+  - both wrap, while code and setup blocks scroll sideways inside themselves;
   - the date caption sits below.
   - Set Shiki to a light theme (`markdown.shikiConfig.theme: "github-light"`) so code blocks match the light brand.
 

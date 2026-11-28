@@ -1,42 +1,52 @@
 ---
 import { Font } from "astro:assets";
 import Seo from "../components/seo/Seo.astro";
-import { PAGES } from "../data/pages";
+import { PAGES, navLabel } from "../data/pages";
+import { isBuilt } from "../lib/content";
+import "../styles/tokens.css";
 type SeoProps = import("astro/types").ComponentProps<typeof Seo>;
-interface Props { seo: SeoProps }
-const { seo } = Astro.props;
-// Footer links come from the registry. /disclaimer, /privacy and /terms appear as soon as they are live.
-const footer = PAGES.filter((p) => p.status === "live" && (p.nav === "footer" || p.nav === "both"));
+interface Props {
+  seo: SeoProps;
+  draft?: boolean; // a draft entry or registry page: shown with a banner, on deploy previews only
+  mono?: boolean; // loads Departure Mono, for pages with code blocks
+}
+const { seo, draft = false, mono = false } = Astro.props;
+// Footer links come from the registry: live pages, plus drafts on deploy previews.
+// /disclaimer, /privacy and /terms appear as soon as they are live.
+const footer = PAGES.filter((p) => isBuilt(p) && (p.nav === "footer" || p.nav === "both"));
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" data-draft={draft ? "true" : undefined}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <Font cssVariable="--font-serif" preload />
     <Font cssVariable="--font-sans" preload />
+    {mono && <Font cssVariable="--font-mono" />}
     <Seo {...seo} />
   </head>
   <body>
+    {draft && <p class="draft-banner" role="note">Draft. This page shows only on deploy previews and is not live.</p>}
     <main><slot /></main>
     <footer>
       <nav aria-label="Footer">
-        {footer.map((p) => <a href={p.path}>{p.h1}</a>)}
+        {footer.map((p) => <a href={p.path}>{navLabel(p)}</a>)}
       </nav>
     </footer>
   </body>
 </html>
 <style is:global>
-  /* Until Sunny's shared template (Phase 3): the old legal pages' look, from design/legacy-v1/legal.css. */
-  body { margin: 0; background: #fff; color: #20251b; font: 400 17px/1.7 var(--font-sans); }
+  /* Until Sunny's shared template (Phase 3): the old legal pages' look, from design/legacy-v1/legal.css.
+     The article and hub templates add their own styles; keep these rules as they are so live pages don't change. */
+  body { margin: 0; background: #fff; color: var(--ink); font: 400 17px/1.7 var(--font-sans); }
   main { max-width: 720px; margin: 0 auto; padding: 48px 24px 96px; }
   footer { max-width: 720px; margin: 0 auto; padding: 0 24px 48px; }
   footer nav { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 14px; }
-  h1, h2 { font-family: var(--font-serif); font-weight: 500; color: #161816; }
+  h1, h2 { font-family: var(--font-serif); font-weight: 500; color: var(--head); }
   h1 { font-size: clamp(32px, 5vw, 44px); margin: 32px 0 4px; }
   h2 { font-size: 20px; margin: 36px 0 6px; }
-  .meta { color: #62675f; font-size: 14px; margin: 0 0 28px; }
-  a { color: #20251b; text-underline-offset: 2px; }
-  .back { font-size: 14px; color: #62675f; text-decoration: none; }
-  pre[data-language="prompt"] { background: #f6d64d; }
+  .meta { color: var(--muted); font-size: 14px; margin: 0 0 28px; }
+  a { color: var(--ink); text-underline-offset: 2px; }
+  .back { font-size: 14px; color: var(--muted); text-decoration: none; }
+  .draft-banner { margin: 0; padding: 10px 24px; background: var(--yellow); color: var(--ink); font-size: 14px; font-weight: 500; text-align: center; }
 </style>

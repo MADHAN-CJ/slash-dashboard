@@ -1,0 +1,14 @@
+{
+  "markets-team": {
+    "name": "slash.markets team",
+    "type": "Organization",
+    "role": "The team that builds slash.markets"
+  },
+  "raunaq": {
+    "name": "Raunaq Vaisoha",
+    "type": "Person",
+    "role": "Co-founder and CEO, slash.markets",
+    "sameAs": ["https://www.linkedin.com/in/raunaq-vaisoha/"],
+    "bio": "Raunaq Vaisoha is co-founder and CEO of slash.markets. He co-founded Elemential Labs in 2016, whose blockchain platform NSE tested for KYC and e-voting, and was named in Entrepreneur India's 35 Under 35."
+  }
+}

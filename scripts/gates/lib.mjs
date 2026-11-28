@@ -53,22 +53,75 @@ const BLOCK = new Set([
   "ol", "option", "p", "pre", "section", "table", "td", "th", "tr", "ul",
 ]);
 
-// The text a reader sees in the body: no scripts or styles, with a space between blocks.
-export function visibleText($) {
+// The body's text as a reader sees it, split at block elements: no scripts or styles.
+// Line breaks inside a block are only whitespace; the block boundary is a character text never holds.
+const BREAK = "\u0000";
+export function visibleBlocks($) {
   const parts = [];
   const walk = (nodes) => {
     for (const n of nodes) {
       if (n.type === "text") parts.push(n.data);
       else if (n.children && !SKIP.has(n.name)) {
         const block = BLOCK.has(n.name);
-        if (block) parts.push(" ");
+        if (block) parts.push(BREAK);
         walk(n.children);
-        if (block) parts.push(" ");
+        // Inline elements often sit side by side with spacing from CSS only ("RSI 14" then "15 min delayed").
+        parts.push(block ? BREAK : " ");
       }
     }
   };
   walk($("body").toArray());
-  return parts.join("").replace(/\s+/g, " ").trim();
+  return parts
+    .join("")
+    .split(BREAK)
+    .map((b) => b.replace(/\s+/g, " ").trim())
+    .filter(Boolean);
+}
+
+// The text a reader sees in the body, with a space between blocks.
+export const visibleText = ($) => visibleBlocks($).join(" ");
+
+// Sentences: each block (heading, paragraph, list item, cell) split after ".", "!" or "?" and a space.
+// "slash.markets" stays whole because its dot has no space after it.
+export const sentences = (blocks) => blocks.flatMap((b) => b.split(/(?<=[.!?])\s+/)).filter(Boolean);
+
+// The page's title and meta description, plus its body sentences.
+export const pageSentences = ($) => sentences([$("head > title").text(), $('head > meta[name="description"]').attr("content") ?? "", ...visibleBlocks($)].filter(Boolean));
+
+// Drafts carry data-draft="true" on <html> (src/layouts/Base.astro). Production never builds them.
+export const isDraftPage = ($) => $("html").attr("data-draft") === "true";
+
+// What kind of page a path is: the four article hubs, an article in one of them, or another page.
+export const ARTICLE_HUBS = ["guides", "best", "rules", "compare"];
+export const collectionOf = (path) => ARTICLE_HUBS.find((c) => path.startsWith(`/${c}/`)) ?? null;
+export const isHub = (path) => ARTICLE_HUBS.some((c) => path === `/${c}`);
+
+// Escapes a phrase for use inside a regular expression.
+export const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+// The frontmatter fields the meta gate compares with the built page. Each must be one double-quoted line,
+// as content-model.md asks (it also stops a ": " inside the value from breaking YAML).
+export function frontmatter(text, keys) {
+  const block = text.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  const values = {};
+  const errors = [];
+  if (!block) return { values, errors: ["has no frontmatter"] };
+  for (const line of block[1].split(/\r?\n/)) {
+    const m = line.match(/^([A-Za-z]+):[ \t]*(.*)$/);
+    if (!m || !keys.includes(m[1])) continue;
+    // A double-quoted value, then optionally a # comment.
+    const quoted = m[2].trim().match(/^("(?:[^"\\]|\\.)*")\s*(?:#.*)?$/);
+    if (!quoted) {
+      errors.push(`put the ${m[1]} in double quotes on one line`);
+      continue;
+    }
+    try {
+      values[m[1]] = JSON.parse(quoted[1]);
+    } catch {
+      errors.push(`can't read the ${m[1]}: use plain double-quoted text`);
+    }
+  }
+  return { values, errors };
 }
 
 // All the copy on a page that compliance rules cover: body text, title, descriptions and attribute text.

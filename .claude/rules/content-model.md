@@ -13,15 +13,15 @@ Content lives in `src/content/` as Markdown with YAML frontmatter. The schemas l
 
 | Collection | Folder | URL | What goes in it | Required beyond the shared fields |
 |---|---|---|---|---|
-| `guides` | `src/content/guides/` | `/guides/<slug>` | Connect-your-AI guides and explainers | `group` (`connect-your-ai`, `options-data`, `mcx`, `methods`); optional `useCase` |
-| `best` | `src/content/best/` | `/best/<slug>` | Best lists of products (never securities) | `reviewedOn`, `items` (at least 3: `name`, `url`, `summary` up to 200 characters, `ours`) |
-| `rules` | `src/content/rules/` | `/rules/<slug>` | Market rules and facts | `checkedOn`, `sources` (at least 1 official source: NSE, BSE, MCX or SEBI) |
-| `compare` | `src/content/compare/` | `/compare/<slug>` | Comparisons, reviews, pricing and alternatives pages | `reviewedOn`, `products` (`name`, `url`) |
+| `guides` | `src/content/guides/` | `/guides/<slug>` | Connect-your-AI guides and explainers | `group` (`connect-your-ai`, `options-data`, `mcx`, `methods`); optional `useCase`, `checkedOn` (shown as "Facts checked on") and `sources` (`name`, `url`, optional `note`) |
+| `best` | `src/content/best/` | `/best/<slug>` | Best lists of products (never securities) | `reviewedOn`, `items` (at least 3: `name`, `url`, `summary` up to 200 characters, `ours`). An `ours: true` item needs no `url`: the template links slash.markets itself |
+| `rules` | `src/content/rules/` | `/rules/<slug>` | Market rules and facts | `checkedOn`, `sources` (at least 1 official source on nseindia.com, bseindia.com, mcxindia.com or sebi.gov.in; the schema checks) |
+| `compare` | `src/content/compare/` | `/compare/<slug>` | Comparisons, reviews, pricing and alternatives pages | `reviewedOn`, `products` (`name`, `url`, `ours`; an `ours: true` product needs no `url`) |
 | `useCases` | `src/content/use-cases/` | `/use-cases/<slug>` | The 5 day-one use cases | `seoTitle`, `order`, `problem` (the trader's words), `prompts` (2 to 3, each with `dataDate`), `faqs` (3 to 5) |
 | `worksWith` | `src/content/works-with/` | `/works-with/<slug>` | Setup pages for live integrations | `integration` (its status in `facts.json` must be `live`) |
-| `legal` | `src/content/legal/` | `/privacy`, `/terms`, `/disclaimer` | Legal text | `lastUpdated` |
+| `legal` | `src/content/legal/` | `/privacy`, `/terms`, `/disclaimer` | Legal text, `.md` or `.mdx` (for `<Fact>`) | `lastUpdated`. The page's title, description, H1 and status come from the registry |
 | `faqs` | `src/content/faq.yaml` | `/faq` | The 12 to 15 site questions | `q` ends with "?"; `a` is 2 to 3 sentences |
-| `authors` | `src/content/authors.json` | bylines | Authors | `name`, `type` (Person or Organization), `role` |
+| `authors` | `src/content/authors.json` | bylines | Authors, keyed by id | `name`, `type` (Person or Organization), `role`; optional `sameAs` and a one-line `bio` |
 
 **Where the 90-article list maps**
 - "Connect AI guide" and "Explainer" go to `guides`.
@@ -34,7 +34,7 @@ Content lives in `src/content/` as Markdown with YAML frontmatter. The schemas l
 | Field | Rule | Used for |
 |---|---|---|
 | `title` | up to 70 characters | the H1 |
-| `seoTitle` | up to 60 characters, optional | the `<title>` when it differs from the H1 |
+| `seoTitle` | up to 60 characters, optional. Required when `title` is over 60 | the `<title>` when it differs from the H1 |
 | `description` | 70 to 160 characters | the meta description |
 | `answer` | 80 to 320 characters | the lead under the H1: two plain lines that answer the page's question. Also used in llms.txt and RSS |
 | `publishedAt` | date | the go-live date |
@@ -48,7 +48,7 @@ Content lives in `src/content/` as Markdown with YAML frontmatter. The schemas l
 
 - **Format.** Use `.md` by default. Use `.mdx` only when you need a component.
   - In `.mdx`, a `{` or `}` in prose breaks the build (it is read as code). Escape it as `\{` and `\}`, or keep that text in `.md`. We confirmed this on Astro 7.4.13.
-- **Quote frontmatter text.** Put double quotes around `title`, `description` and `answer`. An unquoted value containing ": " (colon and space) breaks the YAML parser and fails the build. We confirmed this on Astro 7.4.13.
+- **Quote frontmatter text.** Put double quotes around `title`, `seoTitle`, `description` and `answer`, each on one line. An unquoted value containing ": " (colon and space) breaks the YAML parser and fails the build (confirmed on Astro 7.4.13). The `meta` gate also fails an unquoted one, because it reads these fields to compare them with the built page.
 - **No `#` heading in the body.** The template renders the H1 from `title`. Start body headings at `##`; they become the table of contents.
 - **Prompts and outputs** use fenced blocks with the languages `prompt` and `output`. Add a caption line with the data date underneath:
 
@@ -69,18 +69,18 @@ Content lives in `src/content/` as Markdown with YAML frontmatter. The schemas l
   - Use descriptive file names (`nifty-oi-by-strike.webp`) and alt text that says what the image shows.
   - Screenshots show sample or past data, with the date.
 - **Product facts.** Never type the data delay, prices, markets or integration status into an article.
-  - In `.mdx`, use the `<Fact>` component (Phase 2).
+  - In `.mdx`, write `<Fact name="data.delayMinutes" />`. Articles and legal pages get the component without an import. Lists read as prose (`data.exchanges` gives "NSE, BSE and MCX"), `link` turns an email into a mailto link, and an unknown name fails the build.
   - In `.md`, describe the feature in words that carry no number that can change.
 - **Year in titles.** Allowed ("in 2027"). Never in the slug.
 
 ## Drafts and sign-off (the publishing flow)
 
-1. **Prefer drafts.** Prefer opens a pull request adding the entry with `draft: true`.
-2. **Preview.** Netlify builds a deploy preview with `SHOW_DRAFTS=true`. The draft shows there with a "Draft" banner and `noindex`. Production never builds drafts.
+1. **Prefer drafts.** Prefer opens a pull request adding the entry with `draft: true`. The commands in `.claude/commands/` (`/new-guide`, `/new-best`, `/new-rules`, `/new-compare`) start one from the current schema, and `/seo-check` reviews it.
+2. **Preview.** Netlify builds a deploy preview with `SHOW_DRAFTS=true`. The draft shows there with a "Draft" banner and `noindex`, and it is listed on its hub with a "Draft" tag. Production never builds drafts, and the sitemap, RSS and llms.txt never list them, even on previews.
 3. **Review.** Prefer reviews against the sign-off checklist (`.claude/rules/quality-gates.md`), then Sahil reviews the preview.
 4. **Sign-off.** In the same pull request, add `signoff: { by: "Sahil", on: 2026-12-02 }` and set `draft: false`. Prefer or Madhan merge it.
 
-The build refuses `draft: false` without `signoff`.
+The build refuses `draft: false` without `signoff`. An entry also needs its hub to be live: the URL gate fails an article whose hub page isn't built.
 
 ## Rules pages stay current
 
@@ -96,8 +96,9 @@ The build refuses `draft: false` without `signoff`.
 
 ## Authors
 
-- Until the byline policy is decided (open item in `docs/site-build-plan.md`), `author` is `markets-team`.
-- Real people get an `authors.json` entry with their `sameAs` profile links.
+- Articles are bylined to Raunaq Vaisoha (`author: raunaq`), starting with articles #1 and #2 (decided 28 Nov 2026). `markets-team` is the slash.markets team, for anything without a named author.
+- Real people get an `authors.json` entry with their `sameAs` profile links and a one-line `bio`, which they approve. The byline shows the name, role and bio.
+- A Person author's structured data uses the `@id` `https://slash.markets/about#<id>`, the same node as the founder in the Organization. The team author refers to the one Organization.
 
 ## Adding a collection
 

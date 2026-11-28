@@ -1,0 +1,26 @@
+---
+// A product fact from src/data/facts.json, for .mdx entries: <Fact name="data.delayMinutes" />.
+// Articles and legal pages get it without an import. An unknown name fails the build.
+// Lists read as prose ("NSE, BSE and MCX"). An email with `link` becomes a mailto link.
+import { facts } from "../lib/facts";
+
+interface Props {
+  name: string;
+  link?: boolean;
+}
+const { name, link = false } = Astro.props;
+
+let value: unknown = facts;
+for (const key of name.split(".")) {
+  if (value === null || typeof value !== "object" || !(key in value)) throw new Error(`<Fact name="${name}" />: there is no "${name}" in src/data/facts.json`);
+  value = (value as Record<string, unknown>)[key];
+}
+
+const asText = (v: unknown): string => {
+  if (typeof v === "string" || typeof v === "number") return String(v);
+  if (Array.isArray(v) && v.every((x) => typeof x === "string")) return v.length < 2 ? v.join("") : `${v.slice(0, -1).join(", ")} and ${v.at(-1)}`;
+  throw new Error(`<Fact name="${name}" />: the value is not text, a number or a list of words`);
+};
+const text = asText(value);
+---
+{link ? <a href={`mailto:${text}`}>{text}</a> : text}

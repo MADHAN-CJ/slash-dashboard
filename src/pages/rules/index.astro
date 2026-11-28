@@ -1,0 +1,10 @@
+---
+// The /rules hub: newest first, each with its checked-on date.
+import Hub from "../../layouts/Hub.astro";
+import { getPublished, hubPage, isBuilt, newestFirst, notBuilt } from "../../lib/content";
+
+const p = hubPage("rules");
+if (!isBuilt(p)) return notBuilt();
+const entries = newestFirst(await getPublished("rules"));
+---
+<Hub p={p} collection="rules" sections={[{ entries }]} />

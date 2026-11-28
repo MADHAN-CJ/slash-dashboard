@@ -1,8 +1,8 @@
 // The only place the domain, brand strings and site-wide IDs live.
 export const SITE = {
   url: "https://slash.markets",
-  name: "/markets",
-  alternateNames: ["slash markets", "slash.markets"],
+  name: "slash.markets", // always written this way in text (CLAUDE.md, hard rule 1); "/markets" is the visual word mark only
+  alternateNames: ["slash markets"], // how people say it; structured data only, never in copy
   lang: "en",
   ogLocale: "en_IN",
   appUrl: "https://app.slash.markets",

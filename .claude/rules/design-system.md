@@ -7,7 +7,7 @@ paths:
   - "public/**"
 ---
 
-# Design system: how /markets looks and how pages are built
+# Design system: how slash.markets looks and how pages are built
 
 ## Sources of truth, in order
 
@@ -16,6 +16,7 @@ paths:
 3. **`BRAND_GUIDELINES.md`** for typography, colour, components, imagery, motion and voice.
    - **Caveat:** its "Where to edit" table and several components (watch alerts, setup tabs, FAQ footer, floating nav, dithered videos) describe the previous homepage. Those files now sit in `design/legacy-v1/` and are not deployed.
    - Where the guide and the live homepage disagree, the homepage wins.
+   - **Naming beats both.** CLAUDE.md hard rule 1 overrides the guide's "Identity and inline /markets" section and the homepage's inline badge: text always says slash.markets.
    - Sunny updates the guide in Phase 4.
 
 Preserve the style. Do not introduce a dashboard look, a dark terminal theme, a blue or purple SaaS gradient, stock photos of trading desks, or a grid of identical feature cards.
@@ -61,7 +62,7 @@ New pages read these from `src/styles/tokens.css`, which you create in Phase 3 b
 ## Components to reuse
 
 - **Primary button.** `.button`: a pill (`border-radius: 999px`), dark fill, Onest 16px/400, with the Tabler arrow-up-right icon. One main action per section.
-- **Inline /markets badge.** Use it in descriptive prose only: `<span class="markets-wordmark markets-label"><span class="markets-slash">/</span>markets</span>`. On pages ported from the homepage, the slash uses the `.sl` mask.
+- **The word mark is visual only.** "/markets" appears only as the logo and in images (`public/assets/icons/`). Never set it as text in prose, headings, buttons or alt text. Write slash.markets as plain text instead (CLAUDE.md, hard rule 1). The homepage's inline badge (`.markets-wordmark`) predates this rule: remove it when that copy is renamed, and don't use it on new pages.
 - **Glass surfaces:** 74% fill, `backdrop-filter: blur(8px) saturate(1.1)`, a subtle full border. Never a coloured side border.
 - **Corners:**
   - buttons and pills fully rounded;

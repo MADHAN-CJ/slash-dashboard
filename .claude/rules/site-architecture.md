@@ -9,7 +9,7 @@ paths:
 
 # Site architecture: URLs, pages and links
 
-The page list comes from the site pages brief in the /markets 90-day plan (Claude Doc "/markets 90-day plan", tab "Site pages brief"), plus three additions agreed on 25 Nov 2026. This file is the single list of URLs. Change a URL here first.
+The page list comes from the site pages brief in the 90-day plan (the Claude Doc's "Site pages brief" tab), plus three additions agreed on 25 Nov 2026. This file is the single list of URLs. Change a URL here first.
 
 ## URL rules
 
@@ -61,7 +61,7 @@ The page list comes from the site pages brief in the /markets 90-day plan (Claud
 - They never appear in the sitemap or in navigation.
 
 **Reserved for later**
-- `/tools/<slug>`: calculators, if the /markets team builds them. Interactive code is allowed there, within budget.
+- `/tools/<slug>`: calculators, if the slash.markets team builds them. Interactive code is allowed there, within budget.
 - Live-data pages: these wait until the data licence allows public display.
 
 **Not on this site**

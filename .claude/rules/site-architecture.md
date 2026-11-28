@@ -70,24 +70,26 @@ The page list comes from the site pages brief in the 90-day plan (the Claude Doc
 ## Hubs and links
 
 - **Hubs fill themselves.** A hub lists its published articles automatically. Nobody edits a hub to add an article.
-- **Hub content.** Every hub opens with a 2 to 3 line intro (from the registry), even before its first article.
+- **Hub content.** Every hub opens with a 2 to 3 line intro (the registry's `intro`), even before its first article. One template builds all four: `src/layouts/Hub.astro`.
   - `/guides` groups articles by `group`: connect your AI, options data, MCX, methods. Newest first within each group.
-  - `/best` opens with a short note on how lists are put together and kept current.
-  - `/rules` shows each page's "checked on" date.
+  - `/best` opens with a short note on how lists are put together and kept current (the registry's `note`).
+  - `/rules` shows each page's "checked on" date; `/best` and `/compare` show "reviewed on".
+  - Each entry shows its title, its `answer` and its date.
 - **Article links.** Every article links:
   - up to its hub, through the breadcrumb;
   - to at least one core page (its matching use case, or /how-it-works);
   - to related articles where they exist.
 - **No dead-end URLs.** Every URL segment has a page. No URL may point at a parent path that returns 404.
-- **Header and footer links** come from the registry's `nav` field, so every live core page can be reached from the menu or the footer. The footer always links /disclaimer, /privacy and /terms.
+- **Header and footer links** come from the registry's `nav` field, so every live core page can be reached from the menu or the footer. The link text is the registry's `label` (or the H1 when there is none). The footer always links /disclaimer, /privacy and /terms; the homepage's legacy footer links /disclaimer as soon as that page is built.
 
 ## The route registry (`src/data/pages.ts`)
 
 - Every `.astro` page has one entry: `path`, `title`, `description`, `h1`, `nav`, `status` (planned, draft or live), `signoff` and an optional `noindex`.
-- Prefer supplies `title`, `description` and `h1`. Copy them in exactly as given.
+  - Optional: `label` (the short name in nav links and breadcrumbs), `intro` (a hub's 2 to 3 line intro; required for hubs that aren't planned) and `note` (the `/best` method note).
+- Prefer supplies `title`, `description`, `h1` and the hub intros. Copy them in exactly as given. New page titles put the page first, then " · slash.markets".
 - **What each status does**
   - A `planned` page has no file yet.
-  - A `draft` page exists only on pull-request branches. It renders on deploy previews and never ships to production.
+  - A `draft` page renders on deploy previews, with a "Draft" banner, and never ships to production. Its file starts with `if (!isBuilt(p)) return notBuilt();` (from `src/lib/content.ts`): the empty response tells Astro not to write the page. Drafts can merge to `main` this way, waiting for sign-off.
   - A `live` page needs a `signoff`. The build fails if one is missing.
 - Pages that were live before 25 Nov and were ported unchanged carry `signoff: { by: "carried over unchanged from the old site", on: "2026-11-25" }` until their next content change.
 

@@ -6,7 +6,7 @@
 
 The marketing website for slash.markets, served at https://slash.markets. It is an Astro 7 static site on Netlify. Every page is server-rendered HTML. Articles are Markdown files added by pull request; there is no CMS. The product itself runs at https://app.slash.markets and is not in this repo.
 
-**Status (28 Nov 2026):** Phase 1 (the Astro foundation) merged on 25 Nov in PR #1, but production still serves the old static site. Phase 2 (the article system) is not built: `src/content.config.ts` has only the `legal` collection, so no article can be published yet. `docs/site-build-plan.md` has the phases, dates and what is done. Parts of this guide describe the target state.
+**Status (28 Nov 2026):** Phase 1 (the Astro foundation) merged on 25 Nov in PR #1, but production still serves the old static site. Phase 2 (the article system: collections, the article and hub templates, RSS, `<Fact>` and the second set of gates) is built in its own pull request. The four hubs and a temporary `/disclaimer` are drafts until Sahil signs them off, so no article can go live yet. `docs/site-build-plan.md` has the phases, dates and what is done. Parts of this guide describe the target state.
 
 ## What slash.markets is
 

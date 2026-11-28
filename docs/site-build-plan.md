@@ -7,7 +7,7 @@ Last updated 28 Nov 2026. Update the page tracker and the open items as work lan
 **Status (28 Nov 2026):**
 - **Phase 0 and Phase 1:** merged on 25 Nov in PR #1 (`569ec76`). `npm run check`, `npm run test` and `npm run build` pass locally.
 - **Production:** still serves the old static site. Checked 28 Nov: `/README.md` and `/BRAND_GUIDELINES.md` return 200, while `/sitemap.xml`, `/llms.txt` and `/og/default.jpg` return 404. Madhan to check the Netlify production deploy of `main`.
-- **Phase 2:** not started. Prefer builds all of it (decided 28 Nov), plus a temporary `/disclaimer` page. `src/content.config.ts` has only `legal`, and there's no Article layout, `/guides` route, `rss.xml` or Phase 2 gate. The first two articles (#1 Kite MCP, #2 Dhan MCP) need at least the `guides` and `authors` collections, the Article template, the `/guides` hub and article routes, draft previews, and a `/disclaimer` page to link to.
+- **Phase 2:** built on 28 Nov on branch `article-system`, in one pull request that depends on PR #2. It holds all eight collections (routes for the four article collections; `useCases`, `worksWith` and `faqs` get theirs in Phase 3), the Article and Hub templates, RSS, `<Fact>`, the commands and the second set of gates. The four hubs and Prefer's temporary `/disclaimer` are `draft`, with their SEO fields and intros from Prefer (28 Nov). Before articles #1 and #2 can go live: Sahil signs off `/guides` and `/disclaimer`, the live-copy rename merges, and production deploys `main`.
 
 ## Decided (25 Nov 2026)
 
@@ -197,11 +197,11 @@ Branch: `astro-foundation`. One pull request.
 | `/security` | | | | | | |
 | `/about` | | | | | | |
 | `/faq` | | | | | | |
-| `/disclaimer` | | | | | | |
-| `/guides` | | | | | | |
-| `/best` | | | | | | |
-| `/rules` | | | | | | |
-| `/compare` | | | | | | |
+| `/disclaimer` | 28 Nov | | Prefer's temporary text (28 Nov) | draft (Phase 2) | | |
+| `/guides` | 28 Nov | | intro 28 Nov | draft (Phase 2) | | |
+| `/best` | 28 Nov | | intro and method note 28 Nov | draft (Phase 2) | | |
+| `/rules` | 28 Nov | | intro 28 Nov | draft (Phase 2) | | |
+| `/compare` | 28 Nov | | intro 28 Nov | draft (Phase 2) | | |
 | `/use-cases` | | | | | | |
 | `/works-with` | | | | | | |
 | `/privacy`, `/terms` | carried over | carried over | | | | |
@@ -222,7 +222,8 @@ Branch: `astro-foundation`. One pull request.
 | Claude setup steps for `/works-with/claude` | Anil | Week 2 |
 | Rename the name in live copy to slash.markets (homepage, `site.ts`, `facts.json`, `pages.ts` titles, legal pages, `llms.txt`, `og:site_name`) and drop the inline word-mark badge (CLAUDE.md, hard rule 1) | Prefer with Madhan; Sahil signs off; Sunny updates `BRAND_GUIDELINES.md` | Before the first new page goes live |
 | Founders' photos, bios, LinkedIn and X links (Raunaq's LinkedIn received 28 Nov) | Anil, Raunaq | Week 3 |
-| Disclaimer: Sahil edits and signs off Prefer's temporary text, then supplies the final text | Sahil | Before the first article goes live |
+| Disclaimer: Sahil edits and signs off Prefer's temporary text (`src/content/legal/disclaimer.mdx`, in the Phase 2 pull request), then supplies the final text | Sahil | Before the first article goes live |
+| The words "recommendation(s)" in the live homepage and terms copy raise `compliance-words` warnings: rephrase them in the rename pull request, or approve `compliance/allow.json` entries | Sahil | With the rename pull request |
 | Approval to name competitors other than Kite MCP and Dhan MCP on /compare and /best | Anil, Raunaq, Sahil | Before the first comparison |
 
 ## Starting a session

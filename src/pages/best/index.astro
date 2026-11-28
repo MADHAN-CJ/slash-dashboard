@@ -1,0 +1,10 @@
+---
+// The /best hub: newest first, after the note on how the lists are made.
+import Hub from "../../layouts/Hub.astro";
+import { getPublished, hubPage, isBuilt, newestFirst, notBuilt } from "../../lib/content";
+
+const p = hubPage("best");
+if (!isBuilt(p)) return notBuilt();
+const entries = newestFirst(await getPublished("best"));
+---
+<Hub p={p} collection="best" sections={[{ entries }]} />

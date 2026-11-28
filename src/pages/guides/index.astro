@@ -1,0 +1,11 @@
+---
+// The /guides hub: grouped by `group`, newest first within each group.
+import Hub from "../../layouts/Hub.astro";
+import { GUIDE_GROUPS, getPublished, hubPage, isBuilt, newestFirst, notBuilt } from "../../lib/content";
+
+const p = hubPage("guides");
+if (!isBuilt(p)) return notBuilt();
+const guides = newestFirst(await getPublished("guides"));
+const sections = Object.entries(GUIDE_GROUPS).map(([group, heading]) => ({ heading, entries: guides.filter((e) => e.data.group === group) }));
+---
+<Hub p={p} collection="guides" sections={sections} />

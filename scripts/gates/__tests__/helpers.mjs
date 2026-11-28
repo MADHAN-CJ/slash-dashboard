@@ -10,7 +10,7 @@ export const page = (path, html) => ({ file: path === "/" ? "index.html" : `${pa
 const signoff = { by: "test", on: "2026-11-25" };
 export const EXAMPLE = {
   path: "/example",
-  title: "Example page · /markets",
+  title: "Example page · slash.markets",
   description: "A short example page used by the gate tests. It has a title, a description, one H1 and a valid graph.",
   h1: "Example page",
   nav: "footer",
@@ -19,14 +19,25 @@ export const EXAMPLE = {
 };
 export const HOME = {
   path: "/",
-  title: "Home · /markets",
+  title: "Home · slash.markets",
   description: "The home page of the gate tests, with a link to the example page and nothing else on it.",
   h1: "Home",
   nav: "none",
   status: "live",
   signoff,
 };
-export const HOME_HTML = `<!doctype html><html lang="en"><head><title>Home · /markets</title></head><body><h1>Home</h1><a href="/example">Example page</a></body></html>`;
+export const HOME_HTML = `<!doctype html><html lang="en"><head><title>Home · slash.markets</title></head><body><h1>Home</h1><a href="/example">Example page</a></body></html>`;
+
+// The facts the facts and compliance gates read (a cut-down src/data/facts.json).
+export const FACTS = {
+  description: "slash.markets gives your AI Indian market data for the gate tests, so it can answer questions from real data.",
+  data: { delayMinutes: 15, exchanges: ["NSE", "BSE", "MCX"] },
+  integrations: [
+    { id: "claude", name: "Claude", status: "live" },
+    { id: "chatgpt", name: "ChatGPT", status: "coming" },
+    { id: "kite", name: "Kite", status: "coming" },
+  ],
+};
 
 export const ctx = (over = {}) => ({
   site: SITE,
@@ -41,6 +52,10 @@ export const ctx = (over = {}) => ({
   src: [],
   styleExclude: [],
   allow: [],
+  entries: new Map(),
+  facts: FACTS,
+  brandNames: ["slash.markets"],
+  now: new Date("2026-11-28T12:00:00Z"),
   ...over,
 });
 

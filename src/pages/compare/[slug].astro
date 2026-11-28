@@ -1,0 +1,13 @@
+---
+// One page per entry in src/content/compare/. Drafts build only on deploy previews.
+import type { InferGetStaticPropsType } from "astro";
+import Article from "../../layouts/Article.astro";
+import { getPublished } from "../../lib/content";
+
+export async function getStaticPaths() {
+  return (await getPublished("compare")).map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { entry } = Astro.props;
+---
+<Article entry={entry} />

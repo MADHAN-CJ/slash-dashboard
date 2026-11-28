@@ -10,7 +10,7 @@ const { Content } = await render(entry);
 const g = graph(webPage({ path: p.path, name: p.title, description: p.description }));
 ---
 <Base seo={{ title: p.title, description: p.description, path: p.path, graph: g }}>
-  <a class="back" href="/">← /markets</a>
+  <a class="back" href="/">← slash.markets</a>
   <h1>{p.h1}</h1>
   <p class="meta">Last updated {entry.data.lastUpdated.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })}</p>
   <Content />

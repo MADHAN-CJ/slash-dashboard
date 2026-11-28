@@ -1,0 +1,317 @@
+---
+title: "Zerodha Kite MCP explained: what it does, how to set it up, its limits"
+seoTitle: "Zerodha Kite MCP: what it does, setup and limits"
+description: "Kite MCP connects Claude, Cursor and other AI apps to your Zerodha account. What it can read, how to set it up, whether it places orders, and its limits."
+answer: "Kite MCP is Zerodha's free, official MCP server. Add https://mcp.kite.trade/mcp to Claude or another AI app and log in with Kite. Your AI can then read your holdings, positions, margins and market quotes. Zerodha's pages say it can't place regular orders; its newest docs add orders you approve first."
+publishedAt: 2026-12-04
+author: raunaq
+group: connect-your-ai
+checkedOn: 2026-11-28
+sources:
+  - name: "Zerodha: Kite MCP product page"
+    url: "https://zerodha.com/products/mcp/"
+    note: "read-only access and supported apps; read 28 Nov 2026"
+  - name: "Zerodha Support: Connect Zerodha to an AI assistant"
+    url: "https://support.zerodha.com/category/trading-and-markets/general-kite/others-kite/articles/connect-zerodha-ai-assistant"
+    note: "read-only except GTT, and the mobile setup; modified 4 Nov 2026, read 28 Nov 2026"
+  - name: "Kite MCP docs: FAQ"
+    url: "https://mcp.kite.trade/reference/faq/"
+    note: "free, maintained by Zerodha, session length, what the approval step covers; read 28 Nov 2026"
+  - name: "Kite MCP docs: Order approvals"
+    url: "https://mcp.kite.trade/reference/order-approvals/"
+    note: "how approved orders work and their limits; read 28 Nov 2026"
+  - name: "Kite MCP docs: Tools"
+    url: "https://mcp.kite.trade/reference/tools/"
+    note: "the nine tools, their modes and the option chain; read 28 Nov 2026"
+  - name: "Kite MCP docs: Examples"
+    url: "https://mcp.kite.trade/reference/examples/"
+    note: "no Greeks, quotes are snapshots, servers may exclude transaction tools; read 28 Nov 2026"
+  - name: "Kite MCP docs: Clients"
+    url: "https://mcp.kite.trade/clients/claude-web/"
+    note: "setup steps for Claude, ChatGPT, Cursor, VS Code and Windsurf; read 28 Nov 2026"
+  - name: "GitHub: zerodha/kite-mcp-server"
+    url: "https://github.com/zerodha/kite-mcp-server"
+    note: "MIT licence, releases, and the README line on tool availability; read 28 Nov 2026"
+  - name: "Kite Connect docs: User and session"
+    url: "https://kite.trade/docs/connect/v3/user/"
+    note: "access tokens expire at 6 AM the next day; read 28 Nov 2026"
+  - name: "Zerodha: Kite Connect pricing"
+    url: "https://zerodha.com/products/api/"
+    note: "the free Personal plan and the ₹500 Connect plan; read 28 Nov 2026"
+  - name: "Kite Connect forum: fee revised from ₹2,000 to ₹500"
+    url: "https://kite.trade/forum/discussion/15015/revising-kite-connect-fees-from-2000-to-500-per-month"
+    note: "the May 2025 price cut; read 28 Nov 2026"
+  - name: "Zerodha Support: Static IP for API orders"
+    url: "https://support.zerodha.com/category/trading-and-markets/general-kite/kite-api/articles/static-ip"
+    note: "static IP rule for API orders from 1 Apr 2026; read 28 Nov 2026"
+  - name: "Z-Connect: Kite MCP launch post"
+    url: "https://zerodha.com/z-connect/featured/connect-your-zerodha-account-to-ai-assistants-with-kite-mcp"
+    note: "launched 20 May 2025; read 28 Nov 2026"
+  - name: "Anthropic: custom connectors using remote MCP"
+    url: "https://support.claude.com/en/articles/11175166"
+    note: "which Claude plans can add custom connectors, switching tools off, and the Allow always advice; updated 24 Nov 2026, read 28 Nov 2026"
+  - name: "Anthropic: use connectors to extend Claude's capabilities"
+    url: "https://support.claude.com/en/articles/11176164"
+    note: "adding connectors on mobile is in beta, and connectors sync to the phone apps; updated 24 Nov 2026, read 28 Nov 2026"
+faqs:
+  - q: "How do I add my Zerodha MCP to Claude?"
+    a: "In Claude on the web or desktop, open the connector settings and add a custom connector with the URL https://mcp.kite.trade/mcp. Then sign in on Kite's page with your password and TOTP, once: during setup, or from a Log in to Kite link in the chat, depending on the version."
+  - q: "What is the URL for the Zerodha Kite MCP server?"
+    a: "It's https://mcp.kite.trade/mcp. Older guides give https://mcp.kite.trade/sse, which returned 404 when we checked on 28 November 2026, so use the /mcp address in every app."
+  - q: "How do I connect my Zerodha account to AI?"
+    a: "Add Zerodha's official Kite MCP server to an AI app that supports MCP, such as Claude, Cursor or VS Code, then log in with Kite when the app asks. The hosted server needs no Kite Connect subscription, API key or API secret."
+  - q: "Is Kite MCP free?"
+    a: "Yes. The hosted Kite MCP server is free and needs only a Zerodha account with Kite. Kite Connect, Zerodha's developer API, is a separate product: its Personal plan is free and its Connect plan costs ₹500 a month per app."
+  - q: "Can Kite MCP place orders on my account?"
+    a: "Zerodha's support article (updated 4 November 2026) says every operation is read-only except GTT orders. The newer Kite MCP docs describe regular orders that you approve first. Ask your AI which Kite MCP tools it can use to see what your own connection allows."
+  - q: "How long does a Kite MCP login last?"
+    a: "Zerodha's Kite MCP FAQ says a session lasts up to seven days, but Kite access tokens expire at 6 AM the next day for regulatory reasons. If Kite MCP stops answering one morning, log in to Kite again from the chat."
+  - q: "Does Kite MCP work with ChatGPT?"
+    a: "Zerodha's docs have a ChatGPT setup page, which says ChatGPT can connect \"when the feature is enabled for your account\" and that custom connections must be switched on for your account or workspace. Zerodha's product page doesn't list ChatGPT yet."
+  - q: "Can Kite MCP show the Nifty option chain with OI?"
+    a: "Partly. In the v0.4 docs, its option chain tool lists the contracts for an expiry and a separate quote call adds prices and open interest. It computes no PCR, max pain or Greeks. Analysis tools such as slash.markets work those out from the chain."
+draft: true
+---
+
+This guide is for Zerodha traders who want to connect their account to Claude, ChatGPT or another AI app through Kite MCP. It covers what the server can read, how to add it in each app, whether it can place orders, and where it stops. We checked every fact against Zerodha's own pages, and the server itself, on 28 November 2026. We build slash.markets, an analysis tool that also connects to Claude. The last section covers where it fits, and where Zerodha's server is the better choice.
+
+## What is Zerodha Kite MCP?
+
+**Kite MCP is Zerodha's official server for MCP, the Model Context Protocol.** MCP is the standard Claude, ChatGPT, Cursor and VS Code use to call outside tools mid-conversation. With Kite MCP connected, your AI reads your Zerodha account and Kite's market data at the moment you ask, instead of answering from its training data.
+
+- **It's Zerodha's own.** The Kite MCP FAQ says it is "developed and maintained by Zerodha". Zerodha announced it on its Z-Connect blog on 20 May 2025.
+- **Zerodha hosts it.** The server lives at `https://mcp.kite.trade/mcp`, and there's nothing to install for Claude on the web. The address answers `401` until you log in.
+- **It's free.** The hosted server needs a Zerodha account with Kite. It doesn't need Kite Connect, Zerodha's paid developer API.
+- **The code is public.** It's on GitHub as `zerodha/kite-mcp-server`, under the MIT licence. The stable release is v0.3.2, from 10 July 2026. The v0.4 line is still in pre-release (v0.4.0-dev37 came out on 19 November 2026), and Zerodha's docs already describe its newer tools.
+
+The README on the repository's `develop` branch says "Tool availability depends on the deployment", and Zerodha's examples page adds that "Servers may exclude transaction tools entirely." So this page names the tools Zerodha documents and the date we checked them. We didn't log in, so we can't tell you which ones the hosted server shows your account.
+
+## What can Kite MCP do?
+
+**Zerodha's docs list nine tools, which we group into six.** Seven of them take a `mode` that picks the action. The prompts work once you've connected.
+
+| Group | Tools and modes | Ask it | Notes |
+|---|---|---|---|
+| Your account | `portfolio` (profile, margins, holdings, positions) and `mutual_funds` (holdings) | "List my holdings with today's change, and tell me how much margin is free." | The profile includes your name, email and Zerodha user ID, so check a chat before you share it |
+| Market data | `market` (quote, ltp, ohlc, search) | "What are the last traded prices of RELIANCE and INFY?" | A quote covers OHLC, volume, depth and OI for up to 500 instruments |
+| Historical candles | `market` (historical) | "Give me 15-minute candles for the NIFTY current-month future for last week, with OI." | Intervals run from `minute` to `day`; OI is off unless you ask for it |
+| Option chain | `market` (option_chain) | "List the NIFTY option contracts for the next weekly expiry, then quote the five strikes nearest the money." | "Chain formation makes no live quote calls", so prices and OI need a separate quote |
+| Orders, GTT and alerts | `orders`, `gtt` and `alerts` | "Show my open orders and active GTTs." | Whether these can change anything depends on your connection: see the next sections |
+| Session and help | `session` (status, logout), `help` and `open_kite_view` | "Am I still logged in to Kite MCP?" | There's no login tool: you sign in on Kite's own page |
+
+## How do I add Kite MCP to Claude?
+
+**Add it as a custom connector, then sign in on Kite's page.** The steps below come from Zerodha's own pages.
+
+### Claude on the web and desktop
+
+Zerodha's page for Claude's hosted apps gives five steps:
+
+1. Open Claude settings or connector management
+2. Add a new remote MCP server or hosted connector
+3. Enter the server URL: `https://mcp.kite.trade/mcp`
+4. Continue with OAuth authentication
+5. Complete the Zerodha login flow in the browser when prompted
+
+Zerodha adds that "Product labels may vary between Claude surfaces and rollout stages". In Claude Desktop, the same remote connector works: add a custom connector with the URL, complete the sign-in through Kite, then enable the connection in your chat.
+
+### Claude on your phone
+
+Zerodha's support article gives these steps for the Claude app:
+
+1. Open the Claude app on your mobile device.
+2. Tap on the context menu (three horizontal lines) in the top-left corner.
+3. Tap on Settings at the bottom-left of the side panel.
+4. Tap on Connectors.
+5. Tap on the + (plus) icon in the top-right corner.
+6. Tap on Add Custom Connector.
+7. Enter the connector details: Name `Kite MCP`, Server URL `https://mcp.kite.trade/mcp`.
+8. Select Sign in now.
+9. Select Use Claude's Published Identity.
+10. Tap on Add.
+
+Anthropic's connectors article calls adding connectors on mobile a beta, and says a connector you add on the web or desktop is available in the phone app the next time you log in.
+
+### Signing in to Kite
+
+Zerodha's pages place the Kite sign-in in two different spots. Its docs for Claude's hosted apps put it inside the connector setup: "Continue with OAuth authentication", then "Complete the Zerodha login flow in the browser when prompted". Its support article puts it in the chat: "Open a chat and ask Claude to connect Kite MCP", then "Tap on Log in to Kite" and "Enter your password and TOTP or app code."
+
+Either way, you type your password and TOTP on Kite's own page, never into the chat. If Claude shows a Log in to Kite link again later, we read that as the same sign-in being renewed.
+
+### Claude Desktop through mcp-remote
+
+If your Claude Desktop can't add a remote connector, Zerodha documents a local bridge. It needs Node.js. Open Settings, then Developer, then Edit Config, and add:
+
+```json
+{
+  "mcpServers": {
+    "kite": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.kite.trade/mcp"]
+    }
+  }
+}
+```
+
+Save the file, restart Claude Desktop, and finish the Kite sign-in in your browser when the bridge starts.
+
+### Claude Code
+
+Run:
+
+```bash
+claude mcp add kite --transport http https://mcp.kite.trade/mcp
+```
+
+Then start Claude Code, run `/mcp`, and choose Authenticate for kite to sign in to Kite in your browser. Add `--scope user` to the command to make it available in every project.
+
+### Which Claude plans allow it
+
+Anthropic's help article (updated 24 November 2026) says custom connectors work on the Free, Pro, Max, Ultra, Team and Enterprise plans. A Free account can add one custom connector. On Team plans, only Owners and Primary Owners can add them.
+
+## How do I connect Kite MCP to ChatGPT, Cursor, VS Code or Windsurf?
+
+**Every app takes the same address, `https://mcp.kite.trade/mcp`.** Only the place you paste it changes.
+
+**ChatGPT on the web.** Zerodha's guide says ChatGPT connects "when the feature is enabled for your account". Open ChatGPT's settings, find connectors, integrations or developer tools (the label depends on the current version), create a custom connector or MCP server with the URL, choose OAuth, then complete the Zerodha login in your browser. Custom connections must be switched on for your account or workspace.
+
+**Cursor.** Add the server in Cursor's MCP settings, or create `.cursor/mcp.json` in your project:
+
+```json
+{
+  "mcpServers": {
+    "kite": {
+      "url": "https://mcp.kite.trade/mcp"
+    }
+  }
+}
+```
+
+**VS Code.** With GitHub Copilot installed, open the Command Palette, run MCP: Add Server, choose HTTP and enter the URL. Name the server `kite`, accept the trust and sign-in prompts, then open Copilot Chat in Agent mode. The file version, in `.vscode/mcp.json`, is:
+
+```json
+{
+  "servers": {
+    "kite": {
+      "url": "https://mcp.kite.trade/mcp",
+      "type": "http"
+    }
+  },
+  "inputs": []
+}
+```
+
+**Windsurf.** In Settings, go to Advanced, then Cascade, then MCP Servers, click Add custom server, and set the transport to streamable-http with the URL. In `~/.codeium/windsurf/mcp_config.json`, the field is `serverUrl`, not `url`:
+
+```json
+{
+  "mcpServers": {
+    "kite": {
+      "serverUrl": "https://mcp.kite.trade/mcp"
+    }
+  }
+}
+```
+
+Every guide on Zerodha's site suggests the same first test: "Use Kite MCP to show my account profile. Do not place any orders."
+
+## Can Kite MCP place orders?
+
+**Zerodha's pages give two answers, so check your own connection.** Here is what each said on 28 November 2026.
+
+- **Zerodha's product page** promises "Read-only access." Its support article (updated 4 November 2026) says: "All operations are read-only. Order placement is not available except for GTT orders."
+- **Zerodha's Kite MCP docs**, which follow the v0.4 pre-release, describe an `orders` tool: "When you ask Kite MCP to place, modify, or cancel an order, it asks you to review the action unless you have already allowed future orders for this connection."
+
+To see what your connection allows, ask your AI: "Which Kite MCP tools can you use?" If the list has no tool for placing or changing regular orders, your connection is read-only apart from GTT.
+
+If your connection does list order tools, Zerodha's order approvals page describes how they work:
+
+1. **You approve each order in Kite, not in the chat.** "No order is submitted while the request is waiting for approval." Typing "yes" to the AI doesn't count; the docs say it "does not replace the approval form or browser review."
+2. **The approval expires.** "Links expire after five minutes."
+3. **Approval isn't a fill.** Each approval lets one order go to the exchange, and the exchange may still not fill it.
+4. **"Allow future orders" turns the check off.** The box reads "Let this client place, modify, and cancel orders without asking", and it's unchecked by default. Leave it unchecked: Zerodha warns that "Instructions the client follows unintentionally can also lead to orders while this is enabled."
+5. **GTT and alerts skip the check.** The FAQ says "GTT and Alerts/ATO mutations are outside this guard and can create future trades."
+
+Since 1 April 2026, Zerodha has required a static IP for orders placed through its APIs. Nothing official says how that rule applies to the hosted Kite MCP server, so don't assume either way.
+
+If you want no order tools at all, you can run the open-source server yourself, with your own Kite Connect API key and secret, and remove the order tools with the `EXCLUDED_TOOLS` setting. Zerodha's README calls it "useful for creating read-only instances". The tool names depend on the version: the stable v0.3.2 README's example is `place_order,modify_order,cancel_order`, to which you'd add the GTT tools (`place_gtt_order`, `modify_gtt_order`, `delete_gtt_order`), while the v0.4 develop branch uses `orders,gtt,alerts`. Then ask "Which Kite MCP tools can you use?" to confirm they're gone.
+
+## How does the Kite login work, and how long does it last?
+
+**You log in on Kite's own page, so your password and TOTP never reach the AI app.** Kite MCP then keeps a session for you.
+
+Zerodha gives two limits for that session. The Kite MCP FAQ says it lasts "Up to seven days from login". Kite Connect's documentation says access tokens "expire at 6 AM on the next day (regulatory requirement)". In practice, if Kite MCP stops working one morning, ask your AI to log in again.
+
+To end access sooner, ask your AI to log out of Kite MCP, which uses its session tool, or remove the connector in your app's settings. Zerodha's product page says you can revoke access at any time, without spelling out the steps.
+
+## Is it safe to connect your Zerodha account to an AI?
+
+**Your login stays with Zerodha, but everything the tools return goes to your AI provider.**
+
+1. **Your AI provider sees the results.** Holdings, positions, margins and your profile pass through Claude, ChatGPT or whichever app you use, under that company's data policy.
+2. **Your credentials don't.** You sign in on Kite's page, so the app never sees your password or TOTP.
+3. **The AI can misread a number.** Zerodha's own docs warn that "AI systems are unpredictable and non-deterministic." Before you act on a figure, compare it with the Holdings or Positions screen in Kite.
+4. **Switch off the tools you don't want.** In a Claude chat, open the Search and tools menu and switch off any Kite MCP tool you don't want used, such as the order tools. The setting is per conversation, so check it in each new chat. When Claude asks to use a tool, Anthropic's advice is to "only click 'Allow always' when using a server and tool that you trust to run unsupervised". Never click it for order tools.
+5. **Use only Zerodha's server.** The official pieces are the hosted server at `mcp.kite.trade` and the `zerodha/kite-mcp-server` repository. Treat anything else called Kite MCP, on PyPI, Docker Hub or an MCP directory, as someone else's code until you've checked who publishes it, especially if it asks for your API secret.
+
+Never paste an API key, API secret or TOTP code into a chat, whichever server you use.
+
+## What Kite MCP doesn't do
+
+**Kite MCP passes Kite's data to your AI. It doesn't analyse it, and it doesn't run while you're away.**
+
+- **No options analytics.** It computes no put-call ratio, max pain or OI build-up across strikes. Your AI has to work them out from raw quotes, if it can.
+- **No Greeks.** Zerodha's examples page says: "The server does not calculate option Greeks, strategy breakevens, or estimated margin for a proposed order."
+- **No streaming.** Each quote is taken when your AI asks. The examples page says: "Quotes are snapshots, not a streaming feed."
+- **No watching.** It acts only when you send a message, so it can't tell you when a level breaks while you're at work.
+- **One broker.** It reads your Zerodha account and nothing else. If you trade with Dhan, see our guide to [Dhan MCP](/guides/dhan-mcp-explained).
+
+## Where slash.markets fits for Zerodha traders
+
+**We build slash.markets, so this section is about our own product.**
+
+Zerodha's server does better at what it's for. It's official and free, it reads your own account, and it handles GTT orders, plus regular orders where the docs allow them. slash.markets does none of that: it places no orders and never sees your account.
+
+What [slash.markets](/) adds starts where Zerodha's tools stop:
+
+- Zerodha's option chain tool lists contracts without prices. slash.markets returns the computed numbers: PCR, max pain and OI build-ups, across expiries.
+- Zerodha's server returns candles. slash.markets draws charts with your levels marked.
+- Zerodha's server answers only when you ask. slash.markets watches F&O and MCX and sends alerts by email and as app or browser notifications, though alerts can be delayed.
+- It also gives your AI a Python sandbox for its own calculations on market data, and a pre-market brief.
+
+It connects to Claude as an MCP server plus a skill file, and it's in a closed beta with a waitlist. Your AI gets data and computed results back, plus charts. Market data in slash.markets is delayed by at least <Fact name="data.delayMinutes" /> minutes.
+
+The short version: Zerodha's server connects your AI to your Zerodha account. slash.markets connects it to market analysis. You can add both to Claude.
+
+```prompt
+For NIFTY's weekly expiry, show the top 3 call and put strikes by OI, change in OI since the open, PCR and max pain.
+```
+
+> **TBD before publishing:** run this prompt in Claude with slash.markets connected, paste the real answer here as an `output` block, and add a caption with the data date, such as "Past data, 27 Nov 2026".
+
+## Common mistakes
+
+- **Using the old `/sse` address.** `https://mcp.kite.trade/sse` returned 404 on 28 November 2026, yet three third-party setup guides we read that day still give it, one of them checked by its author in October 2026. So does the README on the repository's default `master` branch. Use `/mcp`.
+- **Installing an unofficial "Kite MCP".** Zerodha's hosted server and its `zerodha/kite-mcp-server` repository are the only official ones.
+- **Pasting secrets into a chat.** The hosted server never needs your API key, API secret or TOTP in a message.
+- **Expecting it to watch your positions.** It answers when you ask, and does nothing in between.
+- **Thinking you need Kite Connect.** It cost ₹2,000 a month until Zerodha cut it to ₹500 in May 2025, and its Personal plan is free. The hosted Kite MCP server needs neither.
+- **Leaving "allow future orders" on.** If your connection has order tools, approve each order yourself.
+
+## If Kite MCP isn't working
+
+- **Claude never calls Kite MCP.** Zerodha's Claude Desktop steps end with "enable the connection in your chat". Check that the connector is switched on for this conversation.
+- **It worked yesterday and fails today.** Kite access tokens expire at 6 AM the next day. Ask Claude to connect Kite MCP again and sign in on Kite's page.
+- **The server won't connect at all.** Check the address ends in `/mcp`, not `/sse`.
+- **A tool from Zerodha's docs is missing.** Ask "Which Kite MCP tools can you use?" The hosted server may not offer every tool the docs describe.
+- **Windsurf can't find the server.** Its config file needs `serverUrl`, not `url`.
+
+## Kite MCP setup checklist
+
+1. Make sure you have a Zerodha account with Kite access.
+2. Add `https://mcp.kite.trade/mcp` to your AI app.
+3. Log in on Kite's page when the app asks, with your password and TOTP.
+4. Ask "Which Kite MCP tools can you use?" and note whether any order tools appear.
+5. Switch off the tools you don't want, starting with any order tools.
+6. Test with a read-only request, such as "Show my holdings."
+7. If your connection has order tools, leave "allow future orders" unchecked and approve each order yourself.

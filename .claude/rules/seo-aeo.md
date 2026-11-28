@@ -21,9 +21,9 @@ Every page renders `<Seo>` exactly once. Pages never write their own title, cano
 - **Open Graph and Twitter.**
   - `og:url` equals the canonical.
   - `og:image` is absolute and the file must exist. The default is `/og/default.jpg`, a self-hosted copy of today's card, until Sunny's design arrives. Per-page images come in Phase 4.
-  - `og:site_name` is "/markets", `og:locale` is `en_IN`, and the card is `summary_large_image`.
+  - `og:site_name` is "slash.markets", `og:locale` is `en_IN`, and the card is `summary_large_image`.
 - **Verification tags.** Rendered only when `PUBLIC_GSC_VERIFICATION` or `PUBLIC_BING_VERIFICATION` is set (DNS verification also works).
-- **Other.** An RSS `alternate` link, and analytics (below).
+- **Other.** An RSS `alternate` link to `/rss.xml`, and analytics (below).
 
 ## Structured data: `src/lib/graph.ts`
 
@@ -36,9 +36,10 @@ Every page renders `<Seo>` exactly once. Pages never write their own title, cano
   - Home: SoftwareApplication.
   - FAQ and use-case pages: FAQPage.
   - Inner pages: BreadcrumbList.
-  - Articles: Article, with author and publisher.
+  - Articles: Article, with author and publisher. A Person author has the `@id` `https://slash.markets/about#<id>` (the same node as the founder in the Organization), with `jobTitle` and `sameAs`. The team author is a reference to the Organization, never a second Organization node.
   - Hubs: CollectionPage.
   - Best lists and comparisons: ItemList.
+  - FAQPage questions and answers must appear on the page as written. The `schema` gate checks it.
   - About: AboutPage, plus a Person node per founder.
 - **Missing facts.** `legalName` stays out of the Organization until the company entity is confirmed in `facts.json`.
 - **No Review or AggregateRating markup** for other companies' products.
@@ -47,7 +48,7 @@ Every page renders `<Seo>` exactly once. Pages never write their own title, cano
 ## Sitemap, robots.txt, llms.txt, RSS
 
 - **`/sitemap.xml`** (`src/pages/sitemap.xml.ts`) is built from the same registry and collections that build the pages.
-  - Drafts and `noindex` pages never appear in it.
+  - Drafts and `noindex` pages never appear in it, even on deploy previews. The same goes for llms.txt and RSS.
   - `lastmod` comes from `updatedAt`, then `publishedAt`; rules pages use `checkedOn`.
 - **`/robots.txt`** (`src/pages/robots.txt.ts`) allows everything and names the AI crawlers explicitly in their own allow groups.
   - It also points to the sitemap.
@@ -67,7 +68,8 @@ Every page renders `<Seo>` exactly once. Pages never write their own title, cano
 - **A FAQ block** with FAQPage schema where the page has questions.
 - **Freshness dates.** "Checked on" for rules pages; "Reviewed on" for best lists and comparisons.
 - **Navigation.** Breadcrumbs on every inner page, and links to the matching use case and related guides.
-- **Consistent description.** The one-line description is used word for word wherever /markets is described in one sentence.
+- **Consistent description.** The one-line description is used word for word wherever slash.markets is described in one sentence.
+- **Consistent name.** Titles, descriptions, structured data, `og:site_name` and llms.txt write the name as slash.markets, never the "/markets" word mark (CLAUDE.md, hard rule 1). Engines learn the name we use most, and we want them to learn the one people can type.
 
 ## Internal links
 

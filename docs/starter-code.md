@@ -246,6 +246,8 @@ export function page(path: string): PageEntry {
 
 ## 7. `src/content.config.ts`
 
+> **Phase 2 shipped revised versions of sections 7 to 12** (28 Nov 2026). The code in `src/` is now the source of truth; the blocks below are the original dry run. What changed: `authors.json` is an object keyed by id; empty collections stay quiet; draft registry pages skip production with an empty response; guides gained `checkedOn` and `sources`, authors a `bio`, best and compare items an `ours` flag; the endpoints read `SITE.name` and never list drafts.
+
 ```ts
 import { defineCollection, reference } from "astro:content";
 import { glob, file } from "astro/loaders";

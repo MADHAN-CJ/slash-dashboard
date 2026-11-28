@@ -1,0 +1,261 @@
+---
+title: "Dhan MCP explained: what it does and how to set it up"
+seoTitle: "Dhan MCP: set it up in Claude, what it costs, limits"
+description: "Dhan MCP is Dhan's official MCP server for Claude, ChatGPT and Cursor. How to set it up, what it costs, how it places orders, and its limits."
+answer: "Dhan MCP is Dhan's official MCP server, launched in May 2026. Add https://mcp.dhan.co/mcp to Claude, ChatGPT or Cursor and sign in with Dhan. Your AI can then read your portfolio and place orders after showing you the details. Live market data needs Dhan's paid Data API."
+publishedAt: 2026-12-04
+author: raunaq
+group: connect-your-ai
+checkedOn: 2026-11-28
+sources:
+  - name: "DhanHQ docs: llms.txt"
+    url: "https://docs.dhanhq.co/llms.txt"
+    note: "the Dhan MCP server address; read 28 Nov 2026"
+  - name: "DhanHQ docs: Dhan MCP installation"
+    url: "https://docs.dhanhq.co/markdown/mcp/getting-started/installation.md"
+    note: "setup steps for each AI app; read 28 Nov 2026"
+  - name: "DhanHQ docs: What is Dhan MCP"
+    url: "https://docs.dhanhq.co/markdown/mcp/overview/what-is-mcp.md"
+    note: "OAuth and server-side sessions; read 28 Nov 2026"
+  - name: "DhanHQ docs: Orders tool"
+    url: "https://docs.dhanhq.co/markdown/mcp/tools/orders.md"
+    note: "real orders, the order preview and the margin check; read 28 Nov 2026"
+  - name: "DhanHQ docs: Market data tool"
+    url: "https://docs.dhanhq.co/markdown/mcp/tools/market-data.md"
+    note: "needs the Data API; read 28 Nov 2026"
+  - name: "DhanHQ docs: Alerts tool"
+    url: "https://docs.dhanhq.co/markdown/mcp/tools/alerts.md"
+    note: "equities and indices only, and linked orders; read 28 Nov 2026"
+  - name: "DhanHQ docs: Error codes (annexure)"
+    url: "https://docs.dhanhq.co/markdown/api/v2/annexure.md"
+    note: "DH-901, DH-902 and 806; read 28 Nov 2026"
+  - name: "DhanHQ docs: API feature matrix"
+    url: "https://docs.dhanhq.co/markdown/api/v2/feature-matrix.md"
+    note: "what the free Trading APIs and the paid Data API include; read 28 Nov 2026"
+  - name: "Dhan Support: API subscription plans"
+    url: "https://dhan.co/support/platforms/dhanhq-api/what-are-the-available-api-subscription-plans-and-how-can-i-subscribe-to-them/"
+    note: "Data API and Pro Traders API prices; read 28 Nov 2026"
+  - name: "Dhan Support: How the Data API subscription works"
+    url: "https://dhan.co/support/platforms/dhanhq-api/how-does-the-dhanhq-data-api-subscription-work/"
+    note: "renews every 30 days; read 28 Nov 2026"
+  - name: "Dhan Support: the free-with-trades offer"
+    url: "https://dhan.co/support/platforms/dhanhq-api/is-the-dhanhq-data-api-subscription-free-if-i-execute-a-minimum-number-of-trades-every-month/"
+    note: "the offer has been discontinued; read 28 Nov 2026"
+  - name: "Dhan Support: Data API and Dhan MCP orders"
+    url: "https://dhan.co/support/platforms/dhanhq-api/is-a-data-api-subscription-required-to-place-orders-through-dhan-mcp/"
+    note: "orders through Dhan MCP need no Data API; read 28 Nov 2026"
+  - name: "MadeForTrade: dhan.dev meetup announcement"
+    url: "https://madefortrade.in/t/89885"
+    note: "staff post billing Dhan Cloud, Dhan MCP and Dhan Skills as new launches, 18 May 2026; read 28 Nov 2026"
+  - name: "MadeForTrade: dhan.dev meetup recap"
+    url: "https://madefortrade.in/t/90120"
+    note: "staff post: Dhan MCP introduced at the 23 May meetup, 26 May 2026; read 28 Nov 2026"
+  - name: "MadeForTrade: trade history through Dhan MCP"
+    url: "https://madefortrade.in/t/93176"
+    note: "staff reply, 21 Aug 2026; read 28 Nov 2026"
+  - name: "MadeForTrade: historical candle data through Dhan MCP"
+    url: "https://madefortrade.in/t/96018"
+    note: "Dhan team reply, 18 Nov 2026, no update since; read 28 Nov 2026"
+  - name: "MadeForTrade: static IP and order rules for APIs"
+    url: "https://madefortrade.in/t/63385"
+    note: "staff post, 1 Apr 2026; read 28 Nov 2026"
+  - name: "Dhan MCP OAuth metadata"
+    url: "https://mcp.dhan.co/.well-known/oauth-protected-resource/mcp"
+    note: "the sign-in lists no scopes, so there is no read-only option; checked 28 Nov 2026"
+  - name: "GitHub: dhan-oss"
+    url: "https://github.com/dhan-oss"
+    note: "Dhan's public repositories: SDKs and dhanhq-skills, no MCP server; read 28 Nov 2026"
+  - name: "DhanHQ docs: Dhan Cloud account menu"
+    url: "https://docs.dhanhq.co/markdown/cloud/using-dhan-cloud/account-menu.md"
+    note: "the Dhan MCP entry in the account menu; read 28 Nov 2026"
+  - name: "Dhan Support: API access token validity"
+    url: "https://dhan.co/support/platforms/dhanhq-api/what-is-the-maximum-validity-of-an-api-access-token-in-dhan-apis/"
+    note: "access tokens last up to 24 hours; read 28 Nov 2026"
+  - name: "Anthropic: use connectors to extend Claude's capabilities"
+    url: "https://support.claude.com/en/articles/11176164"
+    note: "connectors added on the web or desktop sync to the phone apps; updated 24 Nov 2026, read 28 Nov 2026"
+  - name: "Anthropic: custom connectors using remote MCP"
+    url: "https://support.claude.com/en/articles/11175166"
+    note: "custom connectors, switching tools off, and the Allow always advice; updated 24 Nov 2026, read 28 Nov 2026"
+faqs:
+  - q: "What is the Dhan MCP server URL?"
+    a: "It's https://mcp.dhan.co/mcp. It's a remote server that signs you in with OAuth, so you paste the address into your AI app and log in with Dhan. There is nothing to download and no token to keep in a file."
+  - q: "Is Dhan MCP free?"
+    a: "The server is. Dhan lists Dhan MCP on its free Trading APIs tier, and placing orders through it needs no paid plan. Live quotes and option chains need the Data API, which costs ₹499 plus GST a month and renews every 30 days."
+  - q: "How do I connect Dhan to Claude?"
+    a: "In the Claude desktop app, open Settings, then Connectors, click Add and choose Add custom connector. Name it dhan_mcp, set the URL to https://mcp.dhan.co/mcp, click Continue, then Connect, and finish Dhan's sign-in. Then ask: Check my holdings with Dhan MCP."
+  - q: "Can Dhan MCP place orders on my account?"
+    a: "Yes, and they are real orders. Dhan's docs say the assistant always shows you the full order details before submitting and runs a pre-trade margin check by default. Alerts can also carry an order that fires when they trigger. To stay read-only, switch off the trading tool in your AI app."
+  - q: "Does Dhan MCP need the Data API?"
+    a: "For live quotes and option chains, yes: without it, the market data actions return Unauthorized. Portfolio, orders, margins, alerts and search run on the free Trading APIs tier. Dhan's docs disagree about historical candles, which its feature matrix lists as paid."
+  - q: "Does Dhan MCP work with ChatGPT?"
+    a: "Yes, in the ChatGPT desktop app. Dhan's docs say to open Settings, then Plugins, add a custom MCP server of type Streamable HTTP with the URL https://mcp.dhan.co/mcp, leave the token and header fields empty, and sign in with Dhan."
+  - q: "Can Dhan MCP set alerts on F&O or MCX?"
+    a: "No. Dhan's docs say its alerts support equities and indices only, and that F&O, commodity and currency alerts aren't supported. For an alert on an option or an MCX contract, you need a different tool."
+  - q: "Should I use a community Dhan MCP server?"
+    a: "Use the official one. Community servers built before May 2026 typically run on your computer and keep a Dhan API access token in a file, and anything that can read the file can call Dhan's APIs as you, orders included, until the token expires. The official server keeps your session on Dhan's side."
+draft: true
+---
+
+This guide is for Dhan traders who want to give Claude, ChatGPT, Cursor or Codex access to their account through Dhan MCP, Dhan's own server. It covers the nine tools Dhan documents, what they cost, the setup in each app, and what to check before an AI places a real order. We read Dhan's documentation and its staff's forum posts on 28 November 2026, and each fact names its source. We build slash.markets, an analysis tool that also connects to Claude, and the section near the end says where it fits.
+
+## What is Dhan MCP?
+
+**Dhan MCP is Dhan's first-party server for the Model Context Protocol (MCP), the standard AI apps use to call outside tools.** It runs on Dhan's servers at `https://mcp.dhan.co/mcp`.
+
+- **No token in a file.** It uses streamable HTTP and OAuth sign-in. Dhan's docs put it plainly: "Your session stays on the server. No tokens in config files."
+- **New this year.** Dhan introduced it at its dhan.dev meetup in Mumbai on 23 May 2026, together with Dhan Cloud and Dhan Skills. A staff post on 18 May had billed the three as new launches.
+- **No public code.** We found no repository for it: Dhan's GitHub account, dhan-oss, publishes its SDKs and a skills pack, not the MCP server.
+
+Dhan Skills are separate: the open [dhanhq-skills](https://github.com/dhan-oss/dhanhq-skills) pack guides an AI when it uses Dhan's APIs. It isn't part of the MCP server.
+
+## What can Dhan MCP do?
+
+**Dhan's docs list nine tools, covering your portfolio, orders, market data and alerts.** One clearly needs the paid Data API, and the docs disagree about a second.
+
+| Tool | What it does | Data API? | Ask it |
+|---|---|---|---|
+| `portfolio_agent_tool` | Funds, holdings, positions and executed trades | No | "What are my holdings and available funds?" |
+| `orderbook_agent_tool` | Your orders, whether pending, executed, cancelled or rejected | No | "Did my morning orders go through?" |
+| `tradebook_agent_tool` | Every fill executed today | No | "List today's fills." |
+| `trading_agent_tool` | Places, modifies and cancels orders, including Super Orders | No | "Cancel my pending order in INFY." |
+| `market_data_agent_tool` | Live prices, full quotes with depth, and option chains | Yes | "Show the NIFTY option chain for this week's expiry." |
+| `historical_data_agent_tool` | Daily candles, and intraday ones at 1, 5, 15, 30 and 60 minutes | Unclear | "Get daily candles for HDFCBANK for November 2026." |
+| `margin_agent_tool` | The margin an order or a basket needs, before you place it | No | "How much margin would one lot of NIFTY futures need?" |
+| `alerts_agent_tool` | Price or indicator alerts, with an optional order that fires when the alert triggers | No | "Alert me if NIFTY 50 crosses 26,000 on the 15-minute chart." |
+| `search_agent_tool` | Finds the Dhan security ID for a company, ticker or index | No | "What's the security ID for Nifty Bank?" |
+
+The "Unclear" is Dhan's own. Its feature matrix puts historical candles in the paid Data API tier, while its MCP pages mark only live market data as needing it. To see exactly what your connection offers, ask the question Dhan's docs suggest: "What tools do you have from Dhan?"
+
+## How much does Dhan MCP cost?
+
+**The server itself is free, but live data isn't.**
+
+- **The MCP server is free.** Dhan's feature matrix lists the Dhan MCP server on the free Trading APIs tier. Dhan's support team adds that orders need no Data API: "Order placement is available free of charge through the Trading API channel, irrespective of the platform you use."
+- **Live data costs ₹499 plus GST a month.** That's the Data API, which covers live quotes and option chains with Greeks, IV and OI. It renews every 30 days.
+- **The next tier costs ₹999 plus GST a month.** The feature matrix calls it Data APIs Pro; the support pages call it the Pro Traders API.
+- **The free-with-trades offer has ended.** Dhan says the promotion that made the Data API free after a set number of trades "has been discontinued".
+
+## How do I set up Dhan MCP in Claude?
+
+**Add a custom connector, then sign in to Dhan.** These steps follow Dhan's installation page.
+
+1. In the Claude desktop app, open Settings, then Connectors.
+2. Click Add at the top right, then choose Add custom connector.
+3. Set the Name to `dhan_mcp`.
+4. Set the MCP server URL to `https://mcp.dhan.co/mcp`.
+5. Click Continue, then Connect, and finish the Dhan sign-in.
+6. If the Dhan tools don't appear, restart the app.
+
+Dhan files these steps under "Claude Web", and a custom connector you add there also works on claude.ai. For Claude Code, run:
+
+```bash
+claude mcp add --transport http dhan https://mcp.dhan.co/mcp
+```
+
+Then type `claude`, enter `/mcp`, pick dhan, choose Authenticate and sign in to Dhan in your browser. Run `/mcp` again to confirm the status is connected.
+
+Then test it with the prompt Dhan's docs suggest: "Check my holdings with Dhan MCP". Dhan's docs don't mention the Claude mobile app. Anthropic says a connector added on the web or desktop shows up in Claude's phone apps the next time you log in.
+
+## Set up Dhan MCP in ChatGPT, Cursor or Codex
+
+**The address is the same in every app: `https://mcp.dhan.co/mcp`.**
+
+**ChatGPT.** In the ChatGPT desktop app, open Settings, then Plugins. Click Add and choose to connect a custom MCP server. Name it `dhan_mcp`, set the Type to Streamable HTTP and the URL to the address above. Leave the Bearer token env var and Headers fields empty, because Dhan MCP uses OAuth rather than a static token. Save, then sign in with Dhan.
+
+**Cursor.** Open Settings, go to Tools & MCPs and click New MCP Server. Paste this into the file that opens, and save:
+
+```json
+{
+  "mcpServers": {
+    "dhan": {
+      "url": "https://mcp.dhan.co/mcp"
+    }
+  }
+}
+```
+
+Then click Connect next to Dhan in your MCP servers list and log in.
+
+**Codex.** Run `codex mcp add dhan --url https://mcp.dhan.co/mcp`, sign in when your browser opens, then start `codex` and enter `/mcp` to check the connection.
+
+Dhan's page also covers OpenCode, and gives the details for any other MCP app: the name Dhan, OAuth sign-in, and the same URL.
+
+## Can Dhan MCP place orders?
+
+**Yes, and they go to your live account.** Dhan's orders page says: "These place real orders on your live Dhan account. The assistant always shows you the full order details before submitting and runs a pre-trade margin check by default."
+
+- **You can't sign in read-only.** Dhan's OAuth metadata lists no scopes to choose from (we checked on 28 November 2026), so the trading tool is there as soon as you connect. For a read-only connection, switch that tool off in your AI app. In Claude, it's in the Search and tools menu, chat by chat, and Anthropic's advice is to "only click 'Allow always' when using a server and tool that you trust to run unsupervised". Don't click it for `trading_agent_tool`.
+- **Alerts can place orders too.** The alerts tool can attach "a linked order that fires automatically when the condition is met". That order goes out when the alert triggers, not when you next look at the chat.
+- **The preview is your check.** Read the order details the assistant shows before you confirm: symbol, quantity, price, order type and product.
+
+Since 1 April 2026, Dhan has required a static IP for trading through its APIs, and it turns API market orders into limit orders with price protection, according to a staff post on its forum. Dhan hasn't said whether either rule applies to orders placed through MCP, so don't assume either way.
+
+## Is it safe to connect your Dhan account to an AI?
+
+**OAuth keeps your Dhan credentials out of the AI app, but not your account data.**
+
+- **What stays with Dhan: your login.** You sign in on Dhan's page, and the session lives on Dhan's server, not in a file on your computer.
+- **What leaves Dhan: everything a tool returns.** Your funds, holdings, positions and orders go to the AI company that runs your chat, and its data policy applies from then on.
+- **No published session length.** Dhan doesn't say how long an MCP sign-in lasts. The 24-hour limit in its support pages is for API access tokens, and Dhan doesn't say it applies to MCP. If tools start failing with an expired-token error, sign in again.
+- **No published way to revoke access.** Removing the connector in your AI app stops it calling Dhan. Dhan's account menu docs list a Dhan MCP entry, "Dhan MCP for your account", without saying whether it withdraws an app's access, so ask Dhan support before you rely on it.
+- **Check figures before you act.** An AI can misread a position or a margin figure, so compare any number you'll trade on with the Holdings or Positions screen in the Dhan app.
+
+## What Dhan MCP can't do yet
+
+**Dhan MCP is six months old, and its own docs and staff list gaps.**
+
+- **Alerts stop at equities and indices.** "F&O, commodity, and currency are not supported," the alerts page says, so there's no alert on an option, a future or an MCX contract.
+- **No trade history.** A Dhan staff member wrote on 21 August 2026 that "The trade history data is not exposed through MCP as of now." You get today's order book and tradebook.
+- **Limited historical candles.** On 18 November 2026, a Dhan team member said improvements to historical data through MCP should be live in two to three weeks. Until then, Dhan points people to its REST API.
+- **No indicator values.** Apart from indicator-based alerts, no tool returns RSI, moving averages or other indicators, so your AI has to compute them from candles.
+- **Live data is paid.** Without the Data API, the market data tool returns Unauthorized.
+- **No published rate limits** for MCP calls.
+- **Quiet between prompts.** Except for alerts you've set, the server only acts when your AI asks it something.
+
+## Official Dhan MCP or a community server?
+
+**Use the official server.** Before May 2026, "Dhan MCP" meant community projects. Some are still on GitHub, and some are still updated, but the ones built before Dhan's server existed typically run on your own computer and read a Dhan API access token from a file.
+
+That token is the risk. Dhan's support pages say an API access token stays valid for up to 24 hours, and until it expires, anything that can read the file can call Dhan's APIs as you, orders included. The official server needs no token file: as Dhan's docs put it, "Your session stays on the server."
+
+## Where slash.markets fits for Dhan traders
+
+**We make slash.markets, so treat this section as our pitch and judge it on the facts.**
+
+Dhan MCP is the right tool for anything that touches your account: it reads your portfolio, places orders, and costs nothing until you need live data. slash.markets places no orders and never sees your account, so it can't replace any of that.
+
+What it adds fills the gaps listed above:
+
+- **Alerts beyond equities.** slash.markets watches F&O and MCX contracts, which Dhan MCP's alerts don't cover. Its alerts can be delayed, and they arrive by email and as app or browser notifications.
+- **Numbers Dhan's chain doesn't compute.** PCR, max pain and OI build-ups, across expiries.
+- **Indicators without the legwork.** Dhan MCP returns candles and leaves the maths to your AI. slash.markets gives your AI a Python sandbox to compute RSI or a moving average from market data, and draws charts with levels marked.
+- **A pre-market brief** before the open.
+
+It works with Claude through an MCP server and a skill file, in a closed beta with a waitlist, and returns data, computed results and charts to your AI. Market data in [slash.markets](/) is delayed by at least <Fact name="data.delayMinutes" /> minutes. Both can sit in Claude side by side: Dhan MCP for your account, slash.markets for the analysis.
+
+```prompt
+Which NIFTY strikes saw the biggest put OI build-up today?
+```
+
+> **TBD before publishing:** run this prompt in Claude with slash.markets connected, paste the real answer here as an `output` block, and add a caption with the data date, such as "Past data, 27 Nov 2026".
+
+If you also have a Zerodha account, our [Kite MCP guide](/guides/zerodha-kite-mcp) covers the same ground for Zerodha's server.
+
+## Fixing common Dhan MCP errors
+
+- **"Unauthorized" when you ask for prices or the option chain.** Your Data API subscription isn't active. Dhan's market data page says that without it, "all actions return Unauthorized."
+- **DH-901.** Dhan's error list describes it as "Client ID or user generated access token is invalid or expired". Sign in to Dhan again from your AI app.
+- **DH-902 or error 806.** Dhan's API reference uses these when an account has no Data API subscription. Subscribe through Dhan's plans page, then try again.
+- **A rejected order.** Check the margin with the margin tool first. Dhan converts API market orders into limit orders with price protection; its docs don't say whether that applies to MCP orders.
+- **A missing tool.** Check which tools are switched on in your AI app, then ask "What tools do you have from Dhan?"
+
+## Dhan MCP setup checklist
+
+1. Make sure your Dhan account is active with trading access, the first prerequisite Dhan's installation page lists.
+2. Add `https://mcp.dhan.co/mcp` to your AI app as a custom connector named `dhan_mcp`.
+3. Sign in on Dhan's own page when the app asks, never in the chat.
+4. Ask "What tools do you have from Dhan?" and look for the trading tool.
+5. Turn the trading tool off if you only want your AI to read your account, then ask for the tool list again and check that `trading_agent_tool` is gone.
+6. Test with "Check my holdings with Dhan MCP" before anything else.
+7. Subscribe to the Data API, as Dhan's plans page explains, only if you need live quotes or option chains in your chats.

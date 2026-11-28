@@ -1,0 +1,69 @@
+---
+// The hub template for /guides, /best, /rules and /compare (.claude/rules/site-architecture.md).
+// The H1, intro and note come from the registry, so an empty hub still says what it is.
+// Hubs fill themselves: never hand-edit one to add an article.
+import Base from "./Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import type { PageEntry } from "../data/pages";
+import { articlePath, crumb, isoDate, showDate, type ArticleCollection, type ArticleEntry } from "../lib/content";
+import { breadcrumbs, graph, webPage } from "../lib/graph";
+
+interface Props {
+  p: PageEntry;
+  collection: ArticleCollection;
+  sections: { heading?: string; entries: ArticleEntry[] }[];
+}
+const { p, collection, sections } = Astro.props;
+const trail = [{ name: "Home", path: "/" }, crumb(p)];
+const g = graph(webPage({ path: p.path, name: p.title, description: p.description, type: "CollectionPage", crumbs: true }), breadcrumbs(p.path, trail));
+
+// Rules pages show when they were checked; best lists and comparisons when they were reviewed.
+const freshness = (e: ArticleEntry) => {
+  if (e.collection === "rules") return { label: "Checked on", date: e.data.checkedOn };
+  if (e.collection === "best" || e.collection === "compare") return { label: "Reviewed on", date: e.data.reviewedOn };
+  return e.data.updatedAt ? { label: "Updated", date: e.data.updatedAt } : { label: "Published", date: e.data.publishedAt };
+};
+const shown = sections.filter((s) => s.entries.length > 0);
+---
+<Base seo={{ title: p.title, description: p.description, path: p.path, graph: g }} draft={p.status === "draft"}>
+  <div class="hub">
+    <Breadcrumbs trail={trail} />
+    <h1>{p.h1}</h1>
+    <p class="intro">{p.intro}</p>
+    {p.note && <p class="note">{p.note}</p>}
+
+    {shown.map((s) => (
+      <section>
+        {s.heading && <h2>{s.heading}</h2>}
+        <ul class="entries">
+          {s.entries.map((e) => {
+            const f = freshness(e);
+            return (
+              <li>
+                <a class="title" href={articlePath(collection, e.id)}>{e.data.title}</a>
+                {e.data.draft && <span class="tag">Draft</span>}
+                <p class="summary">{e.data.answer}</p>
+                <p class="date">{f.label} <time datetime={isoDate(f.date)}>{showDate(f.date)}</time></p>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    ))}
+  </div>
+</Base>
+
+<style>
+  .hub h1 { line-height: 1.2; text-wrap: balance; margin-top: 20px; }
+  .intro { margin: 16px 0 0; font-size: clamp(18px, 2vw, 20px); line-height: 1.6; color: var(--head); text-wrap: pretty; }
+  .note { margin: 24px 0 0; padding: 16px 20px; border: 1px solid var(--line); border-radius: 14px; background: var(--soft); font-size: 15px; line-height: 1.6; }
+  section { margin-top: 40px; }
+  h2 { margin-bottom: 12px; }
+  .entries { margin: 0; padding: 0; list-style: none; }
+  .entries li { padding: 16px 0; border-top: 1px solid var(--line); }
+  .entries li:last-child { border-bottom: 1px solid var(--line); }
+  .title { font-weight: 500; font-size: 18px; color: var(--head); }
+  .tag { display: inline-block; margin-left: 8px; padding: 0 8px; border-radius: 999px; background: var(--yellow); font-size: 13px; color: var(--ink); vertical-align: 2px; }
+  .summary { margin: 6px 0 0; text-wrap: pretty; }
+  .date { margin: 6px 0 0; font-size: 14px; color: var(--muted); }
+</style>

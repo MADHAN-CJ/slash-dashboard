@@ -20,6 +20,8 @@ const CARRIED_OVER = { by: "carried over unchanged from the old site", on: "2026
 // The live-copy rename changed the text of /, /privacy, /terms and /404 (slash.markets in place of the old word mark).
 // Before it merges, record Sahil's sign-off here: { by: "Sahil", on: "<date>" }.
 const RENAMED = CARRIED_OVER;
+// Sahil's sign-off on /disclaimer and /guides, relayed by Prefer on 28 Nov 2026.
+const SAHIL_28_NOV = { by: "Sahil", on: "2026-11-28" };
 
 export const PAGES: PageEntry[] = [
   { path: "/", title: "slash.markets · Search the market like the web", description: "slash.markets is a charting platform you can search. Ask about a stock, a level or an indicator, here or from your AI agent, and get a chart back.", h1: "Search the market like you search the web.", nav: "none", status: "live", signoff: RENAMED },
@@ -38,7 +40,8 @@ export const PAGES: PageEntry[] = [
     label: "Guides",
     intro: "Connect your AI to Indian market data, then put it to work: read the option chain and open interest, follow MCX contracts and check your own method. Every example uses sample or past data, and shows its date.",
     nav: "both",
-    status: "draft",
+    status: "live",
+    signoff: SAHIL_28_NOV,
   },
   {
     path: "/best",
@@ -78,7 +81,8 @@ export const PAGES: PageEntry[] = [
     h1: "Disclaimer",
     label: "Disclaimer",
     nav: "footer",
-    status: "draft", // Prefer's temporary text, for Sahil to edit and sign off
+    status: "live",
+    signoff: SAHIL_28_NOV, // Prefer's text, signed off as it stands
   },
   { path: "/privacy", title: "Privacy Policy · slash.markets", description: "How slash.markets handles personal data collected on this website, in line with India's Digital Personal Data Protection Act, 2023.", h1: "Privacy Policy", nav: "footer", status: "live", signoff: RENAMED },
   { path: "/terms", title: "Terms of Use · slash.markets", description: "The terms for using the slash.markets website: what it is and is not, how you may use the market data it shows, and that trading decisions are yours.", h1: "Terms of Use", nav: "footer", status: "live", signoff: RENAMED },

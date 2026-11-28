@@ -4,7 +4,7 @@ import { ctx, expectErrors, fixture, HOME_HTML, page } from "./helpers.mjs";
 
 describe("compliance gate", () => {
   it("passes clean copy, including options vocabulary", () => {
-    const r = compliance(ctx({ pages: [page("/example", fixture("page-pass.html"))], llms: "# /markets\n\nResearch and analysis software." }));
+    const r = compliance(ctx({ pages: [page("/example", fixture("page-pass.html"))], llms: "# slash.markets\n\nResearch and analysis software." }));
     expect(r.errors).toEqual([]);
   });
 
@@ -45,10 +45,10 @@ describe("compliance gate: disclaimer link, coming integrations and placeholders
   });
 
   it("errors on a registry page, and warns in an article, that names a coming integration with slash.markets", () => {
-    const html = '<!doctype html><html lang="en"><head><title>Example</title></head><body><p>slash.markets works with ChatGPT.</p><p>slash.markets works with Claude, and Kite is coming soon.</p><p>/markets now works with Kite.</p></body></html>';
+    const html = '<!doctype html><html lang="en"><head><title>Example</title></head><body><p>slash.markets works with ChatGPT.</p><p>slash.markets works with Claude, and Kite is coming soon.</p><p>Kite MCP is free, and slash.markets now works with Kite.</p></body></html>';
     expect(compliance(ctx({ pages: [page("/example", html)] })).errors).toEqual([
       '/example: names ChatGPT (coming, not live) with slash.markets without "coming" or "soon": "slash.markets works with ChatGPT."',
-      '/example: names Kite (coming, not live) with slash.markets without "coming" or "soon": "/markets now works with Kite."',
+      '/example: names Kite (coming, not live) with slash.markets without "coming" or "soon": "Kite MCP is free, and slash.markets now works with Kite."',
     ]);
     const inArticle = compliance(ctx({ pages: [page("/guides/example-guide", fixture("article-fail.html"))], showDrafts: true }));
     expect(inArticle.errors).toEqual([]);
@@ -59,5 +59,25 @@ describe("compliance gate: disclaimer link, coming integrations and placeholders
     const pages = [page("/guides/example-guide", fixture("article-fail.html"))];
     expectErrors(compliance(ctx({ pages })).errors, ["/guides/example-guide: placeholder text (TODO)"]);
     expect(compliance(ctx({ pages, showDrafts: true })).errors).toEqual([]);
+  });
+});
+
+describe("compliance gate: the name", () => {
+  it("passes slash.markets in copy, a /markets-covered path, and slash markets as a structured-data alternateName", () => {
+    const html = '<!doctype html><html lang="en"><head><title>Markets covered · slash.markets</title><meta property="og:site_name" content="slash.markets"><script type="application/ld+json">{"@graph":[{"@type":"Organization","name":"slash.markets","alternateName":["slash markets"],"logo":"https://slash.markets/assets/icons/markets-logomark.svg"}]}</script></head><body><h1>Markets covered</h1><p>See <a href="/markets-covered">/markets-covered</a> for what slash.markets covers.</p></body></html>';
+    const r = compliance(ctx({ pages: [page("/example", html)], llms: "# slash.markets\n", rss: "<rss><channel><title>slash.markets</title></channel></rss>" }));
+    expect(r.errors).toEqual([]);
+  });
+
+  it("fails the /markets word mark and slash markets written as text, wherever they appear", () => {
+    const r = compliance(ctx({ pages: [page("/example", fixture("naming-fail.html"))], llms: "# /markets\n", rss: "<rss><channel><title>Slash Markets</title></channel></rss>" }));
+    expect(r.errors).toEqual([
+      '/example: writes the name as "/markets"; write slash.markets (CLAUDE.md, hard rule 1)',
+      '/example: writes the name as "Slash Markets"; write slash.markets (CLAUDE.md, hard rule 1)',
+      '/example (og:site_name): writes the name as "/markets"; write slash.markets (CLAUDE.md, hard rule 1)',
+      '/example (structured data): writes the name as "/markets"; write slash.markets (CLAUDE.md, hard rule 1)',
+      '/llms.txt: writes the name as "/markets"; write slash.markets (CLAUDE.md, hard rule 1)',
+      '/rss.xml: writes the name as "Slash Markets"; write slash.markets (CLAUDE.md, hard rule 1)',
+    ]);
   });
 });

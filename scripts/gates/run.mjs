@@ -58,6 +58,7 @@ const ctx = {
   redirects: parseRedirects(read(`${dist}/_redirects`) ?? ""),
   sitemap: read(`${dist}/sitemap.xml`),
   llms: read(`${dist}/llms.txt`),
+  rss: read(`${dist}/rss.xml`),
   src: listFiles("src")
     .filter((f) => TEXT.test(f))
     .map((f) => ({ file: `src/${f}`, text: readFileSync(`src/${f}`, "utf8") })),

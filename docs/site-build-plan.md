@@ -2,7 +2,12 @@
 
 **Goal.** By Friday 18 December 2026, slash.markets runs on Astro with all 19 pages live, compliance sign-off recorded on each. Articles flow in as Markdown pull requests from week 2. Every rule in `CLAUDE.md` is checked by the build.
 
-Last updated 25 Nov 2026. Update the page tracker and the open items as work lands.
+Last updated 28 Nov 2026. Update the page tracker and the open items as work lands.
+
+**Status (28 Nov 2026):**
+- **Phase 0 and Phase 1:** merged on 25 Nov in PR #1 (`569ec76`). `npm run check`, `npm run test` and `npm run build` pass locally.
+- **Production:** still serves the old static site. Checked 28 Nov: `/README.md` and `/BRAND_GUIDELINES.md` return 200, while `/sitemap.xml`, `/llms.txt` and `/og/default.jpg` return 404. Madhan to check the Netlify production deploy of `main`.
+- **Phase 2:** built on 28 Nov on branch `article-system`, in one pull request that depends on PR #2. It holds all eight collections (routes for the four article collections; `useCases`, `worksWith` and `faqs` get theirs in Phase 3), the Article and Hub templates, RSS, `<Fact>`, the commands and the second set of gates. The four hubs and Prefer's temporary `/disclaimer` are `draft`, with their SEO fields and intros from Prefer (28 Nov). Before articles #1 and #2 can go live: Sahil signs off `/guides` and `/disclaimer`, the live-copy rename merges, and production deploys `main`.
 
 ## Decided (25 Nov 2026)
 
@@ -17,6 +22,15 @@ Last updated 25 Nov 2026. Update the page tracker and the open items as work lan
 | Analytics | Google Analytics 4 from day 1, production only |
 | Governance | `CLAUDE.md` governs; `AGENTS.md` is a symlink to it |
 | Merging | Prefer or Madhan merge pull requests after review and sign-off. Netlify deploys `main` |
+
+## Decided (28 Nov 2026)
+
+| Topic | Decision |
+|---|---|
+| Phase 2 | Prefer builds all of Phase 2 on a branch and opens one pull request |
+| Byline | Raunaq Vaisoha (Co-founder and CEO) is the named author, starting with articles #1 and #2. His `authors.json` entry carries his LinkedIn profile in `sameAs` |
+| Disclaimer | Prefer drafts a temporary `/disclaimer` from what slash.markets does today: the homepage's "Important information" block and `.claude/rules/compliance.md`. Sahil edits it and signs off before it goes live. His final text replaces it |
+| Competitors in articles | Kite MCP and Dhan MCP may be named. Sahil's sign-off on each page records it. Other competitors still need approval |
 
 ## Timeline
 
@@ -165,7 +179,7 @@ Branch: `astro-foundation`. One pull request.
   - When the new Home lands, move the homepage onto the shared tokens and components, and remove unused `public/assets` files.
   - Delete `design/legacy-v1/` once Sunny confirms.
   - Sunny updates `BRAND_GUIDELINES.md` (its "Where to edit" table) for the Astro layout.
-- **Later.** Calculators under `/tools`, if the /markets team builds them.
+- **Later.** Calculators under `/tools`, if the slash.markets team builds them.
 
 ## Page tracker
 
@@ -183,11 +197,11 @@ Branch: `astro-foundation`. One pull request.
 | `/security` | | | | | | |
 | `/about` | | | | | | |
 | `/faq` | | | | | | |
-| `/disclaimer` | | | | | | |
-| `/guides` | | | | | | |
-| `/best` | | | | | | |
-| `/rules` | | | | | | |
-| `/compare` | | | | | | |
+| `/disclaimer` | 28 Nov | | Prefer's temporary text (28 Nov) | draft (Phase 2) | | |
+| `/guides` | 28 Nov | | intro 28 Nov | draft (Phase 2) | | |
+| `/best` | 28 Nov | | intro and method note 28 Nov | draft (Phase 2) | | |
+| `/rules` | 28 Nov | | intro 28 Nov | draft (Phase 2) | | |
+| `/compare` | 28 Nov | | intro 28 Nov | draft (Phase 2) | | |
 | `/use-cases` | | | | | | |
 | `/works-with` | | | | | | |
 | `/privacy`, `/terms` | carried over | carried over | | | | |
@@ -206,10 +220,11 @@ Branch: `astro-foundation`. One pull request.
 | Shared template design and content width (1280 or 1360 px) | Sunny | Week 2 |
 | Default social image, 1200 by 630 (the current card is used until then) | Sunny | Week 2 |
 | Claude setup steps for `/works-with/claude` | Anil | Week 2 |
-| Byline policy: founders or "/markets team" | Prefer with Anil and Raunaq | Before the first article goes live |
-| Founders' photos, bios, LinkedIn and X links | Anil, Raunaq | Week 3 |
-| Disclaimer text | Sahil | Week 3 |
-| Approval to name competitors on /compare and /best | Anil, Raunaq, Sahil | Before the first comparison |
+| Rename the name in live copy to slash.markets (homepage, `site.ts`, `facts.json`, `pages.ts` titles, legal pages, `llms.txt`, `og:site_name`) and drop the inline word-mark badge (CLAUDE.md, hard rule 1) | Prefer with Madhan; Sahil signs off; Sunny updates `BRAND_GUIDELINES.md` | Before the first new page goes live |
+| Founders' photos, bios, LinkedIn and X links (Raunaq's LinkedIn received 28 Nov) | Anil, Raunaq | Week 3 |
+| Disclaimer: Sahil edits and signs off Prefer's temporary text (`src/content/legal/disclaimer.mdx`, in the Phase 2 pull request), then supplies the final text | Sahil | Before the first article goes live |
+| The words "recommendation(s)" in the live homepage and terms copy raise `compliance-words` warnings: rephrase them in the rename pull request, or approve `compliance/allow.json` entries | Sahil | With the rename pull request |
+| Approval to name competitors other than Kite MCP and Dhan MCP on /compare and /best | Anil, Raunaq, Sahil | Before the first comparison |
 
 ## Starting a session
 

@@ -1,4 +1,5 @@
-// meta gate: one H1, title and description within limits and equal to the registry, canonical, robots and Open Graph.
+// meta gate: one H1, title and description within limits and equal to the registry or the entry's frontmatter,
+// canonical, robots and Open Graph.
 import { urlOf } from "./lib.mjs";
 
 const clean = (s) => s.replace(/\s+/g, " ").trim();
@@ -9,7 +10,7 @@ export default function meta(ctx) {
   for (const page of ctx.pages) {
     const { $, path } = page;
     const self = urlOf(ctx.site, path);
-    const entry = registry.get(path); // Phase 2: collection pages compare with their frontmatter instead
+    const entry = registry.get(path);
     const err = (m) => errors.push(`${path}: ${m}`);
 
     const h1 = $("h1");
@@ -24,6 +25,15 @@ export default function meta(ctx) {
       if (title !== entry.title) err(`<title> "${title}" is not the registry's "${entry.title}"`);
       if (description !== entry.description) err(`meta description is not the registry's`);
       if (h1.length === 1 && clean(h1.text()) !== entry.h1) err(`H1 "${clean(h1.text())}" is not the registry's "${entry.h1}"`);
+    }
+    // Collection pages compare with their entry's frontmatter: <title> is seoTitle or title, the H1 is title.
+    const fm = ctx.entries?.get(path);
+    if (fm) {
+      for (const e of fm.errors) err(`${fm.file}: ${e}`);
+      const v = fm.values;
+      if (v.title !== undefined && title !== (v.seoTitle ?? v.title)) err(`<title> "${title}" is not the frontmatter's "${v.seoTitle ?? v.title}"`);
+      if (v.description !== undefined && description !== v.description) err("meta description is not the frontmatter's");
+      if (v.title !== undefined && h1.length === 1 && clean(h1.text()) !== v.title) err(`H1 "${clean(h1.text())}" is not the frontmatter's title "${v.title}"`);
     }
 
     // Robots: previews send noindex everywhere; production only where the registry says so.

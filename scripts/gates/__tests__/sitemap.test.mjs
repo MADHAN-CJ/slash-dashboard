@@ -24,3 +24,19 @@ describe("sitemap gate", () => {
     expect(sitemap(ctx({ registry, pages })).errors).toEqual(["dist/sitemap.xml is missing"]);
   });
 });
+
+describe("sitemap gate: collection pages", () => {
+  const urlset = (...paths) => `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${paths.map((p) => `  <url><loc>https://slash.markets${p}</loc></url>`).join("\n")}\n</urlset>\n`;
+  const pages = [page("/guides/draft-guide", fixture("draft-page.html")), page("/guides/live-guide", HOME_HTML)];
+
+  it("lists signed-off entries and leaves drafts out", () => {
+    expect(sitemap(ctx({ pages, sitemap: urlset("/guides/live-guide"), showDrafts: true })).errors).toEqual([]);
+  });
+
+  it("fails a listed draft and a missing signed-off entry", () => {
+    expect(sitemap(ctx({ pages, sitemap: urlset("/guides/draft-guide"), showDrafts: true })).errors).toEqual([
+      "/guides/draft-guide is a draft, but is in sitemap.xml",
+      "/guides/live-guide is indexable, but is not in sitemap.xml",
+    ]);
+  });
+});

@@ -12,7 +12,7 @@
   "company": { "legalName": null, "emails": { "hello": "hello@slash.markets", "privacy": "privacy@slash.markets" } },
   "founders": [
     { "id": "anil", "name": "Anil Dukkipatty", "sameAs": [] },
-    { "id": "raunaq", "name": "Raunaq Vaisoha", "sameAs": [] }
+    { "id": "raunaq", "name": "Raunaq Vaisoha", "sameAs": ["https://www.linkedin.com/in/raunaq-vaisoha/"] }
   ],
   "sameAs": []
 }

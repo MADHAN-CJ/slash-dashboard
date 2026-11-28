@@ -1,6 +1,6 @@
-# Compliance: what /markets can and cannot say
+# Compliance: what slash.markets can and cannot say
 
-/markets is a charting and analytics application. It is not registered with SEBI as an investment adviser or research analyst. Everything on this site is research and education. Sahil (the /markets compliance owner) signs off every page and article before it goes live. These rules apply to all copy: pages, articles, FAQs, image text, alt text, titles and descriptions.
+slash.markets is a charting and analytics application. It is not registered with SEBI as an investment adviser or research analyst. Everything on this site is research and education. Sahil (the slash.markets compliance owner) signs off every page and article before it goes live. These rules apply to all copy: pages, articles, FAQs, image text, alt text, titles and descriptions.
 
 ## Words
 
@@ -25,7 +25,7 @@
 - **Data.** Say data is "delayed by at least N minutes", with N from `facts.json`. Never "real-time" unless `facts.json` says so.
 - **Alerts.** Say they "can be delayed", and say how they are delivered today.
 - **Results.** No returns, profit figures, win rates, accuracy guarantees or backtest results.
-- **Orders.** /markets places no orders and has read-only access. Say so wherever someone could wonder.
+- **Orders.** slash.markets places no orders and has read-only access. Say so wherever someone could wonder.
 
 ## Forecasts
 
@@ -37,15 +37,15 @@
 - **Examples** use sample or past data, with the date stated.
 - **Never show** a real user's name, trades, positions, P&L or account.
 - **Never name a real user** or quote one by name, including in commit messages and file names.
-- **Quotes** from users are allowed only anonymised and with the user's written consent, recorded by the /markets team.
+- **Quotes** from users are allowed only anonymised and with the user's written consent, recorded by the slash.markets team.
 
 ## Comparisons and best lists
 
 - **Rank products, never securities.** Judge them by fit for a job, with the reason.
 - **Competitor facts** (features, prices, plans) need a source link and the date you checked it. Show the date on the page (`reviewedOn`).
-- **Disclose that we make /markets.** When /markets appears in a list or comparison, say so in the first lines.
+- **Disclose that we make slash.markets.** When slash.markets appears in a list or comparison, say so in the first lines.
 - **Be fair:** state where other tools are better.
-- **Naming competitors** needs the /markets team's approval. Sahil's sign-off on the page records it.
+- **Naming competitors** needs the slash.markets team's approval. Sahil's sign-off on the page records it.
 
 ## Disclaimer
 
@@ -63,7 +63,7 @@
 
 ## Sign-off flow
 
-1. Prefer or the /markets team opens a pull request with the entry as `draft: true` (or a registry page as `draft`).
+1. Prefer or the slash.markets team opens a pull request with the entry as `draft: true` (or a registry page as `draft`).
 2. Prefer reviews the deploy preview against the sign-off checklist.
 3. Sahil reviews the preview and approves.
 4. Record it: `signoff: { by: "Sahil", on: <date> }`, plus `draft: false` or `status: "live"`.

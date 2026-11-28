@@ -34,3 +34,24 @@ describe("meta gate", () => {
     expect(meta(ctx({ registry: [EXAMPLE], pages: good(), files, showDrafts: true })).errors).toEqual(["/example: deploy previews must send noindex"]);
   });
 });
+
+describe("meta gate: collection pages", () => {
+  const description = "An example guide used by the gate tests. It has breadcrumbs, an Article, questions and a link to the disclaimer.";
+  const article = () => [page("/guides/example-guide", fixture("article-pass.html"))];
+  const entry = (values, errors = []) => new Map([["/guides/example-guide", { file: "src/content/guides/example-guide.md", values, errors }]]);
+
+  it("passes a page that matches its entry's frontmatter (the <title> is the seoTitle when there is one)", () => {
+    const entries = entry({ title: "Example guide", seoTitle: "Example guide · slash.markets", description });
+    expect(meta(ctx({ pages: article(), files, entries })).errors).toEqual([]);
+  });
+
+  it("fails a title, description or H1 that differs from the frontmatter, and frontmatter it can't read", () => {
+    const entries = entry({ title: "Another title", description: "Something else." }, ["put the description in double quotes on one line"]);
+    expect(meta(ctx({ pages: article(), files, entries })).errors).toEqual([
+      "/guides/example-guide: src/content/guides/example-guide.md: put the description in double quotes on one line",
+      '/guides/example-guide: <title> "Example guide · slash.markets" is not the frontmatter\'s "Another title"',
+      "/guides/example-guide: meta description is not the frontmatter's",
+      '/guides/example-guide: H1 "Example guide" is not the frontmatter\'s title "Another title"',
+    ]);
+  });
+});

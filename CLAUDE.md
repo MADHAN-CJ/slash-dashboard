@@ -4,19 +4,24 @@
 
 ## What this repo is
 
-The marketing website for /markets at https://slash.markets. It is an Astro 7 static site on Netlify. Every page is server-rendered HTML. Articles are Markdown files added by pull request; there is no CMS. The product itself runs at https://app.slash.markets and is not in this repo.
+The marketing website for slash.markets, served at https://slash.markets. It is an Astro 7 static site on Netlify. Every page is server-rendered HTML. Articles are Markdown files added by pull request; there is no CMS. The product itself runs at https://app.slash.markets and is not in this repo.
 
-**Status (25 Nov 2026):** moving from the static one-page site to Astro. `docs/site-build-plan.md` has the phases, dates and what is done. Until Phase 1 merges, the live site is the static `index.html` at the repo root, and parts of this guide describe the target state.
+**Status (28 Nov 2026):** Phase 1 (the Astro foundation) merged on 25 Nov in PR #1, but production still serves the old static site. Phase 2 (the article system: collections, the article and hub templates, RSS, `<Fact>` and the second set of gates) is built in its own pull request. The four hubs and a temporary `/disclaimer` are drafts until Sahil signs them off, so no article can go live yet. `docs/site-build-plan.md` has the phases, dates and what is done. Parts of this guide describe the target state.
 
-## What /markets is
+## What slash.markets is
 
-- **One line** (draft until locked with Sahil; the live copy is `description` in `src/data/facts.json`): "/markets gives your AI live Indian market data, option chain analytics, charts and a Python sandbox, so it can answer any NSE, BSE or MCX question from real data and watch the market for you."
+- **One line** (draft until locked with Sahil; the live copy is `description` in `src/data/facts.json`): "slash.markets gives your AI live Indian market data, option chain analytics, charts and a Python sandbox, so it can answer any NSE, BSE or MCX question from real data and watch the market for you."
 - **Audience:** Indian retail traders in index and stock options and MCX, often part-time and on a phone. India only, English only.
 - **Main action on every page:** join the waitlist (closed beta, free for now).
 
 ## Hard rules
 
-1. **Name.** Always "/markets" with the slash. "slash.markets" means the website; "slash markets" only where people say it aloud. Never "Slash" or "Slash Markets": those are other companies.
+1. **Name: always "slash.markets" in text.** We want people to search for us the way they type the website.
+   - Write it exactly `slash.markets`: lowercase, with the dot, even at the start of a sentence.
+   - It applies to every word we write: page copy, titles, meta descriptions, H1s, FAQs, alt text, `og:site_name`, structured data, llms.txt, articles, docs, commit messages, pull requests, client documents and the prompts we track in Prefer.
+   - "/markets" is the visual word mark only. It appears in the logo and in images, never as typed text. The logo's alt text is "slash.markets".
+   - Never "Slash" or "Slash Markets": those are other companies.
+   - This rule overrides the inline-badge guidance in `BRAND_GUIDELINES.md`. Copy that still writes /markets (the homepage, `src/config/site.ts`, `src/data/facts.json`, the titles in `src/data/pages.ts`, the legal pages and `llms.txt`) changes in one pull request with Sahil's sign-off. Never add a new one.
 2. **Compliance (SEBI).** Research and education only. Never tips, buy or sell calls, signals, recommendations, targets, return or profit claims, win rates, backtest returns, "best stocks", "guaranteed" or "never miss a move". Rank products, never securities. No forecasts. Examples use sample or past data, dated, with no real user's name, trades or P&L. Say alerts "can be delayed". Every page links to /disclaimer. Full rules: `.claude/rules/compliance.md`.
 3. **Only claim what is live today.** Anything not live yet (ChatGPT, Kite, WhatsApp, more markets) is marked "coming" or left out. Status lives in `src/data/facts.json`.
 4. **Sign-off.** Nothing goes live without Sahil's compliance sign-off, recorded in the entry's `signoff` field (articles) or in `src/data/pages.ts` (pages). The build fails without it.
@@ -24,7 +29,7 @@ The marketing website for /markets at https://slash.markets. It is an Astro 7 st
 6. **Server-rendered text.** Every word a reader or an AI crawler needs is in the HTML the server sends. No JavaScript by default. Never `client:only`. Add interactive code only where a page needs interaction, within the budget in `.claude/rules/quality-gates.md`.
 7. **SEO fields.** The titles, meta descriptions, H1s and FAQ questions Prefer supplies go in exactly as given. One H1 per page.
 8. **One home per fact.** The domain and brand strings live in `src/config/site.ts`, routes in `src/data/pages.ts`, product facts in `src/data/facts.json`, and structured data in `src/lib/graph.ts`. Never hardcode `https://slash.markets` anywhere else.
-9. **Design.** Preserve the /markets brand (`BRAND_GUIDELINES.md` and `.claude/rules/design-system.md`). Three typefaces only. Check 1440, 390 and 320 px wide: no sideways scrolling, no clipped text.
+9. **Design.** Preserve the slash.markets brand (`BRAND_GUIDELINES.md` and `.claude/rules/design-system.md`). Three typefaces only. Check 1440, 390 and 320 px wide: no sideways scrolling, no clipped text.
 10. **Voice.** Speak to a trader. Short, concrete, plain sentences. Show real prompts and outputs rather than describing them. No em dashes. No jargon or inflated promises.
 11. **Git.** Work on a branch and open a pull request. Never push to `main`. As an AI agent, never push, merge, deploy or change repository visibility unless the person you work for says so in this session. Netlify deploys `main`.
 12. **Never commit** credentials, `.env` files, private research, conversation traces, deployment state or QA screenshots. Never name a real user anywhere.
@@ -41,8 +46,6 @@ The marketing website for /markets at https://slash.markets. It is an Astro 7 st
 | `npm run check` | Type check (`astro check`) |
 | `npm run test` | Unit tests, including gate tests |
 | `npm run test:e2e` | Browser checks at 1440, 390 and 320 px |
-
-Before Phase 1 merges, serve the repo root with `python3 -m http.server 8000 --bind 127.0.0.1`.
 
 ## Where things live (target layout)
 

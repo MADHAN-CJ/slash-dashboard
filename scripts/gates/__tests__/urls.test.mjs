@@ -38,3 +38,19 @@ describe("urls gate", () => {
     ]);
   });
 });
+
+describe("urls gate: collection pages", () => {
+  const hub = { ...EXAMPLE, path: "/guides", h1: "Guides" };
+  const collectionRoutes = ["/guides/", "/best/", "/rules/", "/compare/"];
+  const BARE = '<!doctype html><html lang="en"><head><title>Page</title></head><body><h1>Page</h1></body></html>';
+
+  it("accepts an article under its built hub", () => {
+    const r = urls(ctx({ registry: [HOME, hub], collectionRoutes, pages: [page("/", BARE), page("/guides", BARE), page("/guides/example-guide", BARE)] }));
+    expect(r.errors).toEqual([]);
+  });
+
+  it("fails an article whose hub was not built, and a page outside every collection", () => {
+    const r = urls(ctx({ registry: [HOME, { ...hub, status: "draft" }], collectionRoutes, pages: [page("/", BARE), page("/guides/example-guide", BARE), page("/blog/example", BARE)] }));
+    expectErrors(r.errors, ["/guides/example-guide: the parent URL /guides has no page", "/blog/example is built, but is not in src/data/pages.ts or a collection"]);
+  });
+});
